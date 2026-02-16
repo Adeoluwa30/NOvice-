@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum SplitType {
+  EQUAL
+  CUSTOM
+  PERCENTAGE
+}
+
+enum ShareStatus {
+  UNPAID
+  PAID
+}
+
+model Group {
+  id        String   @id @default(cuid())
+  name      String
+  pinHash   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  members   Member[]
+  bills     Bill[]
+}
+
+model Member {
+  id        String   @id @default(cuid())
+  groupId   String
+  name      String
+  phone     String?
+  createdAt DateTime @default(now())
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  shares    Share[]
+
+  @@index([groupId])
+}
+
+model Bill {
+  id        String    @id @default(cuid())
+  groupId   String
+  title     String?
+  totalKobo Int
+  splitType SplitType
+  createdAt DateTime  @default(now())
+  group     Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  shares    Share[]
+
+  @@index([groupId])
+}
+
+model Share {
+  id         String      @id @default(cuid())
+  billId      String
+  memberId    String
+  amountKobo  Int
+  status      ShareStatus @default(UNPAID)
+  token       String      @unique
+  paidAt      DateTime?
+  bill        Bill        @relation(fields: [billId], references: [id], onDelete: Cascade)
+  member      Member      @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@unique([billId, memberId])
+  @@index([billId])
+  @@index([memberId])
+}
