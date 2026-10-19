@@ -1,0 +1,232 @@
+import { useRef } from "react";
+import { Link } from "react-router-dom";
+import { motion, useScroll, useTransform } from "motion/react";
+import Logo from "../components/Logo";
+import Marquee from "../components/Marquee";
+import Reveal from "../components/Reveal";
+import ProjectIndex from "../components/ProjectIndex";
+import CTA from "../components/CTA";
+import { projects } from "../data/projects";
+import { capabilities, experience, stats, site } from "../site";
+import { usePageMeta } from "../hooks/usePageMeta";
+
+function Word({ children, progress, range }) {
+  const opacity = useTransform(progress, range, [0.16, 1]);
+  return (
+    <motion.span className="word" style={{ opacity }}>
+      {children}{" "}
+    </motion.span>
+  );
+}
+
+function ScrollStatement({ text }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.85", "end 0.5"],
+  });
+  const words = text.split(" ");
+
+  return (
+    <p className="manifesto__text" ref={ref}>
+      {words.map((word, i) => {
+        const start = i / words.length;
+        const end = start + 1 / words.length;
+        return (
+          <Word key={`${word}-${i}`} progress={scrollYProgress} range={[start, end]}>
+            {word}
+          </Word>
+        );
+      })}
+    </p>
+  );
+}
+
+export default function Home() {
+  usePageMeta();
+
+  return (
+    <>
+      <section className="hero">
+        <h1 className="sr-only">Adeoluwa Adeoye — Interface &amp; Experience Designer</h1>
+
+        <div className="shell hero__top">
+          <p className="hero__hello">
+            Hi, I&apos;m Adeoluwa — <span className="serif">interface &amp; experience</span> designer.
+          </p>
+          <p className="hero__meta">
+            <span className="dot" /> {site.availability} · 2026
+          </p>
+        </div>
+
+        <div className="hero__type" aria-hidden="true">
+          <div className="hero__line">
+            <Marquee speed={46}>
+              <span>Interface Designer</span>
+              <span className="asterisk">✳</span>
+              <span>Interface Designer</span>
+              <span className="asterisk">✳</span>
+            </Marquee>
+          </div>
+          <div className="hero__line hero__line--outline">
+            <Marquee speed={54} reverse>
+              <span>Experience Designer</span>
+              <span className="asterisk">✳</span>
+              <span>Experience Designer</span>
+              <span className="asterisk">✳</span>
+            </Marquee>
+          </div>
+          <div className="hero__line">
+            <Marquee speed={40}>
+              <span className="serif">Product Thinker</span>
+              <span className="asterisk">✳</span>
+              <span className="serif">Product Thinker</span>
+              <span className="asterisk">✳</span>
+            </Marquee>
+          </div>
+        </div>
+
+        <div className="hero__orb" aria-hidden="true">
+          <Logo size={760} />
+        </div>
+
+        <div className="shell hero__foot">
+          <p className="hero__intro">
+            I design digital products where clarity, motion and craft meet — interfaces that
+            make complex things feel obvious, and simple things feel considered.
+          </p>
+          <div className="hero__foot-right">
+            <p className="hero__place">Based in Lagos, Nigeria — working worldwide.</p>
+            <a className="scroll-cue" href="#work">
+              <span>Scroll to explore</span>
+              <span className="scroll-cue__line" />
+              <span>↓</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="intro section" id="about-preview">
+        <div className="shell intro__grid">
+          <p className="eyebrow">(01) About</p>
+          <div className="intro__content">
+            <Reveal as="p" className="intro__statement">
+              I&apos;m a designer who likes the <span className="serif">in&#8209;between</span> — the
+              place where a business problem becomes a flow, a flow becomes an interface, and an
+              interface starts to feel like a product people trust.
+            </Reveal>
+
+            <Reveal className="intro__row" delay={120}>
+              <p className="intro__copy">
+                Curiosity brought me here: a habit of asking how things work, why people behave
+                the way they do, and what happens if we try it another way. I work across product
+                design, interface systems and brand — from early-stage ideas to live platforms.
+              </p>
+              <Link to="/about" className="link-arrow" data-cursor="Read">
+                More about me <span>↗</span>
+              </Link>
+            </Reveal>
+
+            <div className="stats">
+              {stats.map((stat, i) => (
+                <Reveal className="stat" key={stat.label} delay={i * 90}>
+                  <span className="stat__value">{stat.value}</span>
+                  <span className="stat__label">{stat.label}</span>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="work section" id="work">
+        <div className="shell">
+          <div className="section-head">
+            <p className="eyebrow">(02) Selected Work</p>
+            <Link to="/work" className="link-arrow" data-cursor="All work">
+              All work <span>↗</span>
+            </Link>
+          </div>
+
+          <Reveal as="h2" className="work__title">
+            Designs uniquely <span className="serif">made</span>
+            <br />
+            for the brand.
+          </Reveal>
+
+          <ProjectIndex items={projects} />
+
+          <Reveal className="work__note" delay={120}>
+            <span>2022 — 2026</span>
+            <p>
+              Four products across food, fashion and education-adjacent tools — designed end to
+              end, from the first question to the shipped interface.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="manifesto section">
+        <div className="shell">
+          <div className="section-head">
+            <p className="eyebrow">(03) How I think</p>
+            <p className="section-head__note">A short manifesto</p>
+          </div>
+          <ScrollStatement text="Design, for me, has always been about curiosity. I didn't arrive here by accident — I've been drawn to the way things work, the way people interact, and how those small details shape big experiences. I see design not just as problem-solving, but as storytelling: a chance to make ideas tangible, simple and human." />
+          <p className="manifesto__sign">— Adeoluwa</p>
+        </div>
+      </section>
+
+      <section className="capabilities section">
+        <div className="shell">
+          <div className="section-head">
+            <p className="eyebrow">(04) What I do</p>
+            <p className="section-head__note">Capabilities</p>
+          </div>
+
+          <div className="capabilities__list">
+            {capabilities.map((item, i) => (
+              <Reveal key={item.title} delay={i * 70}>
+                <div className="cap-row" data-cursor="+">
+                  <span className="cap-row__index">({item.index})</span>
+                  <h3 className="cap-row__title">{item.title}</h3>
+                  <p className="cap-row__blurb">{item.blurb}</p>
+                  <ul className="cap-row__tags">
+                    {item.tags.map((tag) => (
+                      <li key={tag}>{tag}</li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="experience-preview section">
+        <div className="shell">
+          <div className="section-head">
+            <p className="eyebrow">(05) Journey</p>
+            <Link to="/about" className="link-arrow" data-cursor="Story">
+              The full story <span>↗</span>
+            </Link>
+          </div>
+
+          <div className="exp-list">
+            {experience.map((item, i) => (
+              <Reveal key={item.company} delay={i * 80}>
+                <div className="exp-row">
+                  <span className="exp-row__period">{item.period}</span>
+                  <span className="exp-row__role">{item.role}</span>
+                  <span className="exp-row__company">{item.company}</span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CTA />
+    </>
+  );
+}

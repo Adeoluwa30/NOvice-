@@ -1,0 +1,12 @@
+node_modules
+dist
+.DS_Store
+*.local
+.vercel
+
+# Source material kept locally for reference
+*.pdf
+*.zip
+artifacts/
+Logo 1L.png
+Logo 2L.png
