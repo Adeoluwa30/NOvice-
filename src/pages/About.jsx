@@ -1,14 +1,12 @@
-import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
-import Logo from "../components/Logo";
 import CTA from "../components/CTA";
-import { experience, principles, site, stats } from "../site";
+import { experience, principles, site } from "../site";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function About() {
   usePageMeta(
     "About",
-    "Adeoluwa Adeoye is a UI/UX and interface designer in Lagos, Nigeria — working across product design, interface systems and brand."
+    "Adeoluwa Adeoye is a UI/UX and interface designer in Lagos, Nigeria — working across experience design, interface systems and graphic design."
   );
 
   return (
@@ -26,7 +24,7 @@ export default function About() {
           </Reveal>
           <Reveal as="p" className="page-head__lede" delay={100}>
             I design digital products where clarity, motion and craft meet — working across
-            product design, interface systems and brand.
+            experience design, interface systems and graphic design.
           </Reveal>
         </div>
       </header>
@@ -34,9 +32,14 @@ export default function About() {
       <section className="about-body section">
         <div className="shell about-grid">
           <aside className="about-aside">
-            <div className="about-orb">
-              <Logo size={420} />
-            </div>
+            <figure className="about-portrait">
+              <img
+                src="/assets/portrait.jpg"
+                alt="Adeoluwa Adeoye at his desk in Lagos"
+                loading="lazy"
+              />
+              <figcaption>Lagos, NG — 2026</figcaption>
+            </figure>
             <dl className="about-facts">
               <div>
                 <dt>Based in</dt>
@@ -50,7 +53,7 @@ export default function About() {
               </div>
               <div>
                 <dt>Focus</dt>
-                <dd>Product · Interface · Systems</dd>
+                <dd>Experience · Interface · Systems</dd>
               </div>
             </dl>
           </aside>
@@ -76,9 +79,9 @@ export default function About() {
             </Reveal>
 
             <Reveal as="p" delay={140}>
-              My work sits across industries — food, fashion, education and professional services
-              — but the approach stays the same. Understand the system, find the shortest honest
-              path through it, and design every state on the way.
+              My work sits across industries — food, fashion, law and cybersecurity — but the
+              approach stays the same. Understand the system, find the shortest honest path
+              through it, and design every state on the way.
             </Reveal>
 
             <Reveal className="about-sign" delay={160}>
@@ -86,17 +89,6 @@ export default function About() {
               <span className="eyebrow">Lagos, NG</span>
             </Reveal>
           </div>
-        </div>
-      </section>
-
-      <section className="about-stats section">
-        <div className="shell stats stats--wide">
-          {stats.map((stat, i) => (
-            <Reveal className="stat" key={stat.label} delay={i * 80}>
-              <span className="stat__value">{stat.value}</span>
-              <span className="stat__label">{stat.label}</span>
-            </Reveal>
-          ))}
         </div>
       </section>
 
@@ -135,38 +127,6 @@ export default function About() {
                 <p>{item.body}</p>
               </Reveal>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="now section">
-        <div className="shell now__grid">
-          <Reveal className="now__head">
-            <p className="eyebrow">(Now)</p>
-            <h2 className="now__title">
-              The current <span className="serif">chapter</span>
-            </h2>
-          </Reveal>
-
-          <div className="now__list">
-            <Reveal className="now__item" delay={60}>
-              <span className="eyebrow">Available for</span>
-              <p>Select projects, collaborations and full-time product design roles.</p>
-            </Reveal>
-            <Reveal className="now__item" delay={120}>
-              <span className="eyebrow">Exploring</span>
-              <p>Motion, interface engineering and the space between design and code.</p>
-            </Reveal>
-            <Reveal className="now__item" delay={180}>
-              <span className="eyebrow">Next</span>
-              <p>
-                A complex system or marketplace that needs someone to think across user types and
-                flows.{" "}
-                <Link to="/contact" className="inline-link">
-                  Tell me about it ↗
-                </Link>
-              </p>
-            </Reveal>
           </div>
         </div>
       </section>

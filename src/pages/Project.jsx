@@ -3,8 +3,9 @@ import { motion } from "motion/react";
 import ScrollProgress from "../components/ScrollProgress";
 import Parallax from "../components/Parallax";
 import Reveal from "../components/Reveal";
+import Cover from "../components/Cover";
 import CTA from "../components/CTA";
-import { getNextProject, getProject } from "../data/projects";
+import { getNextProject, getProject, projects } from "../data/projects";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function Project() {
@@ -48,7 +49,7 @@ export default function Project() {
               ← All work
             </Link>
             <span className="eyebrow">
-              Case Study — {project.index} / 04
+              Case Study — {project.index} / {String(projects.length).padStart(2, "0")}
             </span>
           </div>
 
@@ -108,7 +109,7 @@ export default function Project() {
       </header>
 
       <figure className="case-cover">
-        <img src={project.cover} alt={`${project.title} — hero visual`} fetchPriority="high" />
+        <Cover project={project} />
       </figure>
 
       <div className="shell case-body">
@@ -153,12 +154,15 @@ export default function Project() {
                   <Parallax src={chapter.image} alt={chapter.alt} amount={22} />
                 </figure>
               ) : (
-                <div className="chapter__statement" aria-hidden="true">
+                <div className="chapter__statement">
                   <span className="chapter__statement-label">{chapter.eyebrow}</span>
-                  <span className="chapter__statement-num">
+                  <span className="chapter__statement-title">{chapter.title}</span>
+                  <span className="chapter__statement-num" aria-hidden="true">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="chapter__statement-mark">✳</span>
+                  <span className="chapter__statement-mark" aria-hidden="true">
+                    ✳
+                  </span>
                 </div>
               )}
               {chapter.note && <figcaption>{chapter.note}</figcaption>}
@@ -210,7 +214,7 @@ export default function Project() {
               </p>
             </div>
             <div className="next-project__media">
-              <img src={next.cover} alt={`${next.title} preview`} loading="lazy" />
+              <Cover project={next} />
               <span>↗</span>
             </div>
           </Link>

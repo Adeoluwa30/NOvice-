@@ -8,6 +8,7 @@ export const projects = [
     display: "Chef4me",
     displayAccent: "User",
     kind: "Food · Mobile",
+    tone: "red",
     discipline: "Product Design",
     year: "2025",
     client: "Chef4me",
@@ -88,6 +89,7 @@ export const projects = [
     display: "Chef4me",
     displayAccent: "Chef",
     kind: "Food · Web App",
+    tone: "ink",
     discipline: "Product Design",
     year: "2025",
     client: "Chef4me",
@@ -166,6 +168,7 @@ export const projects = [
     display: "Brandit",
     displayAccent: "",
     kind: "Fashion · E-commerce",
+    tone: "forest",
     discipline: "Product Design",
     year: "2024",
     client: "Brandit",
@@ -253,6 +256,7 @@ export const projects = [
     display: "Chef4me",
     displayAccent: "Web",
     kind: "Food · Web App",
+    tone: "cream",
     discipline: "Product Design",
     year: "2024",
     client: "Chef4me",
@@ -311,6 +315,77 @@ export const projects = [
       {
         label: "Trust",
         text: "Chef profiles that carry story, proof and personality in one place.",
+      },
+    ],
+    next: "bubble",
+  },
+  {
+    slug: "bubble",
+    index: "05",
+    title: "Bubble",
+    display: "Bubble",
+    displayAccent: "",
+    kind: "Law · Web App",
+    tone: "violet",
+    discipline: "Product Design",
+    year: "2023",
+    client: "Personal project",
+    industry: "Legal",
+    role: "UI/UX Design",
+    platform: "Web App",
+    scope: "Case tracking, tasks & reporting",
+    tagline:
+      "A legal case management platform that keeps Nigerian lawyers, documents and deadlines in sync with the judicial process.",
+    summary:
+      "In Nigeria's legal industry, many lawyers still manage cases, documents and communication through scattered channels — WhatsApp threads, email, handwritten notes. The result is poor collaboration, missed deadlines and information that disappears when someone leaves the room. Bubble was built as a conceptual law-tech product that centralises civil and criminal case handling into one system lawyers can trust.",
+    challenge:
+      "Lawyers work in teams, but their tools don't. Visibility, ownership and deadlines all live in different places.",
+    cover: null,
+    thumb: null,
+    chapters: [
+      {
+        eyebrow: "Structure",
+        title: "One case, one source of truth",
+        body:
+          "Every matter is tracked from intake to final judgment — filing, hearing, ruling — with documents, notes and people attached to the stage they belong to. Nothing lives in a side conversation or someone's memory, and only the people who need to see a case can see it.",
+        note: "Case stages mirror the real judicial process, not a generic kanban board.",
+      },
+      {
+        eyebrow: "Collaboration",
+        title: "Shared work, controlled access",
+        body:
+          "Lawyers often work in teams, yet traditional tools limit visibility. Bubble lets peers co-manage a matter, assign responsibilities and restrict access within one secure environment — so a junior can prepare without seeing everything, and a lead can review without chasing files.",
+        note: "Roles and access are designed around how a chambers actually divides work.",
+      },
+      {
+        eyebrow: "Reporting",
+        title: "Progress you can read",
+        body:
+          "Each case carries a dynamic report — what has happened, what is pending and where the delays are. A central reporting hub then compares across matters, so patterns surface before they become problems rather than after a client asks.",
+        note: "Case-level detail rolls up into a firm-wide view.",
+      },
+      {
+        eyebrow: "Rhythm",
+        title: "Deadlines, tied to the case",
+        body:
+          "Task management sits at the core: deadlines, priorities and next actions tied directly to a case stage, connected to a calendar that follows court schedules. The interface answers the only question that matters on a busy morning — what needs me today?",
+        note: "Tasks are never detached from the matter they belong to.",
+      },
+    ],
+    quote:
+      "From case intake to final judgment, the platform is a single source of truth — everything logged, structured and shared with only the people who need it.",
+    outcomes: [
+      {
+        label: "Centralised",
+        text: "Cases, documents, tasks and conversation consolidated into one place instead of scattered channels.",
+      },
+      {
+        label: "Accountable",
+        text: "Ownership and access designed around real legal teams, with a visible trail of who did what.",
+      },
+      {
+        label: "Foresighted",
+        text: "Reporting that surfaces delays across cases before they turn into missed court dates.",
       },
     ],
     next: "chef4me-user",

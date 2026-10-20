@@ -8,9 +8,17 @@ export const site = {
   availability: "Open for work",
   availabilityNote: "Available for select projects, collaborations and full-time roles.",
   socials: [
+    { label: "LinkedIn", href: "https://linkedin.com/in/deoluwadeoye" },
     { label: "Behance", href: "https://www.behance.net/adeoluwaadeoye" },
-    { label: "GitHub", href: "https://github.com/Adeoluwa30" },
   ],
+};
+
+export const credentia = {
+  name: "Credentia",
+  role: "Co-founder & Product Designer",
+  href: "https://www.credentia.site/",
+  blurb:
+    "A free public document directory that helps Lagos residents navigate the paperwork behind major life events — 15 life categories, 79 checklists, and a correction flow that keeps every answer current.",
 };
 
 export const roles = ["Interface Designer", "Experience Designer", "Product Thinker"];
@@ -28,55 +36,59 @@ export const manifesto = [
 export const capabilities = [
   {
     index: "01",
-    title: "Product Design",
-    blurb: "End-to-end product thinking, from the first messy question to a shipped flow.",
-    tags: ["User flows", "Wireframes", "High-fidelity UI", "Prototyping"],
+    title: "Experience Design",
+    blurb:
+      "End-to-end product thinking — research, flows and the decisions that make a product feel inevitable.",
+    tags: ["User flows", "Wireframes", "Prototyping", "Usability"],
   },
   {
     index: "02",
     title: "Interface Design",
-    blurb: "Interfaces with hierarchy, rhythm and motion — built to be used, not just looked at.",
+    blurb:
+      "Interfaces with hierarchy, rhythm and motion — built to be used, not just looked at.",
     tags: ["Visual systems", "Interaction design", "Responsive layouts", "Motion"],
   },
   {
     index: "03",
     title: "Design Systems",
-    blurb: "Components, tokens and documentation that keep a product coherent as it grows.",
+    blurb:
+      "Components, tokens and documentation that keep a product coherent as it grows.",
     tags: ["Components", "Tokens", "Documentation", "Handoff"],
   },
   {
     index: "04",
-    title: "Brand & Visual",
-    blurb: "Identity and art direction that give a product a voice before it says a word.",
-    tags: ["Identity", "Art direction", "Graphic design", "Campaigns"],
+    title: "Graphic Design",
+    blurb:
+      "Identity and art direction that give a product a voice before it says a word.",
+    tags: ["Identity", "Art direction", "Campaigns", "Social"],
   },
 ];
 
 export const experience = [
   {
-    period: "2022 — 2024",
-    role: "UI/UX & Graphic Designer",
-    company: "Independent",
-    note: "Freelance product and brand work across early-stage teams and small businesses.",
+    period: "2026 — Now",
+    role: "UI/UX Designer",
+    company: "Vernovi Cyber",
+    note: "Leading the redesign and product identity for Vernovi Cyber across its Africa, Europe and UAE sites — plus SecureComply, a GRC product for Nigerian fintechs.",
+  },
+  {
+    period: "2026 — Now",
+    role: "Co-founder & Product Designer",
+    company: "Credentia",
+    note: "Co-founded a free public document directory spanning 15 life categories and 79 checklists — brand, product requirements and UX.",
+  },
+  {
+    period: "2025",
+    role: "Product Designer",
+    company: "Intasect",
+    note: "High-fidelity prototypes for an LMS and a lifestyle app, plus a design-system audit that improved flow efficiency by 45%.",
   },
   {
     period: "2024 — 2025",
     role: "UI/UX Designer",
     company: "Chef4me",
-    note: "Designed the user app, chef platform and web marketplace across the Chef4me ecosystem.",
+    note: "Redesigned the user and chef experiences across mobile and web — 30% better usability scores and 15% more daily actives.",
   },
-  {
-    period: "2025",
-    role: "UI/UX Designer",
-    company: "Intasect",
-    note: "Product design within a cross-functional team, focused on interface systems and flows.",
-  },
-];
-
-export const stats = [
-  { value: "03+", label: "Years designing" },
-  { value: "09", label: "Products shipped" },
-  { value: "05", label: "Industries" },
 ];
 
 export const principles = [

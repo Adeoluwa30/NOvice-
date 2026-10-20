@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
-import Parallax from "../components/Parallax";
+import Cover from "../components/Cover";
 import CTA from "../components/CTA";
 import { projects } from "../data/projects";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function Work() {
   usePageMeta(
-    "Work",
-    "Selected product design work by Adeoluwa Adeoye — Chef4me, Chef4me Chef, Chef4me Web and Brandit."
+    "Projects",
+    "Selected product design work by Adeoluwa Adeoye — Chef4me, Brandit and Bubble."
   );
 
   return (
@@ -16,14 +16,14 @@ export default function Work() {
       <header className="page-head">
         <div className="shell">
           <div className="page-head__top">
-            <p className="eyebrow">(Work)</p>
-            <p className="eyebrow">2022 — 2026</p>
+            <p className="eyebrow">(Projects)</p>
+            <p className="eyebrow">2023 — 2026</p>
           </div>
           <Reveal as="h1" className="page-head__title">
-            Selected <span className="serif">work</span>
+            Selected <span className="serif">projects</span>
           </Reveal>
           <Reveal as="p" className="page-head__lede" delay={100}>
-            Four products, four different problems. Each one designed from the inside out — the
+            Five products, five different problems. Each one designed from the inside out — the
             research, the flows, the interface and the small details that make it feel finished.
           </Reveal>
         </div>
@@ -44,18 +44,14 @@ export default function Work() {
                   data-cursor="View"
                 >
                   <div className="work-card__media">
-                    <Parallax
-                      src={project.cover}
-                      alt={`${project.title} — ${project.kind}`}
-                      amount={26}
-                      priority={i < 2}
-                    />
-                    <span className="work-card__index">({project.index})</span>
+                    <Cover project={project} />
                   </div>
                   <div className="work-card__meta">
                     <h2 className="work-card__title">
                       {project.display}{" "}
-                      {project.displayAccent && <span className="serif">{project.displayAccent}</span>}
+                      {project.displayAccent && (
+                        <span className="serif">{project.displayAccent}</span>
+                      )}
                     </h2>
                     <div className="work-card__details">
                       <span>{project.kind}</span>

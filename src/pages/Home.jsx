@@ -1,13 +1,12 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "motion/react";
-import Logo from "../components/Logo";
 import Marquee from "../components/Marquee";
 import Reveal from "../components/Reveal";
 import ProjectIndex from "../components/ProjectIndex";
 import CTA from "../components/CTA";
 import { projects } from "../data/projects";
-import { capabilities, experience, stats, site } from "../site";
+import { capabilities, credentia, experience, site } from "../site";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 function Word({ children, progress, range }) {
@@ -52,14 +51,21 @@ export default function Home() {
 
         <div className="shell hero__top">
           <p className="hero__hello">
-            Hi, I&apos;m Adeoluwa — <span className="serif">interface &amp; experience</span> designer.
+            Hi, I&apos;m Adeoluwa — <span className="serif">interface &amp; experience</span>{" "}
+            designer.
           </p>
-          <p className="hero__meta">
-            <span className="dot" /> {site.availability} · 2026
-          </p>
+
+          <figure className="hero__portrait">
+            <img
+              src="/assets/portrait.jpg"
+              alt="Adeoluwa Adeoye at his desk in Lagos"
+              fetchPriority="high"
+            />
+            <figcaption>Lagos, NG</figcaption>
+          </figure>
         </div>
 
-        <div className="hero__type" aria-hidden="true">
+        <div className="hero__type">
           <div className="hero__line">
             <Marquee speed={46}>
               <span>Interface Designer</span>
@@ -78,16 +84,12 @@ export default function Home() {
           </div>
           <div className="hero__line">
             <Marquee speed={40}>
-              <span className="serif">Product Thinker</span>
+              <span>Product Thinker</span>
               <span className="asterisk">✳</span>
-              <span className="serif">Product Thinker</span>
+              <span>Product Thinker</span>
               <span className="asterisk">✳</span>
             </Marquee>
           </div>
-        </div>
-
-        <div className="hero__orb" aria-hidden="true">
-          <Logo size={760} />
         </div>
 
         <div className="shell hero__foot">
@@ -111,30 +113,22 @@ export default function Home() {
           <p className="eyebrow">(01) About</p>
           <div className="intro__content">
             <Reveal as="p" className="intro__statement">
-              I&apos;m a designer who likes the <span className="serif">in&#8209;between</span> — the
-              place where a business problem becomes a flow, a flow becomes an interface, and an
-              interface starts to feel like a product people trust.
+              I&apos;m a designer who likes the <span className="serif">in&#8209;between</span> —
+              the place where a business problem becomes a flow, a flow becomes an interface, and
+              an interface starts to feel like a product people trust.
             </Reveal>
 
             <Reveal className="intro__row" delay={120}>
               <p className="intro__copy">
                 Curiosity brought me here: a habit of asking how things work, why people behave
-                the way they do, and what happens if we try it another way. I work across product
-                design, interface systems and brand — from early-stage ideas to live platforms.
+                the way they do, and what happens if we try it another way. I work across
+                experience design, interface systems and graphic design — from early-stage ideas
+                to live platforms.
               </p>
               <Link to="/about" className="link-arrow" data-cursor="Read">
                 More about me <span>↗</span>
               </Link>
             </Reveal>
-
-            <div className="stats">
-              {stats.map((stat, i) => (
-                <Reveal className="stat" key={stat.label} delay={i * 90}>
-                  <span className="stat__value">{stat.value}</span>
-                  <span className="stat__label">{stat.label}</span>
-                </Reveal>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -142,9 +136,9 @@ export default function Home() {
       <section className="work section" id="work">
         <div className="shell">
           <div className="section-head">
-            <p className="eyebrow">(02) Selected Work</p>
-            <Link to="/work" className="link-arrow" data-cursor="All work">
-              All work <span>↗</span>
+            <p className="eyebrow">(02) Selected projects</p>
+            <Link to="/work" className="link-arrow" data-cursor="All projects">
+              All projects <span>↗</span>
             </Link>
           </div>
 
@@ -157,10 +151,10 @@ export default function Home() {
           <ProjectIndex items={projects} />
 
           <Reveal className="work__note" delay={120}>
-            <span>2022 — 2026</span>
+            <span>2023 — 2026</span>
             <p>
-              Four products across food, fashion and education-adjacent tools — designed end to
-              end, from the first question to the shipped interface.
+              Five products across food, fashion and law — each designed end to end, from the
+              first question to the shipped interface.
             </p>
           </Reveal>
         </div>
@@ -223,6 +217,36 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="credentia section" id="credentia">
+        <div className="shell">
+          <Reveal className="credentia__card">
+            <div className="credentia__top">
+              <p className="eyebrow">(06) Currently building</p>
+              <span className="credentia__status">
+                <span className="dot" /> Live
+              </span>
+            </div>
+
+            <div className="credentia__body">
+              <div className="credentia__lead">
+                <h2 className="credentia__title">{credentia.name}</h2>
+                <p className="credentia__role">{credentia.role}</p>
+              </div>
+              <p className="credentia__blurb">{credentia.blurb}</p>
+              <a
+                className="credentia__link"
+                href={credentia.href}
+                target="_blank"
+                rel="noreferrer"
+                data-cursor="Visit"
+              >
+                Visit credentia.site <span>↗</span>
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 

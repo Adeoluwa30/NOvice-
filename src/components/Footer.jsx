@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
-import { site } from "../site";
+import { credentia, site } from "../site";
 
 function useLagosTime() {
   const format = () =>
@@ -28,52 +28,65 @@ export default function Footer() {
   return (
     <footer className="footer" id="footer">
       <div className="shell">
-        <div className="footer__top">
+        <div className="footer__head">
+          <p className="eyebrow">(Get in touch)</p>
+          <p className="footer__status">
+            <span className="dot" /> {site.availability} · 2026
+          </p>
+        </div>
+
+        <a className="footer__mail" href={`mailto:${site.email}`} data-cursor="Email">
+          <span>{site.email}</span>
+          <span className="footer__mail-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <div className="footer__grid">
           <div className="footer__brand">
             <Link to="/" className="footer__logo" aria-label="Back home">
-              <Logo size={44} />
+              <Logo size={38} />
               <span>AdE</span>
             </Link>
             <p>
-              Adeoluwa Adeoye — interface &amp; experience designer, building digital
-              products with clarity, motion and craft.
-            </p>
-            <p className="footer__status">
-              <span className="dot" /> {site.availability}
+              Interface &amp; experience designer in Lagos, building digital products with
+              clarity, motion and craft.
             </p>
           </div>
 
-          <div className="footer__col">
+          <nav className="footer__col" aria-label="Footer">
             <p className="eyebrow">Pages</p>
-            <Link to="/work">Work</Link>
+            <Link to="/work">Projects</Link>
             <Link to="/about">About</Link>
             <Link to="/contact">Contact</Link>
-          </div>
+          </nav>
 
           <div className="footer__col">
             <p className="eyebrow">Elsewhere</p>
             {site.socials.map((social) => (
               <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
-                {social.label} ↗
+                {social.label} <span>↗</span>
               </a>
             ))}
-            <a href={`mailto:${site.email}`}>Email ↗</a>
+            <a href={credentia.href} target="_blank" rel="noreferrer">
+              Credentia <span>↗</span>
+            </a>
           </div>
 
-          <div className="footer__col">
-            <p className="eyebrow">Say hello</p>
-            <a className="footer__email" href={`mailto:${site.email}`}>
-              {site.email}
-            </a>
-            <p className="footer__place">{site.location}</p>
+          <div className="footer__col footer__col--place">
+            <p className="eyebrow">Lagos, Nigeria</p>
+            <p className="footer__time">
+              {time} <span>WAT</span>
+            </p>
+            <p className="footer__note">Working with teams anywhere.</p>
           </div>
         </div>
 
+        <div className="footer__wordmark" aria-hidden="true">
+          Adeoluwa <span>Adeoye</span>
+        </div>
+
         <div className="footer__bottom">
-          <span>© 2026 Adeoye Adeoluwa. All rights reserved.</span>
-          <span className="footer__time">
-            Lagos — {time} <span>WAT</span>
-          </span>
+          <span>© 2026 Adeoye Adeoluwa</span>
+          <span>Designed &amp; built by AdE</span>
           <button
             type="button"
             className="footer__top-link"

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import { useTheme } from "../hooks/useTheme";
-import { projects } from "../data/projects";
+import { site } from "../site";
 
 const themeLabels = {
   dark: "Night",
@@ -44,7 +44,7 @@ export default function Nav() {
 
         <nav className="nav__links" aria-label="Primary">
           <NavLink to="/work" className={({ isActive }) => (isActive ? "is-active" : "")}>
-            Work <sup>({String(projects.length).padStart(2, "0")})</sup>
+            Projects
           </NavLink>
           <NavLink to="/about" className={({ isActive }) => (isActive ? "is-active" : "")}>
             About
@@ -72,10 +72,6 @@ export default function Nav() {
             ))}
           </div>
 
-          <Link to="/contact" className="nav__cta" data-cursor="Talk">
-            Let&apos;s talk
-          </Link>
-
           <button
             type="button"
             className={`burger ${open ? "is-open" : ""}`}
@@ -93,7 +89,7 @@ export default function Nav() {
         <div className="menu__inner">
           <nav className="menu__links" aria-label="Mobile">
             <Link to="/work" data-index="01">
-              Work
+              Projects
             </Link>
             <Link to="/about" data-index="02">
               About
@@ -123,17 +119,16 @@ export default function Nav() {
             <div>
               <p className="eyebrow">Elsewhere</p>
               <p className="menu__socials">
-                <a href="https://www.behance.net/adeoluwaadeoye" target="_blank" rel="noreferrer">
-                  Behance
-                </a>
-                <a href="https://github.com/Adeoluwa30" target="_blank" rel="noreferrer">
-                  GitHub
-                </a>
+                {site.socials.map((social) => (
+                  <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
+                    {social.label}
+                  </a>
+                ))}
               </p>
             </div>
             <div>
               <p className="eyebrow">Based in</p>
-              <p>Lagos, Nigeria</p>
+              <p>{site.location}</p>
             </div>
           </div>
         </div>
