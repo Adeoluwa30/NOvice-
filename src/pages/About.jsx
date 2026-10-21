@@ -6,7 +6,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 export default function About() {
   usePageMeta(
     "About",
-    "Adeoluwa Adeoye is a UI/UX and interface designer in Lagos, Nigeria — working across experience design, interface systems and graphic design."
+    "Adeoluwa Adeoye is a UI/UX and interface designer in Lagos, Nigeria, working across experience design, interface systems and graphic design."
   );
 
   return (
@@ -23,71 +23,93 @@ export default function About() {
             &amp; experience designer.
           </Reveal>
           <Reveal as="p" className="page-head__lede" delay={100}>
-            I design digital products where clarity, motion and craft meet — working across
+            I design digital products where clarity, motion and craft meet, working across
             experience design, interface systems and graphic design.
           </Reveal>
         </div>
       </header>
 
       <section className="about-body section">
-        <div className="shell about-grid">
-          <aside className="about-aside">
-            <figure className="about-portrait">
+        <div className="shell">
+          <div className="about-intro">
+            <Reveal className="about-intro__copy">
+              <p className="eyebrow">(Introduction)</p>
+              <p className="about-intro__lead">
+                I&apos;m a designer who likes the space between the problem and the product.
+              </p>
+              <p className="about-intro__note">
+                UI/UX and interface designer. Product thinking, visual craft, and the small
+                decisions in between.
+              </p>
+            </Reveal>
+
+            <Reveal className="about-intro__media" delay={120}>
               <img
                 src="/assets/portrait.jpg"
                 alt="Adeoluwa Adeoye at his desk in Lagos"
                 loading="lazy"
               />
-              <figcaption>Lagos, NG — 2026</figcaption>
-            </figure>
-            <dl className="about-facts">
-              <div>
-                <dt>Based in</dt>
-                <dd>{site.location}</dd>
+              <figcaption>
+                <span>Lagos, NG / 2026</span>
+                <span aria-hidden="true">✳</span>
+              </figcaption>
+            </Reveal>
+          </div>
+
+          <div className="about-story">
+            <aside className="about-rail">
+              <p className="eyebrow">(At a glance)</p>
+              <dl className="about-facts">
+                <div>
+                  <dt>Based in</dt>
+                  <dd>{site.location}</dd>
+                </div>
+                <div>
+                  <dt>Status</dt>
+                  <dd>
+                    <span className="dot" /> {site.availability}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Focus</dt>
+                  <dd>Experience, interface and systems</dd>
+                </div>
+                <div>
+                  <dt>Industries</dt>
+                  <dd>Food, fashion, law, cybersecurity</dd>
+                </div>
+              </dl>
+            </aside>
+
+            <div className="about-story__body">
+              <Reveal as="p" className="about-story__lead">
+                Design, for me, has always been about curiosity. I&apos;ve been drawn to the way
+                things work, the way people interact, and how those small details shape big
+                experiences.
+              </Reveal>
+
+              <div className="about-story__cols">
+                <Reveal as="p" delay={60}>
+                  I read design as storytelling: a chance to make ideas tangible, simple and human.
+                  That is the thread running through the marketplaces, dashboards and mobile apps
+                  I&apos;ve designed.
+                </Reveal>
+                <Reveal as="p" delay={100}>
+                  My work sits across food, fashion, law and cybersecurity, but the approach stays
+                  the same. Understand the system, find the shortest honest path through it, and
+                  design every state on the way.
+                </Reveal>
               </div>
-              <div>
-                <dt>Status</dt>
-                <dd>
-                  <span className="dot" /> {site.availability}
-                </dd>
-              </div>
-              <div>
-                <dt>Focus</dt>
-                <dd>Experience · Interface · Systems</dd>
-              </div>
-            </dl>
-          </aside>
 
-          <div className="about-copy">
-            <Reveal as="p" className="about-copy__lead">
-              I&apos;m Adeoluwa Adeoye — a UI/UX and interface designer working at the
-              intersection of product thinking and visual craft.
-            </Reveal>
+              <Reveal as="p" className="about-story__close" delay={140}>
+                Respect the complexity, then make it disappear.
+              </Reveal>
 
-            <Reveal as="p" delay={60}>
-              Design, for me, has always been about curiosity. I didn&apos;t arrive here by
-              accident — I&apos;ve been drawn to the way things work, the way people interact,
-              and how those small details shape big experiences. My path has been shaped by a mix
-              of learning, experimenting, and asking &ldquo;what if?&rdquo; again and again.
-            </Reveal>
-
-            <Reveal as="p" delay={100}>
-              I see design not just as problem-solving, but as storytelling — a chance to make
-              ideas tangible, simple and human. That&apos;s the thread running through the
-              marketplaces, dashboards and mobile apps I&apos;ve designed: respect the complexity,
-              then make it disappear.
-            </Reveal>
-
-            <Reveal as="p" delay={140}>
-              My work sits across industries — food, fashion, law and cybersecurity — but the
-              approach stays the same. Understand the system, find the shortest honest path
-              through it, and design every state on the way.
-            </Reveal>
-
-            <Reveal className="about-sign" delay={160}>
-              <span className="serif">Adeoluwa</span>
-              <span className="eyebrow">Lagos, NG</span>
-            </Reveal>
+              <Reveal className="about-sign" delay={160}>
+                <span className="serif">Adeoluwa</span>
+                <span className="eyebrow">Lagos, NG</span>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>

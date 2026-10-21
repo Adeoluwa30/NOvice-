@@ -19,11 +19,11 @@ export const projects = [
     tagline:
       "Democratising access to private culinary talent through a flexible, logistics-first platform.",
     summary:
-      "Finding a private chef or ordering custom, chef-prepared meals is traditionally a high-friction process involving fragmented communication and unclear pricing. Chef4me needed a user-facing app that could bridge the gap between hungry users and culinary professionals — handling complex logistics like custom quotes, multi-day hirings and varied delivery methods.",
+      "Finding a private chef or ordering custom, chef-prepared meals is traditionally a high-friction process involving fragmented communication and unclear pricing. Chef4me needed a user-facing app that could bridge the gap between hungry users and culinary professionals, handling complex logistics like custom quotes, multi-day hirings and varied delivery methods.",
     challenge:
-      "Three distinct behaviours — hiring, ordering and quoting — had to live inside one app without ever feeling like three apps stitched together.",
+      "Three distinct behaviours (hiring, ordering and quoting) had to live inside one app without ever feeling like three apps stitched together.",
     cover: img("chef-user", "hero"),
-    thumb: img("chef-user", "hero"),
+    thumb: "/assets/thumbs/chef-user.webp",
     chapters: [
       {
         eyebrow: "Trust",
@@ -40,10 +40,10 @@ export const projects = [
         eyebrow: "Complexity",
         title: "A wizard, not a form",
         body:
-          "Custom orders require detailed inputs. To prevent cognitive overload, the Request Quote flow uses a step-by-step wizard — Event Details, then Food Preferences. Breaking the task into small decisions reduced the perceived effort of the form and encouraged higher completion.",
+          "Custom orders require detailed inputs. To prevent cognitive overload, the Request Quote flow uses a step-by-step wizard: Event Details, then Food Preferences. Breaking the task into small decisions reduced the perceived effort of the form and encouraged higher completion.",
         image: img("chef-user", "wizard"),
         alt: "Chef4me quote wizard with dish and dietary preference selection",
-        note: "Guest age range, dishes and dietary restrictions — one decision at a time.",
+        note: "Guest age range, dishes and dietary restrictions. One decision at a time.",
       },
       {
         eyebrow: "Logic",
@@ -58,14 +58,14 @@ export const projects = [
         eyebrow: "Logistics",
         title: "Checkout without the guesswork",
         body:
-          "Delivery, dispatch and pickup are genuinely different jobs. Separating those workflows reduced error at checkout and made the last step feel as considered as the first — no ambiguous addresses, no surprise fees.",
+          "Delivery, dispatch and pickup are genuinely different jobs. Separating those workflows reduced error at checkout and made the last step feel as considered as the first: no ambiguous addresses, no surprise fees.",
         image: img("chef-user", "checkout"),
         alt: "Chef4me checkout and delivery selection screens",
-        note: "Home service, dispatch or pickup — chosen before the basket is confirmed.",
+        note: "Home service, dispatch or pickup, chosen before the basket is confirmed.",
       },
     ],
     quote:
-      "The final design consolidated three distinct user behaviours — hiring, ordering and requesting quotes — into a single, cohesive application.",
+      "The final design consolidated three distinct user behaviours (hiring, ordering and requesting quotes) into a single, cohesive application.",
     outcomes: [
       {
         label: "Logistics",
@@ -98,19 +98,19 @@ export const projects = [
     platform: "Web App",
     scope: "Dashboard, storefront & premium",
     tagline:
-      "A platform built to empower chefs to manage orders, update menus, track earnings and run their kitchen — all from one place.",
+      "A platform built to empower chefs to manage orders, update menus, track earnings and run their kitchen, all from one place.",
     summary:
-      "The chef web app was created to make Chef4me more accessible and flexible for chefs who prefer managing work from a larger screen. Whether they're at home, in the kitchen or at an event, it gives them the tools to stay organised and responsive — from receiving meal orders to updating their food gallery, handling payments and engaging with clients. The experience was built with usability, clarity and speed in mind, so even non-tech-savvy chefs can navigate it with ease.",
+      "The chef web app was created to make Chef4me more accessible and flexible for chefs who prefer managing work from a larger screen. Whether they're at home, in the kitchen or at an event, it gives them the tools to stay organised and responsive, from receiving meal orders to updating their food gallery, handling payments and engaging with clients. The experience was built with usability, clarity and speed in mind, so even non-tech-savvy chefs can navigate it with ease.",
     challenge:
       "What is the fastest approach to chefs managing business whilst cooking deliciousness? That question shaped everything.",
     cover: img("chef-chef", "hero"),
-    thumb: img("chef-chef", "hero"),
+    thumb: "/assets/thumbs/chef-chef.webp",
     chapters: [
       {
         eyebrow: "Approach",
         title: "Approachable, not overwhelming",
         body:
-          "Chefs work in busy, physical environments. The interface had to be clean, open and strain-free — readable at a glance from a counter, not a desk. Clear hierarchy, generous spacing and a calm visual language keep the dashboard from feeling like accounting software.",
+          "Chefs work in busy, physical environments. The interface had to be clean, open and strain-free: readable at a glance from a counter, not a desk. Clear hierarchy, generous spacing and a calm visual language keep the dashboard from feeling like accounting software.",
         image: img("chef-chef", "tablet"),
         alt: "Chef4me chef dashboard on a tablet on a marble kitchen counter",
         note: "The dashboard, in the room where the work actually happens.",
@@ -119,7 +119,7 @@ export const projects = [
         eyebrow: "Structure",
         title: "Adapts to how chefs actually work",
         body:
-          "Some chefs deliver meals. Others cook at clients' homes. Designing one interface for both, without clutter or confusion, meant conditional content blocks and progressive disclosure. Menus, discounts and promos appear where they're relevant — and stay out of the way when they're not.",
+          "Some chefs deliver meals. Others cook at clients' homes. Designing one interface for both, without clutter or confusion, meant conditional content blocks and progressive disclosure. Menus, discounts and promos appear where they're relevant, and stay out of the way when they're not.",
         image: img("chef-chef", "menus"),
         alt: "Chef4me menu details and discounts management screens",
         note: "Progressive disclosure keeps a powerful back office feeling simple.",
@@ -137,14 +137,14 @@ export const projects = [
         eyebrow: "Growth",
         title: "Premium, without the complexity",
         body:
-          "Chef4Me Premium was more than a feature — it was a mindset shift. The upgrade had to feel valuable, not complicated: a personalised storefront, business assets and a custom URL. Every screen was crafted to spark curiosity, build trust and show chefs exactly how Premium could take their craft further.",
+          "Chef4Me Premium was more than a feature: it was a mindset shift. The upgrade had to feel valuable, not complicated: a personalised storefront, business assets and a custom URL. Every screen was crafted to spark curiosity, build trust and show chefs exactly how Premium could take their craft further.",
         image: img("chef-chef", "premium"),
         alt: "Chef4me Premium upgrade screen on a marble background",
         note: "Selling an upgrade by showing the outcome, not the feature list.",
       },
     ],
     quote:
-      "The goal was to create an approachable — not overwhelming — management system for chefs.",
+      "The goal was to create an approachable, not overwhelming, management system for chefs.",
     outcomes: [
       {
         label: "One place",
@@ -179,17 +179,17 @@ export const projects = [
     tagline:
       "An online store that shifts customer interactions from WhatsApp to a branded website for easy browsing, ordering and account management.",
     summary:
-      "Brandit relied heavily on manual WhatsApp orders. The challenge was to design a platform that drives traffic to the website, converts inquiries into orders and showcases the broader scope of their services — without sacrificing clarity or brand consistency, and while genuinely using the brand's identity.",
+      "Brandit relied heavily on manual WhatsApp orders. The challenge was to design a platform that drives traffic to the website, converts inquiries into orders and showcases the broader scope of their services, without sacrificing clarity or brand consistency, and while genuinely using the brand's identity.",
     challenge:
       "Ordering through WhatsApp felt fast, until it wasn't. The store had to respect the customer's time while lifting the brand's credibility.",
     cover: img("brandit", "hero"),
-    thumb: img("brandit", "hero"),
+    thumb: "/assets/thumbs/brandit.webp",
     chapters: [
       {
         eyebrow: "Shift",
         title: "From DMs to a storefront",
         body:
-          "Every WhatsApp order was a conversation someone had to have. The new store had to carry that same warmth while removing the back-and-forth: browse by category, see the product clearly, know the price, move on. Consistency, clarity and connection — every page earning the trust to take the next step.",
+          "Every WhatsApp order was a conversation someone had to have. The new store had to carry that same warmth while removing the back-and-forth: browse by category, see the product clearly, know the price, move on. Consistency, clarity and connection: every page earning the trust to take the next step.",
         image: img("brandit", "store"),
         alt: "Brandit store category browsing screen over a retail interior",
         note: "The catalogue became a place to explore, not a list to scroll past.",
@@ -207,7 +207,7 @@ export const projects = [
         eyebrow: "Retention",
         title: "An account that feels personal",
         body:
-          "For returning customers, the account became a small hub: order history, saved favourites and a clear path back into the store. Clean layouts, smart defaults and helpful nudges throughout — designed with empathy for a first-time shopper and a regular alike.",
+          "For returning customers, the account became a small hub: order history, saved favourites and a clear path back into the store. Clean layouts, smart defaults and helpful nudges throughout, designed with empathy for a first-time shopper and a regular alike.",
         image: img("brandit", "account"),
         alt: "Brandit account profile and order history screen",
         note: "A return visit should feel shorter than the first.",
@@ -225,7 +225,7 @@ export const projects = [
         eyebrow: "System",
         title: "A brand that holds up everywhere",
         body:
-          "The same visual language travelled from desktop to mobile — launch campaigns, FAQs, quick actions and the reseller programme. Building a full e-commerce site taught me that cutting features and polishing core flows creates the biggest business impact.",
+          "The same visual language travelled from desktop to mobile: launch campaigns, FAQs, quick actions and the reseller programme. Building a full e-commerce site taught me that cutting features and polishing core flows creates the biggest business impact.",
         image: img("brandit", "mobile"),
         alt: "A fan of Brandit mobile screens",
         note: "One identity, translated across every touchpoint.",
@@ -265,13 +265,13 @@ export const projects = [
     platform: "Web App",
     scope: "Discovery & chef profiles",
     tagline:
-      "A web-based experience that opens Chef4me to everyone. No sign-up needed — just explore, customise and order.",
+      "A web-based experience that opens Chef4me to everyone. No sign-up needed: just explore, customise and order.",
     summary:
       "The web app is the main space where visitors and registered users find and connect with chefs. The goal was to make access straightforward and frictionless, removing barriers present in the mobile app, letting people take any action without limitations and reducing drop-off. Users can search by chef name, cuisine, availability and proximity.",
     challenge:
-      "A mobile app asks for commitment before it gives value. The web experience had to give value first — and make signing up feel like a choice, not a toll.",
+      "A mobile app asks for commitment before it gives value. The web experience had to give value first, and make signing up feel like a choice, not a toll.",
     cover: img("chef-web", "hero"),
-    thumb: img("chef-web", "hero"),
+    thumb: "/assets/thumbs/chef-web.webp",
     chapters: [
       {
         eyebrow: "Access",
@@ -298,7 +298,7 @@ export const projects = [
         eyebrow: "Continuity",
         title: "Chat that keeps the thread",
         body:
-          "Order a meal, hire a chef or request a quote — the built-in chat keeps every request and detail in one place, so nothing gets lost between the first message and the final confirmation.",
+          "Order a meal, hire a chef or request a quote. The built-in chat keeps every request and detail in one place, so nothing gets lost between the first message and the final confirmation.",
       },
     ],
     quote:
@@ -337,43 +337,43 @@ export const projects = [
     tagline:
       "A legal case management platform that keeps Nigerian lawyers, documents and deadlines in sync with the judicial process.",
     summary:
-      "In Nigeria's legal industry, many lawyers still manage cases, documents and communication through scattered channels — WhatsApp threads, email, handwritten notes. The result is poor collaboration, missed deadlines and information that disappears when someone leaves the room. Bubble was built as a conceptual law-tech product that centralises civil and criminal case handling into one system lawyers can trust.",
+      "In Nigeria's legal industry, many lawyers still manage cases, documents and communication through scattered channels: WhatsApp threads, email, handwritten notes. The result is poor collaboration, missed deadlines and information that disappears when someone leaves the room. Bubble was built as a conceptual law-tech product that centralises civil and criminal case handling into one system lawyers can trust.",
     challenge:
       "Lawyers work in teams, but their tools don't. Visibility, ownership and deadlines all live in different places.",
     cover: null,
-    thumb: null,
+    thumb: "/assets/thumbs/bubble.webp",
     chapters: [
       {
         eyebrow: "Structure",
         title: "One case, one source of truth",
         body:
-          "Every matter is tracked from intake to final judgment — filing, hearing, ruling — with documents, notes and people attached to the stage they belong to. Nothing lives in a side conversation or someone's memory, and only the people who need to see a case can see it.",
+          "Every matter is tracked from intake to final judgment (filing, hearing, ruling), with documents, notes and people attached to the stage they belong to. Nothing lives in a side conversation or someone's memory, and only the people who need to see a case can see it.",
         note: "Case stages mirror the real judicial process, not a generic kanban board.",
       },
       {
         eyebrow: "Collaboration",
         title: "Shared work, controlled access",
         body:
-          "Lawyers often work in teams, yet traditional tools limit visibility. Bubble lets peers co-manage a matter, assign responsibilities and restrict access within one secure environment — so a junior can prepare without seeing everything, and a lead can review without chasing files.",
+          "Lawyers often work in teams, yet traditional tools limit visibility. Bubble lets peers co-manage a matter, assign responsibilities and restrict access within one secure environment, so a junior can prepare without seeing everything, and a lead can review without chasing files.",
         note: "Roles and access are designed around how a chambers actually divides work.",
       },
       {
         eyebrow: "Reporting",
         title: "Progress you can read",
         body:
-          "Each case carries a dynamic report — what has happened, what is pending and where the delays are. A central reporting hub then compares across matters, so patterns surface before they become problems rather than after a client asks.",
+          "Each case carries a dynamic report: what has happened, what is pending and where the delays are. A central reporting hub then compares across matters, so patterns surface before they become problems rather than after a client asks.",
         note: "Case-level detail rolls up into a firm-wide view.",
       },
       {
         eyebrow: "Rhythm",
         title: "Deadlines, tied to the case",
         body:
-          "Task management sits at the core: deadlines, priorities and next actions tied directly to a case stage, connected to a calendar that follows court schedules. The interface answers the only question that matters on a busy morning — what needs me today?",
+          "Task management sits at the core: deadlines, priorities and next actions tied directly to a case stage, connected to a calendar that follows court schedules. The interface answers the only question that matters on a busy morning: what needs me today?",
         note: "Tasks are never detached from the matter they belong to.",
       },
     ],
     quote:
-      "From case intake to final judgment, the platform is a single source of truth — everything logged, structured and shared with only the people who need it.",
+      "From case intake to final judgment, the platform is a single source of truth: everything logged, structured and shared with only the people who need it.",
     outcomes: [
       {
         label: "Centralised",

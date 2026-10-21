@@ -5,6 +5,9 @@ export const site = {
   location: "Lagos, Nigeria",
   timezone: "Africa/Lagos",
   email: "deoluwadeoye1@gmail.com",
+  // WhatsApp number in international format, digits only, e.g. "2348012345678".
+  // Left empty the contact screen falls back to a pre-filled email.
+  whatsapp: "",
   availability: "Open for work",
   availabilityNote: "Available for select projects, collaborations and full-time roles.",
   socials: [
@@ -18,19 +21,19 @@ export const credentia = {
   role: "Co-founder & Product Designer",
   href: "https://www.credentia.site/",
   blurb:
-    "A free public document directory that helps Lagos residents navigate the paperwork behind major life events — 15 life categories, 79 checklists, and a correction flow that keeps every answer current.",
+    "A free public document directory that helps Lagos residents navigate the paperwork behind major life events: 15 life categories, 79 checklists, and a correction flow that keeps every answer current.",
 };
 
 export const roles = ["Interface Designer", "Experience Designer", "Product Thinker"];
 
 export const intro =
-  "I design digital products where clarity, motion and craft meet — interfaces that make complex things feel obvious, and simple things feel considered.";
+  "I design digital products where clarity, motion and craft meet: interfaces that make complex things feel obvious, and simple things feel considered.";
 
 export const manifesto = [
   "Design, for me, has always been about curiosity.",
-  "I didn't arrive here by accident — I've been drawn to the way things work, the way people interact, and how those small details shape big experiences.",
+  "I didn't arrive here by accident. I've been drawn to the way things work, the way people interact, and how those small details shape big experiences.",
   "My path has been shaped by a mix of learning, experimenting, and asking “what if?” again and again.",
-  "I see design not just as problem-solving, but as storytelling — a chance to make ideas tangible, simple and human.",
+  "I see design not just as problem solving, but as storytelling: a chance to make ideas tangible, simple and human.",
 ];
 
 export const capabilities = [
@@ -38,14 +41,14 @@ export const capabilities = [
     index: "01",
     title: "Experience Design",
     blurb:
-      "End-to-end product thinking — research, flows and the decisions that make a product feel inevitable.",
+      "End-to-end product thinking: research, flows and the decisions that make a product feel inevitable.",
     tags: ["User flows", "Wireframes", "Prototyping", "Usability"],
   },
   {
     index: "02",
     title: "Interface Design",
     blurb:
-      "Interfaces with hierarchy, rhythm and motion — built to be used, not just looked at.",
+      "Interfaces with hierarchy, rhythm and motion, built to be used, not just looked at.",
     tags: ["Visual systems", "Interaction design", "Responsive layouts", "Motion"],
   },
   {
@@ -66,16 +69,16 @@ export const capabilities = [
 
 export const experience = [
   {
-    period: "2026 — Now",
+    period: "2026 - now",
     role: "UI/UX Designer",
     company: "Vernovi Cyber",
-    note: "Leading the redesign and product identity for Vernovi Cyber across its Africa, Europe and UAE sites — plus SecureComply, a GRC product for Nigerian fintechs.",
+    note: "Leading the redesign and product identity for Vernovi Cyber across its Africa, Europe and UAE sites, plus SecureComply, a GRC product for Nigerian fintechs.",
   },
   {
-    period: "2026 — Now",
+    period: "2026 - now",
     role: "Co-founder & Product Designer",
     company: "Credentia",
-    note: "Co-founded a free public document directory spanning 15 life categories and 79 checklists — brand, product requirements and UX.",
+    note: "Co-founded a free public document directory spanning 15 life categories and 79 checklists, covering brand, product requirements and UX.",
   },
   {
     period: "2025",
@@ -84,10 +87,10 @@ export const experience = [
     note: "High-fidelity prototypes for an LMS and a lifestyle app, plus a design-system audit that improved flow efficiency by 45%.",
   },
   {
-    period: "2024 — 2025",
+    period: "2024 - 2025",
     role: "UI/UX Designer",
     company: "Chef4me",
-    note: "Redesigned the user and chef experiences across mobile and web — 30% better usability scores and 15% more daily actives.",
+    note: "Redesigned the user and chef experiences across mobile and web, delivering 30% better usability scores and 15% more daily actives.",
   },
 ];
 
@@ -95,7 +98,7 @@ export const principles = [
   {
     index: "01",
     title: "Curiosity first",
-    body: "I start with questions, not screens. Understanding how something works — and why people behave the way they do — is what makes the interface feel inevitable rather than decorated.",
+    body: "I start with questions, not screens. Understanding how something works, and why people behave the way they do, is what makes the interface feel inevitable rather than decorated.",
   },
   {
     index: "02",
@@ -105,18 +108,18 @@ export const principles = [
   {
     index: "03",
     title: "Craft in the details",
-    body: "Motion, spacing, type, states. The details are where a product starts to feel like a place rather than a set of screens — and where the brand actually lives.",
+    body: "Motion, spacing, type, states. The details are where a product starts to feel like a place rather than a set of screens, and where the brand actually lives.",
   },
 ];
 
 export const faqs = [
   {
     q: "What kind of projects do you take on?",
-    a: "I'm open to product design projects across various industries — from early-stage ideas to live platforms. I especially enjoy working on complex systems, marketplaces, or products that require thinking across user types and flows.",
+    a: "I'm open to product design projects across various industries, from early-stage ideas to live platforms. I especially enjoy working on complex systems, marketplaces, or products that require thinking across user types and flows.",
   },
   {
     q: "Can you lead a project or work independently?",
-    a: "Both. I can lead end-to-end — research, strategy, interface design and handoff — or embed within an existing product team and own a specific surface area. Either way, I'm comfortable being the person who turns ambiguity into a clear set of screens.",
+    a: "Both. I can lead end-to-end (research, strategy, interface design and handoff) or embed within an existing product team and own a specific surface area. Either way, I'm comfortable being the person who turns ambiguity into a clear set of screens.",
   },
   {
     q: "Are you open to full-time roles, freelance, or collaboration?",
@@ -124,6 +127,6 @@ export const faqs = [
   },
   {
     q: "What inspires your design approach?",
-    a: "Curiosity, mostly. I'm drawn to how things work, how people interact, and how small details shape big experiences. I look outside design — fashion, architecture, film, everyday behaviour — for the patterns that make an interface feel human.",
+    a: "Curiosity, mostly. I'm drawn to how things work, how people interact, and how small details shape big experiences. I look outside design too: fashion, architecture, film, everyday behaviour. That is where the patterns live that make an interface feel human.",
   },
 ];

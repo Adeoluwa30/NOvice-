@@ -37,9 +37,8 @@ export default function Nav() {
   return (
     <>
       <header className={`nav ${scrolled ? "is-scrolled" : ""}`}>
-        <Link to="/" className="nav__brand" aria-label="Adeoluwa Adeoye — home">
-          <Logo size={30} />
-          <span className="nav__word">AdE</span>
+        <Link to="/" className="nav__brand" aria-label="Adeoluwa Adeoye, home">
+          <Logo size={34} />
         </Link>
 
         <nav className="nav__links" aria-label="Primary">

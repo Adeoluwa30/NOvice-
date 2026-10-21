@@ -6,6 +6,7 @@ export default function Cursor() {
   const [enabled, setEnabled] = useState(false);
   const [label, setLabel] = useState("");
   const [active, setActive] = useState(false);
+  const [moved, setMoved] = useState(false);
 
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return undefined;
@@ -19,6 +20,7 @@ export default function Cursor() {
     const onMove = (event) => {
       pointer.x = event.clientX;
       pointer.y = event.clientY;
+      setMoved(true);
       if (dotRef.current) {
         dotRef.current.style.transform = `translate3d(${pointer.x}px, ${pointer.y}px, 0)`;
       }
@@ -72,7 +74,7 @@ export default function Cursor() {
   if (!enabled) return null;
 
   return (
-    <div className="cursor" aria-hidden="true">
+    <div className={`cursor ${moved ? "is-ready" : ""}`} aria-hidden="true">
       <div className="cursor__dot" ref={dotRef} />
       <div className={`cursor__ring ${active ? "is-active" : ""}`} ref={ringRef}>
         <span>{label}</span>

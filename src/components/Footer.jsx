@@ -28,65 +28,47 @@ export default function Footer() {
   return (
     <footer className="footer" id="footer">
       <div className="shell">
-        <div className="footer__head">
-          <p className="eyebrow">(Get in touch)</p>
-          <p className="footer__status">
-            <span className="dot" /> {site.availability} · 2026
-          </p>
+        <div className="footer__top">
+          <Link to="/" className="footer__logo" aria-label="Back home">
+            <Logo size={46} />
+          </Link>
+
+          <a className="footer__mail" href={`mailto:${site.email}`} data-cursor="Email">
+            <span>{site.email}</span>
+            <span className="footer__mail-arrow" aria-hidden="true">
+              ↗
+            </span>
+          </a>
         </div>
 
-        <a className="footer__mail" href={`mailto:${site.email}`} data-cursor="Email">
-          <span>{site.email}</span>
-          <span className="footer__mail-arrow" aria-hidden="true">↗</span>
-        </a>
-
-        <div className="footer__grid">
-          <div className="footer__brand">
-            <Link to="/" className="footer__logo" aria-label="Back home">
-              <Logo size={38} />
-              <span>AdE</span>
-            </Link>
-            <p>
-              Interface &amp; experience designer in Lagos, building digital products with
-              clarity, motion and craft.
-            </p>
-          </div>
-
-          <nav className="footer__col" aria-label="Footer">
-            <p className="eyebrow">Pages</p>
+        <div className="footer__row">
+          <nav className="footer__nav" aria-label="Footer">
             <Link to="/work">Projects</Link>
             <Link to="/about">About</Link>
             <Link to="/contact">Contact</Link>
           </nav>
 
-          <div className="footer__col">
-            <p className="eyebrow">Elsewhere</p>
+          <div className="footer__socials">
             {site.socials.map((social) => (
               <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
-                {social.label} <span>↗</span>
+                {social.label}
+                <span aria-hidden="true">↗</span>
               </a>
             ))}
             <a href={credentia.href} target="_blank" rel="noreferrer">
-              Credentia <span>↗</span>
+              Credentia
+              <span aria-hidden="true">↗</span>
             </a>
           </div>
 
-          <div className="footer__col footer__col--place">
-            <p className="eyebrow">Lagos, Nigeria</p>
-            <p className="footer__time">
-              {time} <span>WAT</span>
-            </p>
-            <p className="footer__note">Working with teams anywhere.</p>
-          </div>
-        </div>
-
-        <div className="footer__wordmark" aria-hidden="true">
-          Adeoluwa <span>Adeoye</span>
+          <p className="footer__place">
+            <span className="dot" /> Lagos, Nigeria, {time} WAT
+          </p>
         </div>
 
         <div className="footer__bottom">
-          <span>© 2026 Adeoye Adeoluwa</span>
-          <span>Designed &amp; built by AdE</span>
+          <span>© 2026</span>
+          <span>Interface &amp; experience designer</span>
           <button
             type="button"
             className="footer__top-link"

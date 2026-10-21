@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
-import Cover from "../components/Cover";
+import ProjectThumb from "../components/ProjectThumb";
 import CTA from "../components/CTA";
 import { projects } from "../data/projects";
 import { usePageMeta } from "../hooks/usePageMeta";
@@ -8,7 +8,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 export default function Work() {
   usePageMeta(
     "Projects",
-    "Selected product design work by Adeoluwa Adeoye — Chef4me, Brandit and Bubble."
+    "Selected product design work by Adeoluwa Adeoye: Chef4me, Brandit and Bubble."
   );
 
   return (
@@ -17,13 +17,13 @@ export default function Work() {
         <div className="shell">
           <div className="page-head__top">
             <p className="eyebrow">(Projects)</p>
-            <p className="eyebrow">2023 — 2026</p>
+            <p className="eyebrow">2023 to 2026</p>
           </div>
           <Reveal as="h1" className="page-head__title">
             Selected <span className="serif">projects</span>
           </Reveal>
           <Reveal as="p" className="page-head__lede" delay={100}>
-            Five products, five different problems. Each one designed from the inside out — the
+            Five products, five different problems. Each one designed from the inside out: the
             research, the flows, the interface and the small details that make it feel finished.
           </Reveal>
         </div>
@@ -38,13 +38,14 @@ export default function Work() {
                 className={`work-card ${i % 2 === 1 ? "work-card--offset" : ""}`}
                 delay={40}
               >
-                <Link
-                  to={`/work/${project.slug}`}
-                  className="work-card__link"
-                  data-cursor="View"
-                >
+                <Link to={`/work/${project.slug}`} className="work-card__link" data-cursor="View">
                   <div className="work-card__media">
-                    <Cover project={project} />
+                    <ProjectThumb
+                      project={project}
+                      eager={i < 2}
+                      sizes="(max-width: 960px) 100vw, 46vw"
+                    />
+                    <span className="work-card__index">({project.index})</span>
                   </div>
                   <div className="work-card__meta">
                     <h2 className="work-card__title">
@@ -57,7 +58,9 @@ export default function Work() {
                       <span>{project.kind}</span>
                       <span>{project.year}</span>
                     </div>
-                    <span className="work-card__arrow">↗</span>
+                    <span className="work-card__arrow" aria-hidden="true">
+                      ↗
+                    </span>
                   </div>
                 </Link>
               </Reveal>
@@ -67,7 +70,7 @@ export default function Work() {
           <Reveal className="work-tail" delay={80}>
             <p className="eyebrow">(Currently)</p>
             <p className="work-tail__text">
-              I&apos;m open to new product design work — a complex system, a marketplace, or a
+              I&apos;m open to new product design work: a complex system, a marketplace, or a
               product that needs someone to think across user types and flows.
             </p>
             <Link to="/contact" className="link-arrow" data-cursor="Talk">

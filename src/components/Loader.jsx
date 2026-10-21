@@ -60,7 +60,7 @@ export default function Loader({ onDone }) {
       aria-hidden="true"
     >
       <div className="loader__grid">
-        <span>AdE — Portfolio</span>
+        <span>Portfolio</span>
         <span>2026</span>
       </div>
 

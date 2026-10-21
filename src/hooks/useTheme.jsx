@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 const themes = ["dark", "light", "brand"];
 const ThemeContext = createContext(null);
@@ -16,8 +16,22 @@ export function ThemeProvider({ children }) {
     return themes.includes(current) ? current : "dark";
   });
 
+  const firstRun = useRef(true);
+
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
+    const root = document.documentElement;
+
+    // Cross-fade the palette instead of swapping it instantly. The class is
+    // removed again so it never slows down hover or layout transitions.
+    let timer;
+    if (firstRun.current) {
+      firstRun.current = false;
+    } else {
+      root.classList.add("theme-anim");
+      timer = window.setTimeout(() => root.classList.remove("theme-anim"), 560);
+    }
+
+    root.setAttribute("data-theme", theme);
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute("content", metaColors[theme]);
     try {
@@ -25,6 +39,11 @@ export function ThemeProvider({ children }) {
     } catch (error) {
       /* storage can be unavailable in private mode */
     }
+
+    return () => {
+      if (timer) window.clearTimeout(timer);
+      root.classList.remove("theme-anim");
+    };
   }, [theme]);
 
   return (

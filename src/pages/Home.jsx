@@ -47,64 +47,71 @@ export default function Home() {
   return (
     <>
       <section className="hero">
-        <h1 className="sr-only">Adeoluwa Adeoye — Interface &amp; Experience Designer</h1>
+        <h1 className="sr-only">Adeoluwa Adeoye, Interface &amp; Experience Designer</h1>
 
         <div className="shell hero__top">
           <p className="hero__hello">
-            Hi, I&apos;m Adeoluwa — <span className="serif">interface &amp; experience</span>{" "}
+            Hi, I&apos;m Adeoluwa, <span className="serif">interface &amp; experience</span>{" "}
             designer.
           </p>
-
-          <figure className="hero__portrait">
-            <img
-              src="/assets/portrait.jpg"
-              alt="Adeoluwa Adeoye at his desk in Lagos"
-              fetchPriority="high"
-            />
-            <figcaption>Lagos, NG</figcaption>
-          </figure>
+          <p className="hero__place">
+            Lagos, Nigeria<span className="hero__place-sep">/</span>Portfolio 2026
+          </p>
         </div>
 
-        <div className="hero__type">
-          <div className="hero__line">
-            <Marquee speed={46}>
-              <span>Interface Designer</span>
-              <span className="asterisk">✳</span>
-              <span>Interface Designer</span>
-              <span className="asterisk">✳</span>
-            </Marquee>
+        <div className="hero__stage">
+          <div className="hero__type">
+            <div className="hero__line">
+              <Marquee speed={46}>
+                <span>Interface Designer</span>
+                <span className="asterisk">✳</span>
+                <span>Interface Designer</span>
+                <span className="asterisk">✳</span>
+              </Marquee>
+            </div>
+            <div className="hero__line hero__line--outline">
+              <Marquee speed={54} reverse>
+                <span>Experience Designer</span>
+                <span className="asterisk">✳</span>
+                <span>Experience Designer</span>
+                <span className="asterisk">✳</span>
+              </Marquee>
+            </div>
+            <div className="hero__line">
+              <Marquee speed={40}>
+                <span>Product Thinker</span>
+                <span className="asterisk">✳</span>
+                <span>Product Thinker</span>
+                <span className="asterisk">✳</span>
+              </Marquee>
+            </div>
           </div>
-          <div className="hero__line hero__line--outline">
-            <Marquee speed={54} reverse>
-              <span>Experience Designer</span>
-              <span className="asterisk">✳</span>
-              <span>Experience Designer</span>
-              <span className="asterisk">✳</span>
-            </Marquee>
-          </div>
-          <div className="hero__line">
-            <Marquee speed={40}>
-              <span>Product Thinker</span>
-              <span className="asterisk">✳</span>
-              <span>Product Thinker</span>
-              <span className="asterisk">✳</span>
-            </Marquee>
-          </div>
+
+          <figure className="hero__portrait">
+            <div className="hero__portrait-frame">
+              <img
+                src="/assets/portrait.jpg"
+                alt="Adeoluwa Adeoye at his desk in Lagos"
+                fetchPriority="high"
+              />
+            </div>
+            <figcaption>
+              <span>Lagos, NG</span>
+              <span aria-hidden="true">✳</span>
+            </figcaption>
+          </figure>
         </div>
 
         <div className="shell hero__foot">
           <p className="hero__intro">
-            I design digital products where clarity, motion and craft meet — interfaces that
-            make complex things feel obvious, and simple things feel considered.
+            I design digital products where clarity, motion and craft meet: interfaces that make
+            complex things feel obvious, and simple things feel considered.
           </p>
-          <div className="hero__foot-right">
-            <p className="hero__place">Based in Lagos, Nigeria — working worldwide.</p>
-            <a className="scroll-cue" href="#work">
-              <span>Scroll to explore</span>
-              <span className="scroll-cue__line" />
-              <span>↓</span>
-            </a>
-          </div>
+          <a className="scroll-cue" href="#work">
+            <span>Scroll to explore</span>
+            <span className="scroll-cue__line" />
+            <span aria-hidden="true">↓</span>
+          </a>
         </div>
       </section>
 
@@ -113,7 +120,7 @@ export default function Home() {
           <p className="eyebrow">(01) About</p>
           <div className="intro__content">
             <Reveal as="p" className="intro__statement">
-              I&apos;m a designer who likes the <span className="serif">in&#8209;between</span> —
+              I&apos;m a designer who likes the <span className="serif">in&#8209;between</span>:
               the place where a business problem becomes a flow, a flow becomes an interface, and
               an interface starts to feel like a product people trust.
             </Reveal>
@@ -122,7 +129,7 @@ export default function Home() {
               <p className="intro__copy">
                 Curiosity brought me here: a habit of asking how things work, why people behave
                 the way they do, and what happens if we try it another way. I work across
-                experience design, interface systems and graphic design — from early-stage ideas
+                experience design, interface systems and graphic design, from early-stage ideas
                 to live platforms.
               </p>
               <Link to="/about" className="link-arrow" data-cursor="Read">
@@ -151,9 +158,9 @@ export default function Home() {
           <ProjectIndex items={projects} />
 
           <Reveal className="work__note" delay={120}>
-            <span>2023 — 2026</span>
+            <span>2023 to 2026</span>
             <p>
-              Five products across food, fashion and law — each designed end to end, from the
+              Five products across food, fashion and law, each designed end to end, from the
               first question to the shipped interface.
             </p>
           </Reveal>
@@ -166,8 +173,8 @@ export default function Home() {
             <p className="eyebrow">(03) How I think</p>
             <p className="section-head__note">A short manifesto</p>
           </div>
-          <ScrollStatement text="Design, for me, has always been about curiosity. I didn't arrive here by accident — I've been drawn to the way things work, the way people interact, and how those small details shape big experiences. I see design not just as problem-solving, but as storytelling: a chance to make ideas tangible, simple and human." />
-          <p className="manifesto__sign">— Adeoluwa</p>
+          <ScrollStatement text="Design, for me, has always been about curiosity. I didn't arrive here by accident. I've been drawn to the way things work, the way people interact, and how those small details shape big experiences. I see design not just as problem solving, but as storytelling: a chance to make ideas tangible, simple and human." />
+          <p className="manifesto__sign">Adeoluwa</p>
         </div>
       </section>
 

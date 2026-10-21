@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import ScrollProgress from "../components/ScrollProgress";
 import Parallax from "../components/Parallax";
 import Reveal from "../components/Reveal";
-import Cover from "../components/Cover";
+import ProjectThumb from "../components/ProjectThumb";
 import CTA from "../components/CTA";
 import { getNextProject, getProject, projects } from "../data/projects";
 import { usePageMeta } from "../hooks/usePageMeta";
@@ -12,7 +12,7 @@ export default function Project() {
   const { slug } = useParams();
   const project = getProject(slug);
   usePageMeta(
-    project ? `${project.title} — Case Study` : "Project not found",
+    project ? `${project.title}, Case Study` : "Project not found",
     project ? project.tagline : undefined
   );
 
@@ -49,7 +49,7 @@ export default function Project() {
               ← All work
             </Link>
             <span className="eyebrow">
-              Case Study — {project.index} / {String(projects.length).padStart(2, "0")}
+              Case Study, {project.index} / {String(projects.length).padStart(2, "0")}
             </span>
           </div>
 
@@ -109,7 +109,7 @@ export default function Project() {
       </header>
 
       <figure className="case-cover">
-        <Cover project={project} />
+        <ProjectThumb project={project} eager sizes="100vw" />
       </figure>
 
       <div className="shell case-body">
@@ -177,7 +177,7 @@ export default function Project() {
           <Reveal as="blockquote" className="case-quote__text">
             {project.quote}
           </Reveal>
-          <p className="case-quote__sign">— Adeoluwa Adeoye</p>
+          <p className="case-quote__sign">Adeoluwa Adeoye</p>
         </section>
 
         <section className="outcomes">
@@ -210,12 +210,12 @@ export default function Project() {
                 {next.display} <span className="serif">{next.displayAccent}</span>
               </h2>
               <p className="next-project__meta">
-                {next.kind} — {next.year}
+                {next.kind}, {next.year}
               </p>
             </div>
             <div className="next-project__media">
-              <Cover project={next} />
-              <span>↗</span>
+              <ProjectThumb project={next} sizes="(max-width: 960px) 90vw, 420px" />
+              <span aria-hidden="true">↗</span>
             </div>
           </Link>
         </div>
