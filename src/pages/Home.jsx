@@ -6,7 +6,7 @@ import Reveal from "../components/Reveal";
 import ProjectIndex from "../components/ProjectIndex";
 import CTA from "../components/CTA";
 import { projects } from "../data/projects";
-import { capabilities, credentia, experience, site } from "../site";
+import { capabilities, credentia, experience } from "../site";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 function Word({ children, progress, range }) {
@@ -49,16 +49,6 @@ export default function Home() {
       <section className="hero">
         <h1 className="sr-only">Adeoluwa Adeoye, Interface &amp; Experience Designer</h1>
 
-        <div className="shell hero__top">
-          <p className="hero__hello">
-            Hi, I&apos;m Adeoluwa, <span className="serif">interface &amp; experience</span>{" "}
-            designer.
-          </p>
-          <p className="hero__place">
-            Lagos, Nigeria<span className="hero__place-sep">/</span>Portfolio 2026
-          </p>
-        </div>
-
         <div className="hero__stage">
           <div className="hero__type">
             <div className="hero__line">
@@ -91,27 +81,11 @@ export default function Home() {
             <div className="hero__portrait-frame">
               <img
                 src="/assets/portrait.jpg"
-                alt="Adeoluwa Adeoye at his desk in Lagos"
+                alt="Adeoluwa Adeoye, interface and experience designer"
                 fetchPriority="high"
               />
             </div>
-            <figcaption>
-              <span>Lagos, NG</span>
-              <span aria-hidden="true">✳</span>
-            </figcaption>
           </figure>
-        </div>
-
-        <div className="shell hero__foot">
-          <p className="hero__intro">
-            I design digital products where clarity, motion and craft meet: interfaces that make
-            complex things feel obvious, and simple things feel considered.
-          </p>
-          <a className="scroll-cue" href="#work">
-            <span>Scroll to explore</span>
-            <span className="scroll-cue__line" />
-            <span aria-hidden="true">↓</span>
-          </a>
         </div>
       </section>
 
@@ -120,18 +94,13 @@ export default function Home() {
           <p className="eyebrow">(01) About</p>
           <div className="intro__content">
             <Reveal as="p" className="intro__statement">
-              I&apos;m a designer who likes the <span className="serif">in&#8209;between</span>:
-              the place where a business problem becomes a flow, a flow becomes an interface, and
-              an interface starts to feel like a product people trust.
+              I&apos;m a designer who likes the{" "}
+              <span className="serif serif--plain">in&#8209;between</span>: the place where a
+              business problem becomes a flow, a flow becomes an interface, and an interface starts
+              to feel like a product people trust.
             </Reveal>
 
             <Reveal className="intro__row" delay={120}>
-              <p className="intro__copy">
-                Curiosity brought me here: a habit of asking how things work, why people behave
-                the way they do, and what happens if we try it another way. I work across
-                experience design, interface systems and graphic design, from early-stage ideas
-                to live platforms.
-              </p>
               <Link to="/about" className="link-arrow" data-cursor="Read">
                 More about me <span>↗</span>
               </Link>

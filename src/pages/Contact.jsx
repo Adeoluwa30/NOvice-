@@ -122,7 +122,7 @@ export default function Contact() {
                 </span>
                 <div>
                   <p className="chat__name">Adeoluwa Adeoye</p>
-                  <p className="chat__meta">Usually replies within a day</p>
+                  <p className="chat__meta">Usually replies within a couple of hours</p>
                 </div>
                 <span className="chat__channel">{whatsappHref ? "WhatsApp" : "Email"}</span>
               </div>
@@ -206,7 +206,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <dt>Response</dt>
-                  <dd>Usually within a couple of days.</dd>
+                  <dd>Usually within a couple of hours.</dd>
                 </div>
                 <div>
                   <dt>Based in</dt>

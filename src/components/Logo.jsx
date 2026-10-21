@@ -16,7 +16,7 @@ export default function Logo({ size = 32, className = "", title = "AdE" }) {
       aria-label={title}
     >
       <path d={RED} fill="currentColor" fillRule="evenodd" />
-      <path d={WHITE} fill="var(--logo-accent, #ffffff)" fillRule="evenodd" />
+      <path d={WHITE} fill="currentColor" fillRule="evenodd" />
     </svg>
   );
 }

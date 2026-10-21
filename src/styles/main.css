@@ -237,7 +237,7 @@ button {
 }
 
 .section {
-  padding-block: clamp(56px, 6.5vw, 104px);
+  padding-block: clamp(74px, 9vw, 142px);
 }
 
 .serif {
@@ -254,6 +254,11 @@ button {
   font-style: italic;
   font-weight: 400;
   text-transform: none;
+}
+
+/* Same display face, but reads as body text (no accent colour). */
+.serif--plain {
+  color: inherit;
 }
 
 .asterisk {
@@ -513,6 +518,17 @@ button {
 .cursor__ring.is-active span {
   opacity: 1;
 }
+
+/* Fast "wiggle" flare so the pointer stays easy to track on dark themes. */
+.cursor__ring.is-fast:not(.is-active) {
+  width: 62px;
+  height: 62px;
+  margin: -31px 0 0 -31px;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+
 
 /* ------------------------------------------------------------------
    Loader
@@ -1102,10 +1118,10 @@ body.is-locked .marquee__track {
 
 .intro__row {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: flex-end;
   gap: 48px;
-  margin-top: clamp(36px, 4.5vw, 64px);
+  margin-top: clamp(24px, 3vw, 40px);
 }
 
 .intro__copy {
@@ -2524,10 +2540,9 @@ body.is-locked .marquee__track {
 
 .chat {
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 20px;
   background: var(--surface);
   overflow: hidden;
-  box-shadow: 0 40px 90px -70px rgba(0, 0, 0, 0.9);
 }
 
 .chat__head {

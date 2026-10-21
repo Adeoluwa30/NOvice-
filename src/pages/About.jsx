@@ -46,7 +46,7 @@ export default function About() {
             <Reveal className="about-intro__media" delay={120}>
               <img
                 src="/assets/portrait.jpg"
-                alt="Adeoluwa Adeoye at his desk in Lagos"
+                alt="Adeoluwa Adeoye, interface and experience designer"
                 loading="lazy"
               />
               <figcaption>
