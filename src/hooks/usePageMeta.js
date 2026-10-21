@@ -1,20 +1,31 @@
 import { useEffect } from "react";
+import { defaultMeta, SITE_ORIGIN } from "../data/meta";
 
-const DEFAULT_TITLE = "Adeoluwa Adeoye, Interface & Experience Designer";
-const DEFAULT_DESCRIPTION =
-  "Adeoluwa Adeoye is a UI/UX and interface designer based in Lagos, Nigeria, designing digital products where clarity, motion and craft meet.";
-
+// Keeps the document head in step with the route. The static HTML already has
+// the right values for direct visits; this covers client-side navigation.
 export function usePageMeta(title, description) {
   useEffect(() => {
-    document.title = title ? `${title}, Adeoluwa Adeoye` : DEFAULT_TITLE;
+    const pageTitle = title ? `${title}, Adeoluwa Adeoye` : defaultMeta.title;
+    const pageDescription = description || defaultMeta.description;
 
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute("content", description || DEFAULT_DESCRIPTION);
+    document.title = pageTitle;
 
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.setAttribute("content", title ? `${title}, Adeoluwa Adeoye` : DEFAULT_TITLE);
+    const set = (selector, attribute, value) => {
+      const element = document.querySelector(selector);
+      if (element) element.setAttribute(attribute, value);
+    };
 
-    const ogDescription = document.querySelector('meta[property="og:description"]');
-    if (ogDescription) ogDescription.setAttribute("content", description || DEFAULT_DESCRIPTION);
+    set('meta[name="description"]', "content", pageDescription);
+    set('meta[property="og:title"]', "content", pageTitle);
+    set('meta[property="og:description"]', "content", pageDescription);
+    set('meta[name="twitter:title"]', "content", pageTitle);
+    set('meta[name="twitter:description"]', "content", pageDescription);
+
+    // Always the production origin so a deploy URL or localhost never becomes
+    // the canonical.
+    const path = window.location.pathname.replace(/\/+$/, "");
+    const url = path ? `${SITE_ORIGIN}${path}` : `${SITE_ORIGIN}/`;
+    set('link[rel="canonical"]', "href", url);
+    set('meta[property="og:url"]', "content", url);
   }, [title, description]);
 }

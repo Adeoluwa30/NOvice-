@@ -3,13 +3,11 @@ import Reveal from "../components/Reveal";
 import ProjectThumb from "../components/ProjectThumb";
 import CTA from "../components/CTA";
 import { projects } from "../data/projects";
+import { pageMeta } from "../data/meta";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function Work() {
-  usePageMeta(
-    "Projects",
-    "Selected product design work by Adeoluwa Adeoye: Chef4me, Brandit and Bubble."
-  );
+  usePageMeta(pageMeta.work.title, pageMeta.work.description);
 
   return (
     <>

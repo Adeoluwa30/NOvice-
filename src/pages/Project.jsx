@@ -6,15 +6,14 @@ import Reveal from "../components/Reveal";
 import ProjectThumb from "../components/ProjectThumb";
 import CTA from "../components/CTA";
 import { getNextProject, getProject, projects } from "../data/projects";
+import { projectMeta } from "../data/meta";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function Project() {
   const { slug } = useParams();
   const project = getProject(slug);
-  usePageMeta(
-    project ? `${project.title}, Case Study` : "Project not found",
-    project ? project.tagline : undefined
-  );
+  const meta = project ? projectMeta(project) : { title: "Project not found" };
+  usePageMeta(meta.title, meta.description);
 
   if (!project) {
     return (

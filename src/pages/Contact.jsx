@@ -4,6 +4,7 @@ import Marquee from "../components/Marquee";
 import Reveal from "../components/Reveal";
 import Magnetic from "../components/Magnetic";
 import { faqs, site } from "../site";
+import { pageMeta } from "../data/meta";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 const topics = [
@@ -30,10 +31,7 @@ const topics = [
 ];
 
 export default function Contact() {
-  usePageMeta(
-    "Contact",
-    "Start a project, ask a question or just say hello. Contact Adeoluwa Adeoye, interface & experience designer."
-  );
+  usePageMeta(pageMeta.contact.title, pageMeta.contact.description);
 
   const [copied, setCopied] = useState(false);
   const [topic, setTopic] = useState(topics[0]);

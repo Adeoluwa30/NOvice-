@@ -1,13 +1,11 @@
 import Reveal from "../components/Reveal";
 import CTA from "../components/CTA";
 import { experience, principles, site } from "../site";
+import { pageMeta } from "../data/meta";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function About() {
-  usePageMeta(
-    "About",
-    "Adeoluwa Adeoye is a UI/UX and interface designer in Lagos, Nigeria, working across experience design, interface systems and graphic design."
-  );
+  usePageMeta(pageMeta.about.title, pageMeta.about.description);
 
   return (
     <>
