@@ -438,6 +438,13 @@ button {
   will-change: transform;
 }
 
+/* A reversed track starts its animation at the far end. Matching that offset
+   before the animation is applied keeps the first layout from repainting the
+   line at a different position. */
+.marquee--reverse .marquee__track {
+  transform: translate3d(-50%, 0, 0);
+}
+
 .marquee__group {
   display: flex;
   align-items: center;

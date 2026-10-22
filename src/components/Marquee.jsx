@@ -13,7 +13,9 @@ export default function Marquee({
 
   return (
     <div
-      className={`marquee ${pauseOnHover ? "marquee--hoverable" : ""} ${className}`}
+      className={`marquee ${reverse ? "marquee--reverse" : ""} ${
+        pauseOnHover ? "marquee--hoverable" : ""
+      } ${className}`}
       style={{
         "--marquee-duration": `${speed}s`,
         "--marquee-direction": reverse ? "reverse" : "normal",
