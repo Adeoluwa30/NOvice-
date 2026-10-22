@@ -51,7 +51,7 @@ export default function About() {
                 sizes="(max-width: 720px) 92vw, 420px"
                 width="1400"
                 height="1874"
-                alt="Adeoluwa Adeoye, interface and experience designer"
+                alt="Portrait of Adeoluwa Adeoye, product designer in Lagos"
                 loading="lazy"
                 decoding="async"
               />

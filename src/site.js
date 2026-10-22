@@ -1,7 +1,7 @@
 export const site = {
   name: "Adeoluwa Adeoye",
   shortName: "AdE",
-  role: "Interface & Experience Designer",
+  role: "Product Designer & Interface Designer",
   location: "Lagos, Nigeria",
   timezone: "Africa/Lagos",
   email: "deoluwadeoye1@gmail.com",
@@ -25,7 +25,7 @@ export const credentia = {
     "A free public document directory that helps Lagos residents navigate the paperwork behind major life events: 15 life categories, 79 checklists, and a correction flow that keeps every answer current.",
 };
 
-export const roles = ["Interface Designer", "Experience Designer", "Product Thinker"];
+export const roles = ["Interface Designer", "Experience Designer", "Product Designer"];
 
 export const intro =
   "I design digital products where clarity, motion and craft meet: interfaces that make complex things feel obvious, and simple things feel considered.";

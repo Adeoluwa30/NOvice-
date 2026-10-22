@@ -5,21 +5,21 @@
 export const SITE_ORIGIN = "https://adeoluwa.site";
 
 export const defaultMeta = {
-  title: "Adeoluwa Adeoye, Interface & Experience Designer",
+  title: "Adeoluwa Adeoye, Product Designer & Interface Designer",
   description:
-    "Adeoluwa Adeoye is a UI/UX and interface designer based in Lagos, Nigeria, designing digital products where clarity, motion and craft meet.",
+    "Adeoluwa Adeoye is a product designer and UI/UX designer based in Lagos, Nigeria, designing digital products where clarity, motion and craft meet.",
 };
 
 export const pageMeta = {
   work: {
-    title: "Projects",
+    title: "Product Design Projects",
     description:
       "Selected product design work by Adeoluwa Adeoye: Chef4me User, Chef4me Chef, Chef4me Web App, Brandit and Bubble.",
   },
   about: {
     title: "About",
     description:
-      "Adeoluwa Adeoye is a UI/UX and interface designer in Lagos, Nigeria, working across experience design, interface systems and graphic design.",
+      "Adeoluwa Adeoye is a product designer and UI/UX designer in Lagos, Nigeria, working across experience design, interface systems and graphic design.",
   },
   contact: {
     title: "Contact",

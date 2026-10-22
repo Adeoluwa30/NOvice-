@@ -10,11 +10,19 @@ const PERSON_ID = `${SITE_ORIGIN}/#person`;
 const WEBSITE_ID = `${SITE_ORIGIN}/#website`;
 
 export const DEFAULT_OG_IMAGE = {
-  url: `${SITE_ORIGIN}/assets/og-2026.jpg`,
+  url: `${SITE_ORIGIN}/assets/og-adeoluwa.jpg`,
   width: 1200,
   height: 630,
   mime: "image/jpeg",
-  alt: "Adeoluwa Adeoye, interface and experience designer, Lagos.",
+  alt: "Portrait of Adeoluwa Adeoye, product designer, Lagos.",
+};
+
+// Search engines read this as the image of the person, so it stays the
+// full-resolution portrait rather than the cropped share card.
+export const PORTRAIT_IMAGE = {
+  url: `${SITE_ORIGIN}/assets/portrait-1400.webp`,
+  width: 1400,
+  height: 1874,
 };
 
 export const ogImageFor = (project) =>
@@ -49,7 +57,13 @@ const personNode = () => ({
   description: defaultMeta.description,
   url: `${SITE_ORIGIN}/`,
   email: `mailto:${site.email}`,
-  image: `${SITE_ORIGIN}/assets/portrait-1100.webp`,
+  image: {
+    "@type": "ImageObject",
+    url: PORTRAIT_IMAGE.url,
+    width: PORTRAIT_IMAGE.width,
+    height: PORTRAIT_IMAGE.height,
+    caption: `${site.name}, ${site.role}`,
+  },
   address: {
     "@type": "PostalAddress",
     addressLocality: "Lagos",
@@ -124,7 +138,9 @@ export function homeSchema() {
       mainEntity: { "@id": PERSON_ID },
       primaryImageOfPage: {
         "@type": "ImageObject",
-        url: `${SITE_ORIGIN}/assets/portrait-1100.webp`,
+        url: PORTRAIT_IMAGE.url,
+        width: PORTRAIT_IMAGE.width,
+        height: PORTRAIT_IMAGE.height,
       },
     },
     itemList(projects.map(workNode)),
@@ -188,7 +204,9 @@ export function aboutSchema(meta) {
       mainEntity: { "@id": PERSON_ID },
       primaryImageOfPage: {
         "@type": "ImageObject",
-        url: `${SITE_ORIGIN}/assets/portrait-1100.webp`,
+        url: PORTRAIT_IMAGE.url,
+        width: PORTRAIT_IMAGE.width,
+        height: PORTRAIT_IMAGE.height,
       },
     },
     breadcrumbs([

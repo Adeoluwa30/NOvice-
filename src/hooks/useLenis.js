@@ -1,13 +1,14 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import Lenis from "lenis";
 
 // A single smooth-scroll instance drives the page. Overlays (the menu) pause it
 // instead of collapsing the document with CSS, which used to reset the scroll
 // position to the top on phones.
 let activeLenis = null;
+let pendingLock = false;
 
 export function setScrollLocked(locked) {
+  pendingLock = locked;
   if (!activeLenis) return;
   if (locked) activeLenis.stop();
   else activeLenis.start();
@@ -22,32 +23,43 @@ export function useLenis() {
 
     // Phones and tablets keep their native scrolling. Lenis' touch sync is a
     // permanent rAF loop that competes with the platform's own inertia, and
-    // the CSS scroll lock already covers the menu there.
+    // the CSS scroll lock already covers the menu there. The chunk is only
+    // requested on devices that will actually use it.
     if (window.matchMedia("(pointer: coarse)").matches) return undefined;
 
-    const lenis = new Lenis({
-      duration: 1.15,
-      lerp: 0.09,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.2,
-      smoothWheel: true,
-      // Phones get the same eased scrolling as the desktop wheel.
-      syncTouch: true,
-      syncTouchLerp: 0.075,
-    });
-    lenisRef.current = lenis;
-    activeLenis = lenis;
-    if (import.meta.env.DEV) window.__lenis = lenis;
-
+    let cancelled = false;
+    let lenis = null;
     let frame;
-    const raf = (time) => {
-      lenis.raf(time);
-      frame = requestAnimationFrame(raf);
-    };
-    frame = requestAnimationFrame(raf);
+
+    import("lenis")
+      .then(({ default: Lenis }) => {
+        if (cancelled) return;
+
+        lenis = new Lenis({
+          duration: 1.15,
+          lerp: 0.09,
+          wheelMultiplier: 1,
+          smoothWheel: true,
+        });
+        lenisRef.current = lenis;
+        activeLenis = lenis;
+        if (pendingLock) lenis.stop();
+        if (import.meta.env.DEV) window.__lenis = lenis;
+
+        const raf = (time) => {
+          lenis.raf(time);
+          frame = requestAnimationFrame(raf);
+        };
+        frame = requestAnimationFrame(raf);
+      })
+      .catch(() => {
+        // Native scrolling is the fallback if the chunk cannot load.
+      });
 
     return () => {
+      cancelled = true;
       cancelAnimationFrame(frame);
+      if (!lenis) return;
       lenis.destroy();
       lenisRef.current = null;
       if (activeLenis === lenis) activeLenis = null;

@@ -50,7 +50,7 @@ export default function Home() {
   return (
     <>
       <section className="hero">
-        <h1 className="sr-only">Adeoluwa Adeoye, Interface &amp; Experience Designer</h1>
+        <h1 className="sr-only">Adeoluwa Adeoye, Product Designer &amp; Interface Designer</h1>
 
         <div className="hero__stage">
           <div className="hero__type">
@@ -72,9 +72,9 @@ export default function Home() {
             </div>
             <div className="hero__line">
               <Marquee speed={40}>
-                <span>Product Thinker</span>
+                <span>Product Designer</span>
                 <span className="asterisk">✳</span>
-                <span>Product Thinker</span>
+                <span>Product Designer</span>
                 <span className="asterisk">✳</span>
               </Marquee>
             </div>
@@ -88,7 +88,7 @@ export default function Home() {
                 sizes="(max-width: 960px) 60vw, 340px"
                 width="1400"
                 height="1874"
-                alt="Adeoluwa Adeoye, interface and experience designer"
+                alt="Portrait of Adeoluwa Adeoye, product designer in Lagos"
                 fetchPriority="high"
                 decoding="async"
               />

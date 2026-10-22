@@ -46,7 +46,9 @@ export function ThemeProvider({ children }) {
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute("content", metaColors[theme]);
     try {
-      localStorage.setItem("ade-theme", theme);
+      // v2 resets preferences saved before Night became the default. Choices
+      // made from now on are remembered under the new key.
+      localStorage.setItem("ade-theme-v2", theme);
     } catch (error) {
       /* storage can be unavailable in private mode */
     }
