@@ -3,7 +3,10 @@
 ------------------------------------------------------------------ */
 @font-face {
   font-family: "Big Shoulders Display";
-  src: url("/fonts/big-shoulders-display-latin.woff2") format("woff2");
+  /* Inlined by Vite: the hero's reversed marquee jumps by half its own
+     width if this face swaps in after first paint, which read as a 0.75
+     CLS. Keeping it in the stylesheet means the first paint already has it. */
+  src: url("../fonts/big-shoulders-display-latin.woff2") format("woff2");
   font-weight: 300 900;
   font-style: normal;
   font-display: swap;
