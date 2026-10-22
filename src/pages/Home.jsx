@@ -11,7 +11,9 @@ import { homeSchema } from "../data/schema";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 function Word({ children, progress, range }) {
-  const opacity = useTransform(progress, range, [0.16, 1]);
+  // The resting state has to stay legible: at 16% the words sat around 1.5:1
+  // against the background and failed WCAG contrast as they entered view.
+  const opacity = useTransform(progress, range, [0.5, 1]);
   return (
     <motion.span className="word" style={{ opacity }}>
       {`${children} `}

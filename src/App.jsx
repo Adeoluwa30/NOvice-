@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Loader from "./components/Loader";
 import Nav from "./components/Nav";
@@ -12,7 +12,7 @@ import { useLenis } from "./hooks/useLenis";
 import { PageView } from "./pages/registry";
 
 const labelFor = (pathname) => {
-  if (pathname === "/") return "Index";
+  if (pathname === "/") return "Home";
   if (pathname.startsWith("/work/")) return "Case study";
   if (pathname.startsWith("/work")) return "Projects";
   if (pathname.startsWith("/about")) return "About";
@@ -40,6 +40,11 @@ export default function App() {
   useEffect(() => setMounted(true), []);
 
   const location = useLocation();
+  // The wipe is a transition between pages, not an intro: the first paint
+  // already shows the page, so covering it with a sheet only delays it. The
+  // router's key is read once and never changes, so only real navigations
+  // (not the mount re-render) replay the sheet.
+  const introKey = useRef(location.key);
   useLenis();
 
   const finishLoading = () => {
@@ -61,7 +66,9 @@ export default function App() {
 
       <Cursor />
       <Nav />
-      <RouteWipe key={`wipe-${location.pathname}`} label={labelFor(location.pathname)} />
+      {location.key !== introKey.current && (
+        <RouteWipe key={`wipe-${location.key}`} label={labelFor(location.pathname)} />
+      )}
 
       {/* The route wipe covers the page swap, so the content itself does not
           need an exit animation (which also kept hydrated pages from ever
