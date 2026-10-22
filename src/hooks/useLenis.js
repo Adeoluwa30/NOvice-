@@ -20,6 +20,11 @@ export function useLenis() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
 
+    // Phones and tablets keep their native scrolling. Lenis' touch sync is a
+    // permanent rAF loop that competes with the platform's own inertia, and
+    // the CSS scroll lock already covers the menu there.
+    if (window.matchMedia("(pointer: coarse)").matches) return undefined;
+
     const lenis = new Lenis({
       duration: 1.15,
       lerp: 0.09,
@@ -54,9 +59,15 @@ export function useLenis() {
     const lenis = lenisRef.current;
     if (lenis) {
       lenis.scrollTo(0, { immediate: true });
-    } else {
-      window.scrollTo(0, 0);
+      return;
     }
+    // No Lenis means the document still has CSS smooth scrolling, so a route
+    // change has to jump to the top without gliding there.
+    const root = document.documentElement;
+    const previous = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo(0, 0);
+    root.style.scrollBehavior = previous;
   }, [pathname]);
 
   return lenisRef;
