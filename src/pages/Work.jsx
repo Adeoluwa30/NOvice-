@@ -4,10 +4,13 @@ import ProjectThumb from "../components/ProjectThumb";
 import CTA from "../components/CTA";
 import { projects } from "../data/projects";
 import { pageMeta } from "../data/meta";
+import { workSchema } from "../data/schema";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function Work() {
-  usePageMeta(pageMeta.work.title, pageMeta.work.description);
+  usePageMeta(pageMeta.work.title, pageMeta.work.description, {
+    schema: workSchema(pageMeta.work),
+  });
 
   return (
     <>
@@ -43,11 +46,11 @@ export default function Work() {
                       eager={i < 2}
                       sizes="(max-width: 960px) 100vw, 46vw"
                     />
-                    <span className="work-card__index">({project.index})</span>
+                    <span className="work-card__index">{`(${project.index})`}</span>
                   </div>
                   <div className="work-card__meta">
                     <h2 className="work-card__title">
-                      {project.display}{" "}
+                      {`${project.display} `}
                       {project.displayAccent && (
                         <span className="serif">{project.displayAccent}</span>
                       )}

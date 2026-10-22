@@ -2,10 +2,13 @@ import Reveal from "../components/Reveal";
 import CTA from "../components/CTA";
 import { experience, principles, site } from "../site";
 import { pageMeta } from "../data/meta";
+import { aboutSchema } from "../data/schema";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function About() {
-  usePageMeta(pageMeta.about.title, pageMeta.about.description);
+  usePageMeta(pageMeta.about.title, pageMeta.about.description, {
+    schema: aboutSchema(pageMeta.about),
+  });
 
   return (
     <>
@@ -16,7 +19,7 @@ export default function About() {
             <p className="eyebrow">Lagos, Nigeria</p>
           </div>
           <Reveal as="h1" className="page-head__title">
-            An <span className="serif">avid</span> interface
+            An <span className="serif">avid</span>{" interface "}
             <br />
             &amp; experience designer.
           </Reveal>
@@ -43,9 +46,14 @@ export default function About() {
 
             <Reveal className="about-intro__media" delay={120}>
               <img
-                src="/assets/portrait.jpg"
+                src="/assets/portrait-1100.webp"
+                srcSet="/assets/portrait-700.webp 700w, /assets/portrait-1100.webp 1100w, /assets/portrait-1400.webp 1400w"
+                sizes="(max-width: 720px) 92vw, 420px"
+                width="1400"
+                height="1874"
                 alt="Adeoluwa Adeoye, interface and experience designer"
                 loading="lazy"
+                decoding="async"
               />
               <figcaption>
                 <span>Lagos, NG / 2026</span>
@@ -65,7 +73,7 @@ export default function About() {
                 <div>
                   <dt>Status</dt>
                   <dd>
-                    <span className="dot" /> {site.availability}
+                    <span className="dot" />{` ${site.availability}`}
                   </dd>
                 </div>
                 <div>
@@ -142,7 +150,7 @@ export default function About() {
           <div className="principles__list">
             {principles.map((item, i) => (
               <Reveal className="principle" key={item.title} delay={i * 80}>
-                <span className="principle__n">({item.index})</span>
+                <span className="principle__n">{`(${item.index})`}</span>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
               </Reveal>

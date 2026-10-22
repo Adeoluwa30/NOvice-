@@ -1,6 +1,6 @@
 const img = (project, name) => `/assets/${project}/${name}.webp`;
 
-export const projects = [
+const catalogue = [
   {
     slug: "chef4me-user",
     index: "01",
@@ -80,6 +80,20 @@ export const projects = [
         text: "A modular design system that supports rapid feature expansion as the product grows.",
       },
     ],
+    faqs: [
+      {
+        q: "What was the hardest part of the Chef4me User app?",
+        a: "Holding three behaviours (hiring a chef, ordering meals and requesting a quote) inside one app without making it feel like three products stitched together. Each flow got its own logic, while navigation, vocabulary and components stayed shared.",
+      },
+      {
+        q: "How did you keep custom quotes from feeling like a form?",
+        a: "The quote request became a step-by-step wizard: event details first, then food preferences. Each screen asks for one kind of decision, and the flow only requests what the event actually needs.",
+      },
+      {
+        q: "How did the design handle delivery, dispatch and pickup?",
+        a: "They are genuinely different jobs, so they were separated before checkout instead of merged into one address field. Choosing the method first removes ambiguous addresses and surprise fees at the final step.",
+      },
+    ],
     next: "chef4me-chef",
   },
   {
@@ -157,6 +171,20 @@ export const projects = [
       {
         label: "A clear upgrade",
         text: "A premium flow that communicates value through the product itself rather than a feature list.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Why a web app for chefs instead of a phone app?",
+        a: "Chefs manage menus, orders and earnings at a desk or counter, often between services. A larger canvas keeps the whole business visible at once instead of burying it behind tabs on a phone.",
+      },
+      {
+        q: "How do you design a dashboard for someone who is also cooking?",
+        a: "By working at a glance. Clear hierarchy, generous spacing and a calm visual language mean the important numbers read from a counter, not a desk, and the interface never competes with the room it sits in.",
+      },
+      {
+        q: "How was Chef4Me Premium designed?",
+        a: "As an outcome rather than a feature list: a personalised storefront, business assets and a custom URL, shown in the product itself. Each screen answers what Premium would change for that chef.",
       },
     ],
     next: "brandit",
@@ -247,15 +275,29 @@ export const projects = [
         text: "A visual system drawn from Brandit's own DNA, carried consistently from homepage to checkout.",
       },
     ],
+    faqs: [
+      {
+        q: "Why move Brandit off WhatsApp?",
+        a: "Every WhatsApp order was a conversation someone had to have. A storefront lets customers browse, see prices and check out on their own, while keeping the warmth of the original relationship.",
+      },
+      {
+        q: "How did the design keep Brandit's personality?",
+        a: "The visual language came from the brand's own DNA: soft curves, confident colour and a calm layout. That system travelled from the homepage to product pages, account and checkout.",
+      },
+      {
+        q: "What changed at checkout?",
+        a: "A single page with a persistent order summary, visible shipping costs and familiar payment options. Nothing arrives as a surprise between the cart and the confirmation.",
+      },
+    ],
     next: "chef4me-web",
   },
   {
     slug: "chef4me-web",
     index: "04",
-    title: "Chef4me Web",
+    title: "Chef4me Web App",
     display: "Chef4me",
     displayAccent: "Web",
-    kind: "Food · Web App",
+    kind: "Food · User Web App",
     tone: "cream",
     discipline: "Product Design",
     year: "2024",
@@ -278,27 +320,36 @@ export const projects = [
         title: "Open by default",
         body:
           "No download, no account wall. Visitors land in the marketplace itself: cuisines, chefs, availability and prices. Every action available in the app is available here, so a first-time visitor can evaluate the product in seconds instead of installing something first.",
-        image: img("chef-web", "listing"),
-        alt: "Chef4me web marketplace listing chefs by cuisine",
-        note: "The marketplace is the landing page.",
+        image: img("chef-web", "access"),
+        alt: "Chef4me web marketplace with search, cuisine categories and chef listings",
+        note: "The marketplace is the home page: no wall between the visitor and the first chef.",
       },
       {
         eyebrow: "Discovery",
         title: "Search that understands intent",
         body:
           "People don't browse chefs by category; they arrive with a craving, a budget or a date. Search by name, cuisine, availability and proximity, with filters that stay out of the way until they're needed. The result is a shortlist that feels curated, not exhaustive.",
+        image: img("chef-web", "search"),
+        alt: "Chef4me web search with filter, cuisine categories and chef cards",
+        note: "One search field, six cuisines and the shortlist underneath.",
       },
       {
         eyebrow: "Connection",
         title: "The chef profile as the centre",
         body:
           "The chef profile became the centre of everything. It had to feel clear and welcoming for customers, while giving chefs room to show their story and work with confidence. Photos, reviews and bios came together to help customers trust the chef and take the next step.",
+        image: img("chef-web", "profile"),
+        alt: "Chef4me web storefront with a chef's menu and a dish detail panel",
+        note: "A chef's menu, story and order panel in one continuous page.",
       },
       {
         eyebrow: "Continuity",
         title: "Chat that keeps the thread",
         body:
           "Order a meal, hire a chef or request a quote. The built-in chat keeps every request and detail in one place, so nothing gets lost between the first message and the final confirmation.",
+        image: img("chef-web", "chat"),
+        alt: "Chef4me web chat open beside a chef's menu on a laptop",
+        note: "The thread sits next to the menu, so a message never loses its context.",
       },
     ],
     quote:
@@ -315,6 +366,20 @@ export const projects = [
       {
         label: "Trust",
         text: "Chef profiles that carry story, proof and personality in one place.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Why build a web app when Chef4me already had a mobile app?",
+        a: "The mobile app asks for a download before it gives any value. The web experience lets a first-time visitor evaluate chefs, prices and availability immediately, and treat signing up as a choice rather than a toll.",
+      },
+      {
+        q: "How does search work in the Chef4me web app?",
+        a: "People arrive with a craving, a budget or a date, not a category. Search covers chef name, cuisine, availability and proximity, with filters that stay out of the way until they are needed.",
+      },
+      {
+        q: "What did the chef profile have to do?",
+        a: "Carry trust. Photos, reviews, bios and the menu sit together so a customer can decide without a conversation, while the chat keeps the thread once they do want to talk.",
       },
     ],
     next: "bubble",
@@ -340,7 +405,7 @@ export const projects = [
       "In Nigeria's legal industry, many lawyers still manage cases, documents and communication through scattered channels: WhatsApp threads, email, handwritten notes. The result is poor collaboration, missed deadlines and information that disappears when someone leaves the room. Bubble was built as a conceptual law-tech product that centralises civil and criminal case handling into one system lawyers can trust.",
     challenge:
       "Lawyers work in teams, but their tools don't. Visibility, ownership and deadlines all live in different places.",
-    cover: null,
+    cover: "/assets/thumbs/bubble.webp",
     thumb: "/assets/thumbs/bubble.webp",
     chapters: [
       {
@@ -348,6 +413,8 @@ export const projects = [
         title: "One case, one source of truth",
         body:
           "Every matter is tracked from intake to final judgment (filing, hearing, ruling), with documents, notes and people attached to the stage they belong to. Nothing lives in a side conversation or someone's memory, and only the people who need to see a case can see it.",
+        image: "/assets/bubble/screen.webp",
+        alt: "Bubble case dashboard on a desktop monitor, listing civil and criminal matters",
         note: "Case stages mirror the real judicial process, not a generic kanban board.",
       },
       {
@@ -355,6 +422,8 @@ export const projects = [
         title: "Shared work, controlled access",
         body:
           "Lawyers often work in teams, yet traditional tools limit visibility. Bubble lets peers co-manage a matter, assign responsibilities and restrict access within one secure environment, so a junior can prepare without seeing everything, and a lead can review without chasing files.",
+        image: "/assets/bubble/team.webp",
+        alt: "Bubble clients view with portraits of everyone attached to a matter",
         note: "Roles and access are designed around how a chambers actually divides work.",
       },
       {
@@ -362,6 +431,8 @@ export const projects = [
         title: "Progress you can read",
         body:
           "Each case carries a dynamic report: what has happened, what is pending and where the delays are. A central reporting hub then compares across matters, so patterns surface before they become problems rather than after a client asks.",
+        image: "/assets/bubble/cases.webp",
+        alt: "Close-up of Bubble case cards with status labels and hearing dates",
         note: "Case-level detail rolls up into a firm-wide view.",
       },
       {
@@ -369,6 +440,8 @@ export const projects = [
         title: "Deadlines, tied to the case",
         body:
           "Task management sits at the core: deadlines, priorities and next actions tied directly to a case stage, connected to a calendar that follows court schedules. The interface answers the only question that matters on a busy morning: what needs me today?",
+        image: "/assets/bubble/deadlines.webp",
+        alt: "Bubble court calendar with hearings mapped across the month",
         note: "Tasks are never detached from the matter they belong to.",
       },
     ],
@@ -388,9 +461,27 @@ export const projects = [
         text: "Reporting that surfaces delays across cases before they turn into missed court dates.",
       },
     ],
+    faqs: [
+      {
+        q: "Why does legal case management need its own product in Nigeria?",
+        a: "Many chambers still run on WhatsApp threads, email and handwritten notes, so documents, ownership and deadlines live in different places. Bubble centralises civil and criminal matters into a single system.",
+      },
+      {
+        q: "How does Bubble handle access and permissions?",
+        a: "Every matter has roles attached to it. Peers co-manage a case, responsibilities are assigned explicitly, and access can be restricted so a junior can prepare without seeing everything.",
+      },
+      {
+        q: "How are deadlines connected to a case?",
+        a: "Tasks carry deadlines, priorities and next actions tied to a case stage, and roll into a calendar that follows court schedules. The home view answers one question: what needs me today?",
+      },
+    ],
     next: "chef4me-user",
   },
 ];
+
+// Chef4me Web is the user-facing web app: its own project, distinct from the
+// chef dashboard and the mobile user app.
+export const projects = catalogue;
 
 export const getProject = (slug) => projects.find((p) => p.slug === slug);
 export const getNextProject = (slug) => {

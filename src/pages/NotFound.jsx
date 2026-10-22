@@ -3,14 +3,14 @@ import Reveal from "../components/Reveal";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function NotFound() {
-  usePageMeta("Page not found");
+  usePageMeta("Page not found", undefined, { robots: "noindex, follow" });
 
   return (
     <section className="empty-page">
       <div className="shell">
         <p className="eyebrow">(404)</p>
         <Reveal as="h1" className="empty-page__title">
-          This page doesn&apos;t exist,
+          {"This page doesn't exist, "}
           <br />
           but let&apos;s <span className="serif">create</span> something that does.
         </Reveal>

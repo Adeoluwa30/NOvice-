@@ -12,9 +12,12 @@ function useLagosTime() {
       hour12: false,
     }).format(new Date());
 
-  const [time, setTime] = useState(format);
+  // Empty until the client mounts: a build-time clock would be both stale and a
+  // hydration mismatch once the prerendered HTML is reused.
+  const [time, setTime] = useState("");
 
   useEffect(() => {
+    setTime(format());
     const interval = window.setInterval(() => setTime(format()), 30000);
     return () => window.clearInterval(interval);
   }, []);
@@ -62,7 +65,7 @@ export default function Footer() {
           </div>
 
           <p className="footer__place">
-            <span className="dot" /> Lagos, Nigeria, {time} WAT
+            <span className="dot" />{` Lagos, Nigeria${time ? `, ${time} WAT` : ""}`}
           </p>
         </div>
 

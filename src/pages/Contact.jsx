@@ -5,6 +5,7 @@ import Reveal from "../components/Reveal";
 import Magnetic from "../components/Magnetic";
 import { faqs, site } from "../site";
 import { pageMeta } from "../data/meta";
+import { contactSchema } from "../data/schema";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 const topics = [
@@ -31,7 +32,9 @@ const topics = [
 ];
 
 export default function Contact() {
-  usePageMeta(pageMeta.contact.title, pageMeta.contact.description);
+  usePageMeta(pageMeta.contact.title, pageMeta.contact.description, {
+    schema: contactSchema(pageMeta.contact),
+  });
 
   const [copied, setCopied] = useState(false);
   const [topic, setTopic] = useState(topics[0]);
@@ -72,11 +75,11 @@ export default function Contact() {
           <div className="page-head__top">
             <p className="eyebrow">(Contact)</p>
             <p className="eyebrow">
-              <span className="dot" /> {site.availability}
+              <span className="dot" />{` ${site.availability}`}
             </p>
           </div>
           <Reveal as="h1" className="page-head__title">
-            Let&apos;s build, and
+            {"Let's build, and "}
             <br />
             <span className="serif">create</span> together.
           </Reveal>
@@ -116,7 +119,6 @@ export default function Contact() {
               <div className="chat__head">
                 <span className="chat__avatar" aria-hidden="true">
                   <span className="chat__mark">✳</span>
-                  <span className="chat__status" />
                 </span>
                 <div>
                   <p className="chat__name">Adeoluwa Adeoye</p>
@@ -128,7 +130,6 @@ export default function Contact() {
               <div className="chat__body">
                 <p className="chat__bubble chat__bubble--in">
                   Hey, thanks for stopping by. What brings you here?
-                  <span className="chat__time">now</span>
                 </p>
 
                 <div className="chat__chips" role="group" aria-label="Reason for your message">
@@ -146,12 +147,7 @@ export default function Contact() {
                 </div>
 
                 {message.trim() !== topic.text.trim() && (
-                  <p className="chat__bubble chat__bubble--out">
-                    {message}
-                    <span className="chat__time">
-                      now <span className="chat__ticks" aria-hidden="true">✓✓</span>
-                    </span>
-                  </p>
+                  <p className="chat__bubble chat__bubble--out">{message}</p>
                 )}
               </div>
 
@@ -186,7 +182,8 @@ export default function Contact() {
               <div className="contact-links">
                 {site.socials.map((social) => (
                   <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
-                    {social.label} <span aria-hidden="true">↗</span>
+                    {`${social.label} `}
+                    <span aria-hidden="true">↗</span>
                   </a>
                 ))}
                 <a href={`mailto:${site.email}`}>
@@ -208,7 +205,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <dt>Based in</dt>
-                  <dd>{site.location}, working with teams anywhere.</dd>
+                  <dd>{`${site.location}, working with teams anywhere.`}</dd>
                 </div>
               </dl>
             </Reveal>
@@ -258,7 +255,7 @@ export default function Contact() {
                       aria-expanded={open}
                       onClick={() => setOpenFaq(open ? -1 : i)}
                     >
-                      <span className="faq__n">0{i + 1}</span>
+                      <span className="faq__n">{`0${i + 1}`}</span>
                       <span className="faq__q">{item.q}</span>
                       <span className="faq__icon" aria-hidden="true" />
                     </button>

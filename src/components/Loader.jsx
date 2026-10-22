@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Logo from "./Logo";
 
-const DURATION = 1900;
+const DURATION = 1300;
 
 export default function Loader({ onDone }) {
   const [progress, setProgress] = useState(0);

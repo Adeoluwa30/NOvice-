@@ -7,13 +7,18 @@ import ProjectThumb from "../components/ProjectThumb";
 import CTA from "../components/CTA";
 import { getNextProject, getProject, projects } from "../data/projects";
 import { projectMeta } from "../data/meta";
+import { ogImageFor, projectSchema } from "../data/schema";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function Project() {
   const { slug } = useParams();
   const project = getProject(slug);
   const meta = project ? projectMeta(project) : { title: "Project not found" };
-  usePageMeta(meta.title, meta.description);
+  usePageMeta(meta.title, meta.description, {
+    type: "article",
+    image: ogImageFor(project),
+    schema: project ? projectSchema(project, meta) : undefined,
+  });
 
   if (!project) {
     return (
@@ -48,7 +53,7 @@ export default function Project() {
               ← All work
             </Link>
             <span className="eyebrow">
-              Case Study, {project.index} / {String(projects.length).padStart(2, "0")}
+              {`Case Study, ${project.index} / ${String(projects.length).padStart(2, "0")}`}
             </span>
           </div>
 
@@ -58,7 +63,7 @@ export default function Project() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            {project.display}{" "}
+            {`${project.display} `}
             {project.displayAccent && <span className="serif">{project.displayAccent}</span>}
           </motion.h1>
 
@@ -108,7 +113,12 @@ export default function Project() {
       </header>
 
       <figure className="case-cover">
-        <ProjectThumb project={project} eager sizes="100vw" />
+        <img
+          src={project.cover}
+          alt={`${project.title}, ${project.kind.toLowerCase()} case study cover`}
+          fetchPriority="high"
+          decoding="async"
+        />
       </figure>
 
       <div className="shell case-body">
@@ -187,7 +197,7 @@ export default function Project() {
           <div className="outcomes__list">
             {project.outcomes.map((item, i) => (
               <Reveal className="outcome" key={item.label} delay={i * 70}>
-                <span className="outcome__n">0{i + 1}</span>
+                <span className="outcome__n">{`0${i + 1}`}</span>
                 <h4>{item.label}</h4>
                 <p>{item.text}</p>
               </Reveal>
@@ -195,6 +205,37 @@ export default function Project() {
           </div>
         </section>
       </div>
+
+      {project.faqs?.length ? (
+        <section className="case-faq section">
+          <div className="shell case-faq__layout">
+            <div className="case-faq__head">
+              <p className="eyebrow">(Questions)</p>
+              <h2 className="case-faq__title">
+                About this <span className="serif">project.</span>
+              </h2>
+              <p className="case-faq__note">
+                The things people usually ask when this work comes up in a conversation.
+              </p>
+            </div>
+
+            <div className="case-faq__list">
+              {project.faqs.map((item, i) => (
+                <Reveal key={item.q} delay={i * 60}>
+                  <details className="case-faq__item" open={i === 0}>
+                    <summary>
+                      <span className="case-faq__n">{`0${i + 1}`}</span>
+                      <span className="case-faq__q">{item.q}</span>
+                      <span className="case-faq__icon" aria-hidden="true" />
+                    </summary>
+                    <p className="case-faq__a">{item.a}</p>
+                  </details>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="next-project">
         <div className="shell">
@@ -206,10 +247,11 @@ export default function Project() {
             <div className="next-project__text">
               <p className="eyebrow">(Next project)</p>
               <h2>
-                {next.display} <span className="serif">{next.displayAccent}</span>
+                {`${next.display} `}
+                <span className="serif">{next.displayAccent}</span>
               </h2>
               <p className="next-project__meta">
-                {next.kind}, {next.year}
+                {`${next.kind}, ${next.year}`}
               </p>
             </div>
             <div className="next-project__media">

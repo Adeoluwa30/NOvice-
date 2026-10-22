@@ -10,15 +10,26 @@ const metaColors = {
 };
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    if (typeof document === "undefined") return "dark";
-    const current = document.documentElement.getAttribute("data-theme");
-    return themes.includes(current) ? current : "dark";
-  });
+  // Always start on the server's value so the first client render matches the
+  // prerendered HTML. The stored theme is applied in the effect below; reading
+  // it here would change the active swatch mid-hydration and force React to
+  // throw the server markup away.
+  const [theme, setThemeState] = useState("dark");
+  const [ready, setReady] = useState(false);
 
   const firstRun = useRef(true);
 
   useEffect(() => {
+    const current = document.documentElement.getAttribute("data-theme");
+    if (themes.includes(current) && current !== "dark") setThemeState(current);
+    setReady(true);
+  }, []);
+
+  useEffect(() => {
+    // The inline script in index.html has already painted the stored theme, so
+    // there is nothing to write until we know which theme that was.
+    if (!ready) return undefined;
+
     const root = document.documentElement;
 
     // Cross-fade the palette instead of swapping it instantly. The class is
@@ -44,10 +55,10 @@ export function ThemeProvider({ children }) {
       if (timer) window.clearTimeout(timer);
       root.classList.remove("theme-anim");
     };
-  }, [theme]);
+  }, [theme, ready]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, themes }}>
+    <ThemeContext.Provider value={{ theme, setTheme: setThemeState, themes }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -39,9 +39,9 @@
   --font-body: "Raleway", system-ui, -apple-system, sans-serif;
   --font-serif: "Big Shoulders Display", "Arial Narrow", sans-serif;
 
-  --step--1: clamp(10px, 0.72vw, 11px);
-  --step-0: clamp(14px, 1vw, 16px);
-  --step-1: clamp(17px, 1.35vw, 22px);
+  --step--1: clamp(11px, 0.78vw, 12px);
+  --step-0: clamp(15px, 1.05vw, 17px);
+  --step-1: clamp(18px, 1.4vw, 22px);
   --step-2: clamp(22px, 2.1vw, 34px);
   --step-3: clamp(30px, 3.4vw, 52px);
   --step-4: clamp(38px, 5.4vw, 84px);
@@ -63,7 +63,7 @@
   --surface: #161618;
   --fg: #f1eee8;
   --fg-soft: #c3c0ba;
-  --muted: rgba(241, 238, 232, 0.5);
+  --muted: rgba(241, 238, 232, 0.64);
   --line: rgba(241, 238, 232, 0.14);
   --line-strong: rgba(241, 238, 232, 0.32);
   --accent: #e3063b;
@@ -79,7 +79,7 @@
   --surface: #e4dfd3;
   --fg: #0d0d0e;
   --fg-soft: #3f3d3a;
-  --muted: rgba(13, 13, 14, 0.54);
+  --muted: rgba(13, 13, 14, 0.64);
   --line: rgba(13, 13, 14, 0.16);
   --line-strong: rgba(13, 13, 14, 0.34);
   --accent: #d90430;
@@ -95,7 +95,7 @@
   --surface: #c50433;
   --fg: #140507;
   --fg-soft: #2b070a;
-  --muted: rgba(20, 5, 7, 0.76);
+  --muted: rgba(20, 5, 7, 0.82);
   --line: rgba(20, 5, 7, 0.24);
   --line-strong: rgba(20, 5, 7, 0.44);
   --accent: #140507;
@@ -118,6 +118,7 @@ html {
   -webkit-text-size-adjust: 100%;
   background: var(--bg);
   overflow-x: clip;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -127,18 +128,23 @@ body {
   color: var(--fg);
   font-family: var(--font-body);
   font-size: var(--step-0);
-  font-weight: 300;
-  line-height: 1.5;
+  font-weight: 400;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
   transition: background-color 0.5s var(--ease), color 0.5s var(--ease);
 }
 
-body.is-locked,
-body.menu-open {
+body.is-locked {
   overflow: hidden;
   height: 100dvh;
+}
+
+/* Locked by pausing smooth scroll, not by collapsing the document: a changed
+   body height resets the page to the top when the menu opens. */
+body.menu-open {
+  overflow: hidden;
 }
 
 h1,
@@ -402,9 +408,10 @@ button {
 ------------------------------------------------------------------ */
 .reveal {
   opacity: 0;
-  transform: translateY(26px);
-  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  transform: translateY(38px);
+  transition: opacity 1.1s var(--ease), transform 1.15s var(--ease);
   transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
 }
 
 .reveal.is-in {
@@ -650,7 +657,11 @@ button {
   padding-inline: var(--gutter);
   border-bottom: 1px solid transparent;
   transition: background-color 0.4s var(--ease), border-color 0.4s var(--ease),
-    backdrop-filter 0.4s;
+    backdrop-filter 0.4s, transform 0.5s var(--ease);
+}
+
+.nav.is-hidden {
+  transform: translateY(-101%);
 }
 
 .nav::before {
@@ -739,10 +750,7 @@ button {
 .theme-switch {
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 4px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
+  gap: 9px;
 }
 
 .theme-switch__dot {
@@ -787,8 +795,8 @@ button {
 }
 
 .theme-switch--large {
-  padding: 6px;
-  gap: 8px;
+  padding: 2px 0;
+  gap: 14px;
 }
 
 .theme-switch--large .theme-switch__dot {
@@ -841,7 +849,8 @@ button {
   inset: 0;
   z-index: 85;
   background: var(--bg);
-  padding: calc(var(--nav-h) + 32px) var(--gutter) 28px;
+  padding: calc(var(--nav-h) + clamp(24px, 5vh, 64px)) var(--gutter)
+    clamp(24px, 4vh, 48px);
   display: flex;
   flex-direction: column;
   clip-path: inset(0 0 100% 0);
@@ -868,11 +877,11 @@ button {
 
 .menu__links a {
   font-family: var(--font-display);
-  font-size: clamp(48px, 15vw, 96px);
+  font-size: clamp(44px, 9vw, 132px);
   font-weight: 700;
-  line-height: 0.95;
+  line-height: 0.92;
   text-transform: uppercase;
-  padding: 12px 0;
+  padding: clamp(10px, 1.7vh, 24px) 0;
   border-bottom: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
@@ -890,7 +899,7 @@ button {
 
 .menu__foot {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   padding-top: 24px;
   border-top: 1px solid var(--line);
@@ -904,6 +913,16 @@ button {
 .menu__socials {
   display: flex;
   gap: 14px;
+}
+
+.menu__email {
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 2px;
+  transition: border-color 0.3s var(--ease);
+}
+
+.menu__email:hover {
+  border-color: var(--accent);
 }
 
 /* ------------------------------------------------------------------
@@ -1109,11 +1128,19 @@ body.is-locked .marquee__track {
 }
 
 .intro__statement {
-  max-width: 26ch;
-  font-size: var(--step-3);
-  font-weight: 300;
-  line-height: 1.08;
+  max-width: 30ch;
+  font-size: clamp(32px, 3.5vw, 56px);
+  font-weight: 400;
+  line-height: 1.12;
   letter-spacing: -0.02em;
+}
+
+.intro__accent {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 500;
+  text-transform: none;
+  color: inherit;
 }
 
 .intro__row {
@@ -1149,9 +1176,9 @@ body.is-locked .marquee__track {
 
 .project-row {
   display: grid;
-  grid-template-columns: 84px 46px minmax(0, 1fr) 180px 56px 24px;
+  grid-template-columns: 46px minmax(0, 1fr) 24px;
   align-items: center;
-  gap: clamp(10px, 1.4vw, 20px);
+  gap: clamp(12px, 1.6vw, 24px);
   padding: clamp(14px, 1.9vw, 24px) 0;
   border-bottom: 1px solid var(--line);
   position: relative;
@@ -1242,8 +1269,8 @@ body.is-locked .marquee__track {
 
 .project-row__title {
   font-family: var(--font-display);
-  font-size: clamp(32px, 4.5vw, 70px);
-  font-weight: 600;
+  font-size: clamp(34px, 4.8vw, 76px);
+  font-weight: 700;
   line-height: 0.92;
   text-transform: uppercase;
   transition: color 0.35s var(--ease), transform 0.5s var(--ease);
@@ -1432,7 +1459,7 @@ body.is-locked .marquee__track {
 
 .exp-row__role {
   font-size: var(--step-1);
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .exp-row__company {
@@ -1456,9 +1483,9 @@ body.is-locked .marquee__track {
   font-family: var(--font-display);
   font-size: clamp(48px, 9.4vw, 168px);
   font-weight: 700;
-  line-height: 0.82;
+  line-height: 0.96;
   text-transform: uppercase;
-  margin: clamp(20px, 3vw, 32px) 0 clamp(32px, 4vw, 56px);
+  margin: clamp(18px, 2.4vw, 28px) 0 clamp(20px, 2.4vw, 30px);
 }
 
 .cta__row {
@@ -1480,8 +1507,19 @@ body.is-locked .marquee__track {
 .footer {
   border-top: 1px solid var(--line);
   background: var(--bg-2);
-  padding-top: clamp(30px, 4.4vw, 58px);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(36px, 4.6vw, 64px);
   padding-bottom: 18px;
+}
+
+.footer > .shell {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 1 auto;
 }
 
 .footer__top {
@@ -1653,8 +1691,8 @@ body.is-locked .marquee__track {
    Page heads
 ------------------------------------------------------------------ */
 .page-head {
-  padding-top: calc(var(--nav-h) + clamp(56px, 9vh, 120px));
-  padding-bottom: clamp(44px, 6vw, 88px);
+  padding-top: calc(var(--nav-h) + clamp(28px, 4.6vh, 62px));
+  padding-bottom: clamp(40px, 5vw, 76px);
 }
 
 .page-head__top {
@@ -1683,8 +1721,8 @@ body.is-locked .marquee__track {
   max-width: 52ch;
   margin-top: clamp(24px, 3vw, 40px);
   font-size: var(--step-1);
-  font-weight: 300;
-  line-height: 1.5;
+  font-weight: 400;
+  line-height: 1.65;
   color: var(--fg-soft);
 }
 
@@ -1882,8 +1920,8 @@ body.is-locked .marquee__track {
 .case-hero__tagline {
   max-width: 30ch;
   font-size: var(--step-2);
-  font-weight: 300;
-  line-height: 1.28;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 .meta-grid {
@@ -1940,8 +1978,8 @@ body.is-locked .marquee__track {
 .case-lede {
   max-width: 46ch;
   font-size: clamp(21px, 2.3vw, 36px);
-  font-weight: 300;
-  line-height: 1.38;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 .case-challenge {
@@ -2031,6 +2069,42 @@ body.is-locked .marquee__track {
   aspect-ratio: 16 / 10;
   overflow: hidden;
   background: var(--surface);
+}
+
+/* On a large screen the case-study visual should hold the viewport, not sit in
+   it as a card: the text keeps a readable measure and the screenshot below it
+   takes the full page width at its own proportions. */
+@media (min-width: 961px) {
+  .chapter,
+  .chapter--reverse {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .chapter__head,
+  .chapter--reverse .chapter__head {
+    order: 1;
+    max-width: 62ch;
+  }
+
+  .chapter__media,
+  .chapter--reverse .chapter__media {
+    order: 2;
+    margin-top: clamp(30px, 3.4vw, 56px);
+  }
+
+  .chapter__figure {
+    aspect-ratio: 16 / 9;
+  }
+
+  .chapter__figure--tall {
+    aspect-ratio: 9 / 14;
+  }
+
+  .chapter__duo {
+    max-width: 780px;
+    margin-inline: auto;
+  }
 }
 
 .chapter__media figcaption {
@@ -2270,8 +2344,8 @@ body.is-locked .marquee__track {
 .about-intro__note {
   max-width: 40ch;
   font-size: var(--step-1);
-  font-weight: 300;
-  line-height: 1.55;
+  font-weight: 400;
+  line-height: 1.65;
   color: var(--fg-soft);
 }
 
@@ -2354,8 +2428,8 @@ body.is-locked .marquee__track {
 .about-story__lead {
   max-width: 32ch;
   font-size: var(--step-2);
-  font-weight: 300;
-  line-height: 1.24;
+  font-weight: 400;
+  line-height: 1.3;
 }
 
 .about-story__cols {
@@ -2540,7 +2614,7 @@ body.is-locked .marquee__track {
 
 .chat {
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: 26px;
   background: var(--surface);
   overflow: hidden;
 }
@@ -2548,8 +2622,8 @@ body.is-locked .marquee__track {
 .chat__head {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
+  gap: 14px;
+  padding: 20px 24px;
   border-bottom: 1px solid var(--line);
   background: color-mix(in srgb, var(--bg) 55%, transparent);
 }
@@ -2603,23 +2677,19 @@ body.is-locked .marquee__track {
 .chat__body {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 18px 16px;
-  background-image: radial-gradient(
-    circle at 15% 10%,
-    color-mix(in srgb, var(--accent) 12%, transparent),
-    transparent 58%
-  );
+  gap: 16px;
+  padding: 30px 24px;
+  background: var(--bg);
 }
 
 .chat__bubble {
-  max-width: 86%;
-  padding: 10px 12px 8px;
+  max-width: 82%;
+  padding: 15px 18px;
   border: 1px solid var(--line);
-  border-radius: 12px 12px 12px 4px;
-  background: var(--bg);
-  font-size: 13.5px;
-  line-height: 1.55;
+  border-radius: 18px 18px 18px 6px;
+  background: var(--bg-2);
+  font-size: 14px;
+  line-height: 1.6;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
@@ -2627,7 +2697,7 @@ body.is-locked .marquee__track {
 .chat__bubble--out {
   align-self: flex-end;
   border-color: transparent;
-  border-radius: 12px 12px 4px 12px;
+  border-radius: 18px 18px 6px 18px;
   background: var(--accent);
   color: var(--accent-contrast);
 }
@@ -2649,15 +2719,15 @@ body.is-locked .marquee__track {
 .chat__chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  padding-top: 2px;
+  gap: 8px;
+  padding-top: 6px;
 }
 
 .chat__chip {
   border: 1px solid var(--line-strong);
   border-radius: 999px;
-  padding: 8px 13px;
-  font-size: 10px;
+  padding: 10px 16px;
+  font-size: 10.5px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -2680,23 +2750,23 @@ body.is-locked .marquee__track {
 .chat__composer {
   display: flex;
   align-items: flex-end;
-  gap: 10px;
-  padding: 12px;
+  gap: 12px;
+  padding: 18px;
   border-top: 1px solid var(--line);
   background: var(--bg-2);
 }
 
 .chat__input {
   flex: 1;
-  min-height: 58px;
-  padding: 10px 12px;
+  min-height: 88px;
+  padding: 14px 16px;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 14px;
   background: var(--bg);
   color: var(--fg);
   font: inherit;
-  font-size: 13.5px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.6;
   resize: none;
 }
 
@@ -2709,12 +2779,12 @@ body.is-locked .marquee__track {
 .chat__send {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 13px 16px;
+  gap: 10px;
+  padding: 16px 22px;
   border-radius: 999px;
   background: var(--accent);
   color: var(--accent-contrast);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -2727,9 +2797,160 @@ body.is-locked .marquee__track {
 }
 
 .chat__hint {
-  padding: 0 16px 14px;
-  font-size: 10px;
+  padding: 0 24px 20px;
+  font-size: 10.5px;
+  line-height: 1.6;
   color: var(--muted);
+}
+
+/* ------------------------------------------------------------------
+   Case study FAQ
+------------------------------------------------------------------ */
+.case-faq {
+  border-top: 1px solid var(--line);
+}
+
+.case-faq__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(28px, 5vw, 84px);
+  align-items: start;
+}
+
+.case-faq__title {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.4vw, 56px);
+  font-weight: 700;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+.case-faq__note {
+  max-width: 32ch;
+  margin-top: 18px;
+  color: var(--fg-soft);
+  line-height: 1.7;
+}
+
+.case-faq__list {
+  border-top: 1px solid var(--line);
+}
+
+.case-faq__item {
+  border-bottom: 1px solid var(--line);
+}
+
+.case-faq__item summary {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: 24px 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.case-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.case-faq__n {
+  flex: 0 0 auto;
+  width: 26px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.case-faq__q {
+  padding-right: 24px;
+  font-weight: 500;
+}
+
+.case-faq__icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  align-self: center;
+}
+
+.case-faq__icon::before,
+.case-faq__icon::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.3s var(--ease);
+}
+
+.case-faq__icon::after {
+  transform: rotate(90deg);
+}
+
+.case-faq__item[open] .case-faq__icon::after {
+  transform: rotate(0deg);
+}
+
+.case-faq__a {
+  max-width: 64ch;
+  padding: 0 0 26px 44px;
+  color: var(--fg-soft);
+  line-height: 1.75;
+}
+
+/* ------------------------------------------------------------------
+   Project hover preview
+------------------------------------------------------------------ */
+.project-peek {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 70;
+  width: min(300px, 24vw);
+  aspect-ratio: 4 / 3;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--surface);
+  box-shadow: 0 36px 70px -34px rgba(0, 0, 0, 0.65);
+  transform: translate3d(-9999px, -9999px, 0);
+  transition: opacity 0.3s var(--ease);
+  will-change: transform;
+}
+
+.project-peek.is-on {
+  opacity: 1;
+}
+
+.project-peek img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (hover: none) {
+  .project-peek {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .case-faq__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .case-faq__a {
+    padding-left: 0;
+  }
+
+  .case-faq__item summary {
+    gap: 12px;
+    padding: 20px 0;
+  }
 }
 
 .contact-side {
@@ -2843,8 +3064,8 @@ body.is-locked .marquee__track {
 
 .faq__q {
   font-size: clamp(17px, 1.9vw, 27px);
-  font-weight: 300;
-  line-height: 1.3;
+  font-weight: 400;
+  line-height: 1.35;
   transition: color 0.3s var(--ease);
 }
 
@@ -4314,33 +4535,35 @@ html.theme-anim *::after {
   }
 
   .chat__head {
-    padding: 12px 14px;
+    padding: 16px 18px;
   }
 
   .chat__body {
-    padding: 14px;
+    padding: 20px 18px;
+    gap: 14px;
   }
 
   .chat__bubble {
     max-width: 92%;
-    font-size: 13px;
+    font-size: 14px;
+    padding: 14px 16px;
   }
 
   .chat__chip {
-    padding: 8px 11px;
-    font-size: 9px;
-    min-height: 34px;
+    padding: 10px 14px;
+    font-size: 10px;
+    min-height: 38px;
   }
 
   .chat__composer {
     flex-direction: column;
     align-items: stretch;
-    gap: 8px;
-    padding: 10px;
+    gap: 10px;
+    padding: 12px;
   }
 
   .chat__input {
-    min-height: 70px;
+    min-height: 96px;
     font-size: 14px;
   }
 
@@ -4351,9 +4574,9 @@ html.theme-anim *::after {
   }
 
   .chat__hint {
-    padding: 0 14px 12px;
-    font-size: 9px;
-    line-height: 1.5;
+    padding: 0 18px 16px;
+    font-size: 10px;
+    line-height: 1.6;
   }
 
   .contact-side {
@@ -4655,4 +4878,461 @@ html.theme-anim *::after {
   font-size: 14px;
   line-height: 1;
   color: var(--accent-contrast);
+}
+
+/* ------------------------------------------------------------------
+   Mobile-first rhythm, legibility and hero
+   Kept at the end so it wins over the earlier breakpoints.
+------------------------------------------------------------------ */
+@media (max-width: 960px) {
+  /* The theme picker lives in the menu, not in the header. */
+  .nav .theme-switch {
+    display: none;
+  }
+
+  .nav__right {
+    gap: 0;
+  }
+
+  .hero {
+    /* Large viewport unit: the about section can never peek in when a phone's
+       browser chrome collapses. */
+    height: 100svh;
+    height: 100lvh;
+    min-height: 100lvh;
+    padding-top: var(--nav-h);
+    padding-bottom: 0;
+  }
+
+  .hero__stage {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero__type {
+    width: 100%;
+    margin: 0;
+    gap: 0;
+    justify-content: center;
+  }
+
+  .hero__line {
+    font-size: clamp(64px, min(54vw, 30vh), 260px);
+    line-height: 0.86;
+    letter-spacing: -0.008em;
+  }
+
+  .hero__portrait {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(150px, min(60vw, 38vh), 300px);
+    margin: 0;
+    z-index: 3;
+  }
+
+  .hero__portrait-frame {
+    box-shadow: 0 34px 80px -34px rgba(0, 0, 0, 0.95);
+  }
+}
+
+@media (max-width: 720px) {
+  body {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  /* Every section owns a screen, with air above and below. */
+  .section {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(56px, 11vh, 110px);
+  }
+
+  .page-head {
+    padding-top: calc(var(--nav-h) + 26px);
+    padding-bottom: clamp(32px, 6vh, 60px);
+  }
+
+  .page-head > .shell {
+    width: 100%;
+  }
+
+  .page-head__title {
+    font-size: clamp(40px, 11.8vw, 60px);
+    line-height: 0.92;
+  }
+
+  .page-head__lede {
+    margin-top: 22px;
+    font-size: 17.5px;
+    line-height: 1.7;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+
+  .link-arrow {
+    font-size: 11px;
+  }
+
+  .section-head {
+    align-items: center;
+    padding-top: 18px;
+    margin-bottom: clamp(26px, 5vw, 42px);
+  }
+
+  /* Home intro */
+  .intro__grid {
+    gap: 20px;
+  }
+
+  .intro__statement {
+    max-width: none;
+    font-size: clamp(27px, 8.2vw, 38px);
+    line-height: 1.24;
+    font-weight: 400;
+  }
+
+  .intro__row {
+    margin-top: 30px;
+  }
+
+  /* Selected projects */
+  .work__title {
+    font-size: clamp(38px, 12vw, 56px);
+    line-height: 0.9;
+    margin-bottom: 26px;
+  }
+
+  .project-row {
+    grid-template-columns: 28px minmax(0, 1fr) 20px;
+    gap: 10px;
+    padding: 20px 0;
+  }
+
+  .project-row__index {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .project-row__title {
+    font-size: clamp(31px, 9.6vw, 46px);
+    line-height: 0.95;
+    font-weight: 700;
+  }
+
+  .project-row__arrow {
+    font-size: 16px;
+  }
+
+  .work__note {
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .work__note p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* Manifesto */
+  .manifesto__text {
+    font-size: clamp(30px, 8.4vw, 42px);
+    line-height: 1.26;
+    font-weight: 600;
+  }
+
+  .manifesto__sign {
+    margin-top: 26px;
+    font-size: 22px;
+  }
+
+  /* Capabilities */
+  .cap-row {
+    padding: 22px 0;
+    gap: 10px 14px;
+  }
+
+  .cap-row__title {
+    font-size: clamp(25px, 7.6vw, 32px);
+  }
+
+  .cap-row__blurb {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .cap-row__tags li {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+
+  /* Experience */
+  .exp-row {
+    gap: 6px;
+    padding: 18px 0;
+  }
+
+  .exp-row__period {
+    font-size: 11px;
+  }
+
+  .exp-row__role {
+    font-size: 19px;
+  }
+
+  .exp-row__company {
+    font-size: 21px;
+  }
+
+  /* Credentia */
+  .credentia__blurb {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .credentia__role {
+    font-size: 11px;
+  }
+
+  /* About */
+  .about-intro {
+    gap: 26px;
+  }
+
+  .about-intro__lead {
+    max-width: none;
+    font-size: clamp(29px, 8.6vw, 40px);
+    line-height: 1.25;
+  }
+
+  .about-intro__note,
+  .about-story__cols p,
+  .principles .principle p {
+    font-size: 16.5px;
+    line-height: 1.7;
+  }
+
+  .about-story {
+    gap: 26px;
+    margin-top: 44px;
+    padding-top: 26px;
+  }
+
+  .about-story__lead {
+    max-width: none;
+    font-size: 24px;
+    line-height: 1.35;
+  }
+
+  .about-story__cols {
+    gap: 18px;
+  }
+
+  .about-story__close {
+    font-size: 30px;
+    line-height: 1.15;
+  }
+
+  .about-facts dt {
+    font-size: 11px;
+  }
+
+  .about-facts dd {
+    font-size: 15px;
+  }
+
+  .journey__role {
+    font-size: 24px;
+  }
+
+  .journey__period {
+    font-size: 11px;
+  }
+
+  .journey__note {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .principle h3 {
+    font-size: 26px;
+  }
+
+  /* Contact */
+  .contact-chat__note,
+  .contact-col__note {
+    font-size: 16.5px;
+    line-height: 1.65;
+  }
+
+  .chat__name {
+    font-size: 15px;
+  }
+
+  .chat__meta {
+    font-size: 11.5px;
+  }
+
+  .chat__channel {
+    font-size: 10px;
+  }
+
+  .chat__bubble {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .chat__input {
+    font-size: 16px;
+  }
+
+  .chat__hint {
+    font-size: 11px;
+  }
+
+  .contact-links a {
+    font-size: 16px;
+  }
+
+  .contact-email {
+    font-size: clamp(20px, 5.8vw, 27px);
+    font-weight: 500;
+  }
+
+  .contact-facts dt {
+    font-size: 11px;
+  }
+
+  .contact-facts dd {
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+
+  .faq__title {
+    font-size: clamp(34px, 10vw, 44px);
+  }
+
+  .faq__q {
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  .faq__answer p {
+    padding-left: 0;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .faq__note {
+    font-size: 13.5px;
+  }
+
+  /* Case studies */
+  .case-lede {
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  .chapter__body {
+    font-size: 16.5px;
+    line-height: 1.7;
+  }
+
+  .case-quote__text {
+    font-size: clamp(24px, 7.6vw, 34px);
+    line-height: 1.22;
+  }
+
+  .outcome p {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .case-hero__tagline {
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  /* CTA: tight leading, less gap to the note */
+  .cta__title {
+    font-size: clamp(42px, 13vw, 64px);
+    line-height: 1;
+    margin: 16px 0 20px;
+  }
+
+  .cta__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+
+  .cta__note {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  /* Footer: a full screen, quietly */
+  .footer {
+    padding-top: clamp(48px, 11vh, 96px);
+    padding-bottom: 24px;
+  }
+
+  .footer__top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 26px;
+    padding-bottom: 30px;
+  }
+
+  .footer__logo svg {
+    width: 44px;
+    height: 44px;
+  }
+
+  .footer__mail {
+    width: 100%;
+    justify-content: space-between;
+    font-size: clamp(22px, 6.6vw, 32px);
+  }
+
+  .footer__mail-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 15px;
+  }
+
+  .footer__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+    padding-block: 28px;
+  }
+
+  .footer__nav {
+    gap: 22px;
+    font-size: 13px;
+  }
+
+  .footer__socials {
+    gap: 12px 20px;
+    font-size: 12px;
+  }
+
+  .footer__place {
+    font-size: 11px;
+  }
+
+  .footer__bottom {
+    font-size: 11px;
+  }
 }

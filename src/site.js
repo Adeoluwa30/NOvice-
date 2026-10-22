@@ -12,6 +12,7 @@ export const site = {
   availabilityNote: "Available for select projects, collaborations and full-time roles.",
   socials: [
     { label: "LinkedIn", href: "https://linkedin.com/in/deoluwadeoye" },
+    { label: "Twitter", href: "https://x.com/deoluwa30" },
     { label: "Behance", href: "https://www.behance.net/adeoluwaadeoye" },
   ],
 };

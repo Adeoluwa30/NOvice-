@@ -14,7 +14,7 @@ export const pageMeta = {
   work: {
     title: "Projects",
     description:
-      "Selected product design work by Adeoluwa Adeoye: Chef4me, Brandit, Bubble and more.",
+      "Selected product design work by Adeoluwa Adeoye: Chef4me User, Chef4me Chef, Chef4me Web App, Brandit and Bubble.",
   },
   about: {
     title: "About",

@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Loader from "./components/Loader";
 import Nav from "./components/Nav";
@@ -7,12 +6,10 @@ import Footer from "./components/Footer";
 import Cursor from "./components/Cursor";
 import RouteWipe from "./components/RouteWipe";
 import { useLenis } from "./hooks/useLenis";
-import Home from "./pages/Home";
-import Work from "./pages/Work";
-import Project from "./pages/Project";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
+
+// Each page is its own chunk. A visitor reading the home page never downloads
+// the case-study template, and the loader covers the first chunk request.
+import { PageView } from "./pages/registry";
 
 const labelFor = (pathname) => {
   if (pathname === "/") return "Index";
@@ -24,13 +21,39 @@ const labelFor = (pathname) => {
 };
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
+  // The intro is a first-impression moment, not a tax on every visit: repeats
+  // within the same session go straight to the page.
+  const [loading, setLoading] = useState(() => {
+    if (typeof window === "undefined") return false;
+    // A prerendered page is already on screen, so an intro overlay would only
+    // hide content the visitor can already read.
+    if (window.__ADE_PRERENDERED) return false;
+    try {
+      return !window.sessionStorage.getItem("ade-visited");
+    } catch (error) {
+      return true;
+    }
+  });
+  // The intro is a client-only flourish: showing it during the server render
+  // would put loader markup in the prerendered page and break hydration.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const location = useLocation();
   useLenis();
 
+  const finishLoading = () => {
+    setLoading(false);
+    try {
+      window.sessionStorage.setItem("ade-visited", "1");
+    } catch (error) {
+      /* storage can be unavailable in private mode */
+    }
+  };
+
   return (
     <>
-      {loading && <Loader onDone={() => setLoading(false)} />}
+      {mounted && loading && <Loader onDone={finishLoading} />}
 
       <a className="skip-link" href="#main">
         Skip to content
@@ -38,27 +61,21 @@ export default function App() {
 
       <Cursor />
       <Nav />
-      <RouteWipe key={location.pathname} label={labelFor(location.pathname)} />
+      <RouteWipe key={`wipe-${location.pathname}`} label={labelFor(location.pathname)} />
 
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.main
-          id="main"
-          key={location.pathname}
-          initial={{ opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <Routes location={location}>
-            <Route path="/" element={<Home />} />
-            <Route path="/work" element={<Work />} />
-            <Route path="/work/:slug" element={<Project />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </motion.main>
-      </AnimatePresence>
+      {/* The route wipe covers the page swap, so the content itself does not
+          need an exit animation (which also kept hydrated pages from ever
+          completing a navigation). */}
+      <main id="main" key={`page-${location.pathname}`}>
+        <Routes location={location}>
+          <Route path="/" element={<PageView name="Home" />} />
+          <Route path="/work" element={<PageView name="Work" />} />
+          <Route path="/work/:slug" element={<PageView name="Project" />} />
+          <Route path="/about" element={<PageView name="About" />} />
+          <Route path="/contact" element={<PageView name="Contact" />} />
+          <Route path="*" element={<PageView name="NotFound" />} />
+        </Routes>
+      </main>
 
       <Footer />
       <div className="grain" aria-hidden="true" />

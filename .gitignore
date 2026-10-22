@@ -10,3 +10,6 @@ dist
 artifacts/
 Logo 1L.png
 Logo 2L.png
+dist-ssr
+
+.preview/

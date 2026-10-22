@@ -7,13 +7,14 @@ import ProjectIndex from "../components/ProjectIndex";
 import CTA from "../components/CTA";
 import { projects } from "../data/projects";
 import { capabilities, credentia, experience } from "../site";
+import { homeSchema } from "../data/schema";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 function Word({ children, progress, range }) {
   const opacity = useTransform(progress, range, [0.16, 1]);
   return (
     <motion.span className="word" style={{ opacity }}>
-      {children}{" "}
+      {`${children} `}
     </motion.span>
   );
 }
@@ -42,7 +43,7 @@ function ScrollStatement({ text }) {
 }
 
 export default function Home() {
-  usePageMeta();
+  usePageMeta(undefined, undefined, { schema: homeSchema() });
 
   return (
     <>
@@ -80,9 +81,14 @@ export default function Home() {
           <figure className="hero__portrait">
             <div className="hero__portrait-frame">
               <img
-                src="/assets/portrait.jpg"
+                src="/assets/portrait-1100.webp"
+                srcSet="/assets/portrait-700.webp 700w, /assets/portrait-1100.webp 1100w, /assets/portrait-1400.webp 1400w"
+                sizes="(max-width: 960px) 60vw, 340px"
+                width="1400"
+                height="1874"
                 alt="Adeoluwa Adeoye, interface and experience designer"
                 fetchPriority="high"
+                decoding="async"
               />
             </div>
           </figure>
@@ -94,10 +100,10 @@ export default function Home() {
           <p className="eyebrow">(01) About</p>
           <div className="intro__content">
             <Reveal as="p" className="intro__statement">
-              I&apos;m a designer who likes the{" "}
-              <span className="serif serif--plain">in&#8209;between</span>: the place where a
-              business problem becomes a flow, a flow becomes an interface, and an interface starts
-              to feel like a product people trust.
+              {"I'm a designer who likes the "}
+              <em className="intro__accent">in&#8209;between</em>: the place where a business
+              problem becomes a flow, a flow becomes an interface, and an interface starts to feel
+              like a product people trust.
             </Reveal>
 
             <Reveal className="intro__row" delay={120}>
@@ -158,7 +164,7 @@ export default function Home() {
             {capabilities.map((item, i) => (
               <Reveal key={item.title} delay={i * 70}>
                 <div className="cap-row" data-cursor="+">
-                  <span className="cap-row__index">({item.index})</span>
+                  <span className="cap-row__index">{`(${item.index})`}</span>
                   <h3 className="cap-row__title">{item.title}</h3>
                   <p className="cap-row__blurb">{item.blurb}</p>
                   <ul className="cap-row__tags">
