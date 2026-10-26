@@ -4,6 +4,7 @@ import ScrollProgress from "../components/ScrollProgress";
 import Parallax from "../components/Parallax";
 import Reveal from "../components/Reveal";
 import ProjectThumb from "../components/ProjectThumb";
+import SlideText from "../components/SlideText";
 import CTA from "../components/CTA";
 import { getNextProject, getProject, projects } from "../data/projects";
 import { projectMeta } from "../data/meta";
@@ -32,8 +33,10 @@ export default function Project() {
             The case study may have moved. Have a look at everything else instead.
           </p>
           <Link to="/work" className="btn btn--solid">
-            <span>All work</span>
-            <span className="btn__arrow">↗</span>
+            <SlideText mode="word">All work</SlideText>
+            <span className="btn__arrow" aria-hidden="true">
+              ↗
+            </span>
           </Link>
         </div>
       </section>
@@ -50,7 +53,7 @@ export default function Project() {
         <div className="shell">
           <div className="case-hero__top">
             <Link to="/work" className="back-link" data-cursor="Back">
-              ← All work
+              <SlideText mode="word">← All work</SlideText>
             </Link>
             <span className="eyebrow">
               {`Case Study, ${project.index} / ${String(projects.length).padStart(2, "0")}`}

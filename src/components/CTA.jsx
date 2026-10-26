@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Reveal from "./Reveal";
 import Magnetic from "./Magnetic";
+import SlideText from "./SlideText";
 import { site } from "../site";
 
 export default function CTA() {
@@ -18,8 +19,10 @@ export default function CTA() {
             <p className="cta__note">{site.availabilityNote}</p>
             <Magnetic>
               <Link to="/contact" className="btn btn--solid" data-cursor="Say hi">
-                <span>Make contact</span>
-                <span className="btn__arrow">↗</span>
+                <SlideText mode="word">Make contact</SlideText>
+                <span className="btn__arrow" aria-hidden="true">
+                  ↗
+                </span>
               </Link>
             </Magnetic>
           </div>

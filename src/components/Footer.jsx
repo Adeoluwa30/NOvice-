@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
+import SlideText from "./SlideText";
 import { credentia, site } from "../site";
 
 function useLagosTime() {
@@ -46,20 +47,29 @@ export default function Footer() {
 
         <div className="footer__row">
           <nav className="footer__nav" aria-label="Footer">
-            <Link to="/work">Projects</Link>
-            <Link to="/about">About</Link>
-            <Link to="/contact">Contact</Link>
+            <Link to="/work">
+              <SlideText mode="word">Projects</SlideText>
+            </Link>
+            <Link to="/graphics">
+              <SlideText mode="word">Graphics</SlideText>
+            </Link>
+            <Link to="/about">
+              <SlideText mode="word">About</SlideText>
+            </Link>
+            <Link to="/contact">
+              <SlideText mode="word">Contact</SlideText>
+            </Link>
           </nav>
 
           <div className="footer__socials">
             {site.socials.map((social) => (
               <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
-                {social.label}
+                <SlideText mode="word">{social.label}</SlideText>
                 <span aria-hidden="true">↗</span>
               </a>
             ))}
             <a href={credentia.href} target="_blank" rel="noreferrer">
-              Credentia
+              <SlideText mode="word">Credentia</SlideText>
               <span aria-hidden="true">↗</span>
             </a>
           </div>
@@ -77,7 +87,7 @@ export default function Footer() {
             className="footer__top-link"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            Back to top ↑
+            <SlideText mode="word">Back to top ↑</SlideText>
           </button>
         </div>
       </div>

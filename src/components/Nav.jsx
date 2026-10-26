@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
+import SlideText from "./SlideText";
 import { useTheme } from "../hooks/useTheme";
 import { setScrollLocked } from "../hooks/useLenis";
 import { site } from "../site";
@@ -13,8 +14,9 @@ const themeLabels = {
 
 const links = [
   { to: "/work", label: "Projects", index: "01" },
-  { to: "/about", label: "About", index: "02" },
-  { to: "/contact", label: "Contact", index: "03" },
+  { to: "/graphics", label: "Graphics", index: "02" },
+  { to: "/about", label: "About", index: "03" },
+  { to: "/contact", label: "Contact", index: "04" },
 ];
 
 export default function Nav() {
@@ -102,8 +104,14 @@ export default function Nav() {
         <div className="menu__inner">
           <nav className="menu__links" aria-label="Menu">
             {links.map((link) => (
-              <Link key={link.to} to={link.to} data-index={link.index} tabIndex={open ? 0 : -1}>
-                {link.label}
+              <Link
+                key={link.to}
+                to={link.to}
+                data-index={link.index}
+                tabIndex={open ? 0 : -1}
+                aria-current={pathname === link.to ? "page" : undefined}
+              >
+                <SlideText mode="char">{link.label}</SlideText>
               </Link>
             ))}
           </nav>
@@ -138,7 +146,7 @@ export default function Nav() {
                     rel="noreferrer"
                     tabIndex={open ? 0 : -1}
                   >
-                    {social.label}
+                    <SlideText mode="word">{social.label}</SlideText>
                   </a>
                 ))}
               </p>

@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
 import ProjectThumb from "../components/ProjectThumb";
+import SlideText from "../components/SlideText";
+import SecureComplyMark from "../components/SecureComplyMark";
 import CTA from "../components/CTA";
-import { projects } from "../data/projects";
+import { projects, upcoming } from "../data/projects";
 import { pageMeta } from "../data/meta";
 import { workSchema } from "../data/schema";
 import { usePageMeta } from "../hooks/usePageMeta";
@@ -18,14 +20,15 @@ export default function Work() {
         <div className="shell">
           <div className="page-head__top">
             <p className="eyebrow">(Projects)</p>
-            <p className="eyebrow">2023 to 2026</p>
+            <p className="eyebrow">2022 to 2026</p>
           </div>
           <Reveal as="h1" className="page-head__title">
             Selected <span className="serif">projects</span>
           </Reveal>
           <Reveal as="p" className="page-head__lede" delay={100}>
-            Five products, five different problems. Each one designed from the inside out: the
+            Five case studies, five different problems. Each one designed from the inside out: the
             research, the flows, the interface and the small details that make it feel finished.
+            The sixth is still in preparation.
           </Reveal>
         </div>
       </header>
@@ -66,6 +69,45 @@ export default function Work() {
                 </Link>
               </Reveal>
             ))}
+
+            {upcoming.map((item) => (
+              <Reveal key={item.slug} className="work-card work-card--soon" delay={40}>
+                {/* Deliberately not a link: the study does not exist yet, so the
+                    card answers with its status instead of a dead route. */}
+                <article className="work-card__soon" aria-labelledby={`soon-${item.slug}`}>
+                  <div className="work-card__media work-card__media--soon" data-cursor="Soon">
+                    <span className="work-card__index">{`(${item.index})`}</span>
+                    <span className="soon__mark">
+                      <SecureComplyMark size={72} />
+                    </span>
+                    <span className="soon__word">SecureComply</span>
+                    <span className="soon__badge">Coming soon</span>
+                    <span className="soon__veil">
+                      <span className="soon__veil-title">{item.status}</span>
+                      <span className="soon__veil-note">
+                        The case study is being written. It lands here when it&apos;s ready.
+                      </span>
+                    </span>
+                  </div>
+
+                  <div className="work-card__meta">
+                    <h2 className="work-card__title" id={`soon-${item.slug}`}>
+                      {`${item.display} `}
+                      <span className="serif">{item.displayAccent}</span>
+                    </h2>
+                    <div className="work-card__details">
+                      <span>{item.kind}</span>
+                      <span>{item.year}</span>
+                    </div>
+                    <span className="work-card__arrow work-card__arrow--soon" aria-hidden="true">
+                      ✳
+                    </span>
+                  </div>
+
+                  <p className="soon__blurb">{item.blurb}</p>
+                </article>
+              </Reveal>
+            ))}
           </div>
 
           <Reveal className="work-tail" delay={80}>
@@ -75,7 +117,8 @@ export default function Work() {
               product that needs someone to think across user types and flows.
             </p>
             <Link to="/contact" className="link-arrow" data-cursor="Talk">
-              Start a conversation <span>↗</span>
+              <SlideText mode="word">Start a conversation</SlideText>
+              <span aria-hidden="true">↗</span>
             </Link>
           </Reveal>
         </div>

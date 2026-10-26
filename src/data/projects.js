@@ -479,6 +479,24 @@ const catalogue = [
   },
 ];
 
+// Work that exists but is not a case study yet. Rendered as a card that never
+// links anywhere: the hover states the status instead of promising a page.
+export const upcoming = [
+  {
+    slug: "securecomply",
+    index: "06",
+    title: "SecureComply",
+    display: "Secure",
+    displayAccent: "Comply",
+    kind: "Compliance · Web Platform",
+    year: "2026",
+    client: "Vernovi Cyber",
+    status: "In preparation",
+    blurb:
+      "A GRC workspace for compliance teams: 800+ screens across owner, admin and member roles, designed and delivered in under a month.",
+  },
+];
+
 // Chef4me Web is the user-facing web app: its own project, distinct from the
 // chef dashboard and the mobile user app.
 export const projects = catalogue;

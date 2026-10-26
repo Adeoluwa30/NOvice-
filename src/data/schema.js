@@ -3,6 +3,7 @@
 // crawler reads is always identical to what the app would have rendered.
 
 import { projects } from "./projects.js";
+import { graphics } from "./graphics.js";
 import { SITE_ORIGIN, defaultMeta } from "./meta.js";
 import { site, faqs } from "../site.js";
 
@@ -191,6 +192,31 @@ export function projectSchema(project, meta) {
       ["Home", "/"],
       ["Projects", "/work"],
       [project.title, `/work/${project.slug}`],
+    ]),
+  ]);
+}
+
+export function graphicsSchema(meta) {
+  return graph([
+    personNode(),
+    websiteNode(),
+    page(
+      "CollectionPage",
+      "/graphics",
+      `Graphic design, ${site.name}`,
+      meta.description
+    ),
+    {
+      "@type": "ImageGallery",
+      "@id": `${SITE_ORIGIN}/graphics#gallery`,
+      name: `Graphic design, ${site.name}`,
+      description: meta.description,
+      about: { "@id": PERSON_ID },
+      image: graphics.map((piece) => `${SITE_ORIGIN}${piece.src}`),
+    },
+    breadcrumbs([
+      ["Home", "/"],
+      ["Graphics", "/graphics"],
     ]),
   ]);
 }

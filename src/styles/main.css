@@ -135,7 +135,10 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  /* clip, not hidden: hidden makes body a scroll container, which silently
+     stops position: sticky working anywhere on the page (the graphics filter
+     bar). clip clips the same overflow without creating one. */
+  overflow-x: clip;
   transition: background-color 0.5s var(--ease), color 0.5s var(--ease);
 }
 
@@ -329,7 +332,9 @@ button {
   white-space: nowrap;
 }
 
-.link-arrow span {
+/* Scoped to the arrow: an unscoped `span` hits the slide-text glyphs inside
+   the label and lifts every character on hover. */
+.link-arrow > span:last-child {
   transition: transform 0.35s var(--ease);
 }
 
@@ -338,7 +343,7 @@ button {
   border-color: var(--accent);
 }
 
-.link-arrow:hover span {
+.link-arrow:hover > span:last-child {
   transform: translate(3px, -3px);
 }
 
@@ -404,6 +409,78 @@ button {
   background: var(--accent-contrast);
   color: var(--accent);
   transform: rotate(45deg);
+}
+
+/* ------------------------------------------------------------------
+   Slide text (hover roll)
+   Every glyph is clipped to a one-line mask with a duplicate parked below it.
+   The parent link's :hover slides both copies up, so the label swaps for an
+   identical copy with a short per-character stagger.
+------------------------------------------------------------------ */
+.stext {
+  --stext-h: 1.3em;
+  display: inline;
+}
+
+.stext__vis {
+  display: inline;
+}
+
+.stext__ch {
+  position: relative;
+  display: inline-block;
+  height: var(--stext-h);
+  line-height: var(--stext-h);
+  /* clip-path, not overflow: the in-flow glyph has to keep the baseline so the
+     label still lines up with the text around it. */
+  clip-path: inset(0);
+}
+
+/* Both copies of the glyph are drawn from the attribute, so the DOM only ever
+   carries the one label the screen reader reads. */
+.stext__ch::before,
+.stext__ch::after {
+  content: attr(data-char);
+  display: block;
+  height: var(--stext-h);
+  line-height: var(--stext-h);
+  white-space: pre;
+  transition: transform 0.62s var(--ease);
+  transition-delay: calc(var(--i, 0) * 24ms);
+}
+
+.stext__ch::after {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.stext__space {
+  display: inline-block;
+  height: var(--stext-h);
+  line-height: var(--stext-h);
+  white-space: pre;
+}
+
+.stext__space::before {
+  content: attr(data-char);
+}
+
+a:hover .stext__ch::before,
+a:hover .stext__ch::after,
+button:hover .stext__ch::before,
+button:hover .stext__ch::after {
+  transform: translateY(-100%);
+}
+
+/* Keep the label from growing the controls it sits in. */
+.btn .stext {
+  --stext-h: 1.06em;
+}
+
+.menu__links .stext {
+  --stext-h: 0.9em;
 }
 
 /* ------------------------------------------------------------------
@@ -879,6 +956,10 @@ button {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  min-height: 0;
+  /* Four large rows plus the footer can outgrow a short laptop screen; let the
+     panel scroll rather than clip the last tab. */
+  overflow-y: auto;
 }
 
 .menu__links {
@@ -888,15 +969,25 @@ button {
 
 .menu__links a {
   font-family: var(--font-display);
-  font-size: clamp(44px, 9vw, 132px);
+  /* Height-aware so four rows plus the footer still fit a short laptop. */
+  font-size: clamp(40px, min(9vw, 10.6vh), 128px);
   font-weight: 700;
   line-height: 0.92;
   text-transform: uppercase;
-  padding: clamp(10px, 1.7vh, 24px) 0;
+  padding: clamp(8px, 1.2vh, 20px) 0;
   border-bottom: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+
+/* The tab takes the theme's contrast colour on hover: red on Night and Day,
+   black on the red AdE theme, because --accent is already that colour. */
+.menu__links a:hover,
+.menu__links a:focus-visible {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
 .menu__links a::after {
@@ -1653,7 +1744,7 @@ body.is-locked .marquee__track {
   transition: color 0.3s;
 }
 
-.footer__socials a span {
+.footer__socials a > span:last-child {
   font-size: 9px;
 }
 
@@ -3236,7 +3327,7 @@ body.is-locked .marquee__track {
     border-color 0.35s var(--ease);
 }
 
-.credentia__link span {
+.credentia__link > span:last-child {
   transition: transform 0.35s var(--ease);
 }
 
@@ -3246,7 +3337,7 @@ body.is-locked .marquee__track {
   color: #24093f;
 }
 
-.credentia__link:hover span {
+.credentia__link:hover > span:last-child {
   transform: translate(3px, -3px);
 }
 
@@ -5479,5 +5570,876 @@ html.theme-anim *::after {
 
   .footer {
     min-height: 0;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Stats strip
+------------------------------------------------------------------ */
+.stats {
+  padding-bottom: clamp(28px, 4.6vw, 62px);
+}
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.stats__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: clamp(18px, 2.4vw, 28px) clamp(12px, 1.6vw, 24px) clamp(16px, 2.2vw, 24px);
+  border-right: 1px solid var(--line);
+}
+
+.stats__item:first-child {
+  padding-left: 0;
+}
+
+.stats__item:last-child {
+  border-right: 0;
+}
+
+.stats__value {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.2vw, 88px);
+  font-weight: 700;
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+
+.stats__label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.stats__note {
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------
+   Strengths (About)
+------------------------------------------------------------------ */
+.strengths {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.34fr) minmax(0, 1fr);
+  gap: clamp(16px, 3vw, 40px);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(18px, 2.4vw, 26px);
+}
+
+.strengths__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px clamp(18px, 3vw, 40px);
+}
+
+.strengths__list li {
+  position: relative;
+  padding-left: 20px;
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.5;
+}
+
+.strengths__list li::before {
+  content: "✳";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.72em;
+  color: var(--accent);
+}
+
+/* ------------------------------------------------------------------
+   Toolkit
+------------------------------------------------------------------ */
+.toolkit__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0 clamp(20px, 3vw, 48px);
+  border-top: 1px solid var(--line);
+}
+
+.tool {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(18px, 2.4vw, 28px) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.tool__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.tool__name {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.4vw, 36px);
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: color 0.4s var(--ease);
+}
+
+.tool:hover .tool__name {
+  color: var(--accent);
+}
+
+.tool__kind {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-align: right;
+}
+
+.tool__note {
+  max-width: 34ch;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--fg-soft);
+}
+
+/* ------------------------------------------------------------------
+   Graphics teaser (About)
+------------------------------------------------------------------ */
+.graphics-teaser__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  gap: clamp(26px, 5vw, 72px);
+  align-items: center;
+}
+
+.graphics-teaser__media img {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transform: rotate(-1.4deg);
+  transition: transform 0.8s var(--ease);
+}
+
+.graphics-teaser__media:hover img {
+  transform: rotate(0deg) scale(1.015);
+}
+
+.graphics-teaser__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(14px, 2vw, 22px);
+}
+
+.graphics-teaser__title {
+  max-width: 18ch;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.4vw, 72px);
+  font-weight: 600;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+.graphics-teaser__note {
+  max-width: 38ch;
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.75;
+  color: var(--fg-soft);
+}
+
+/* ------------------------------------------------------------------
+   Coming-soon project card
+------------------------------------------------------------------ */
+.work-card__soon {
+  display: block;
+}
+
+.work-card__media--soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1.4vw, 18px);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.soon__mark {
+  display: grid;
+  place-items: center;
+  transition: transform 0.8s var(--ease);
+}
+
+.work-card__media--soon:hover .soon__mark {
+  transform: scale(1.08) rotate(-8deg);
+}
+
+.soon__word {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.2vw, 46px);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.soon__badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 5px 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.soon__veil {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 64px clamp(16px, 2vw, 26px) clamp(16px, 2vw, 22px);
+  background: linear-gradient(to top, rgba(8, 8, 9, 0.82), rgba(8, 8, 9, 0));
+  color: #fff;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease);
+}
+
+.work-card__media--soon:hover .soon__veil {
+  opacity: 1;
+  transform: none;
+}
+
+.soon__veil-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.soon__veil-note {
+  display: block;
+  max-width: 30ch;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.soon__blurb {
+  margin-top: 12px;
+  max-width: 44ch;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.work-card__arrow--soon {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------
+   Graphics page: the wall
+------------------------------------------------------------------ */
+.graphics-head__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: clamp(26px, 3.4vw, 46px);
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+/* ------------------------------------------------------------------
+   Graphics wall: a diagonal stack. The piece at the centre of the screen
+   is in colour and full size; the ones above and below it drop to black
+   and white and shrink. The motion lives in Flyer, src/pages/Graphics.jsx.
+------------------------------------------------------------------ */
+.gstack {
+  position: relative;
+}
+
+/* Sticks under the nav so a brand can be picked from anywhere in the wall. */
+.gwfilter {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 11px var(--gutter);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(12px);
+  border-block: 1px solid var(--line);
+}
+
+/* The nav hides itself on the way down; the bar follows it up rather than
+   leaving a strip of the page showing above it. */
+body:has(.nav.is-hidden) .gwfilter {
+  top: 0;
+}
+
+.gwfilter__label {
+  flex: 0 0 auto;
+}
+
+.gwfilter__row {
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.gwfilter__row::-webkit-scrollbar {
+  display: none;
+}
+
+.gwfilter__chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 10px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.35s var(--ease), border-color 0.35s var(--ease),
+    background-color 0.35s var(--ease);
+}
+
+.gwfilter__chip:hover,
+.gwfilter__chip:focus-visible {
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+.gwfilter__chip.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.gwfilter__count {
+  font-size: 9px;
+  opacity: 0.55;
+}
+
+/* Progress cue: which piece of the set is at the centre, and how far down the
+   wall that is. It sits in the sticky bar so it never covers the artwork. */
+.gwfilter__progress {
+  flex: 0 0 auto;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.gwfilter__now {
+  color: var(--fg);
+}
+
+.gwfilter__of {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+/* Hairline along the foot of the bar, drawn by the wall's scroll position. */
+.gwfilter__track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: color-mix(in srgb, var(--fg) 10%, transparent);
+  pointer-events: none;
+}
+
+.gwfilter__fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.gstack__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(50px, 10vh, 120px) var(--gutter) clamp(70px, 13vh, 170px);
+  overflow-x: clip;
+}
+
+.gflyer {
+  position: relative;
+  /* Standing sideways offset: the diagonal of the arrangement. `left` keeps it
+     out of layout, so it does not fight the drift transform on the card. */
+  left: var(--lean, 0%);
+}
+
+.gflyer + .gflyer {
+  margin-top: -5svh;
+}
+
+.gflyer__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.gflyer__frame {
+  /* Height from the viewport, width from the artwork's own ratio, capped so a
+     landscape piece cannot run wider than the column allows. */
+  --h: clamp(230px, 44svh, 540px);
+  --max-w: min(74vw, 780px);
+  display: block;
+  overflow: hidden;
+  width: min(calc(var(--h) * var(--ratio-w, 0.8)), var(--max-w));
+  height: min(var(--h), calc(var(--max-w) / var(--ratio-w, 0.8)));
+  aspect-ratio: var(--ratio, 4 / 5);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  will-change: filter;
+}
+
+.gflyer__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gflyer__card:hover .gflyer__frame,
+.gflyer__card:focus-visible .gflyer__frame {
+  outline: 1px solid var(--accent);
+  outline-offset: 5px;
+}
+
+.gflyer__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.gflyer__title {
+  font-weight: 500;
+}
+
+.gflyer__client {
+  color: var(--muted);
+}
+
+.gflyer__category {
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 9px;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------
+   The wall on desktop: the same flyers laid out as a horizontal run. The
+   section is pinned for the length of the run, so scrolling down pans the
+   row sideways past a fixed stage instead of moving the page. The pan and
+   the per-piece offsets are set in src/pages/Graphics.jsx.
+------------------------------------------------------------------ */
+.gtrack {
+  /* The run's own length, plus one screen for the pin. */
+  height: calc(var(--travel, 0px) + 100svh);
+}
+
+.gtrack__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: clip;
+}
+
+.gtrack__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 3.4vw, 76px);
+  padding-inline: var(--gutter);
+  will-change: transform;
+}
+
+/* Each flyer sits off the line and off true: the offset steps down in runs of
+   five and then starts again, which is the diagonal, and the tilt is the
+   crookedness on top of it. Both come from the page, per piece. */
+.gflyer--band {
+  transform: translateY(calc(var(--band, 0) * 1svh)) rotate(calc(var(--tilt, 0) * 1deg));
+  will-change: transform;
+}
+
+/* The vertical walk stacks with a negative margin; a row must not. */
+.gflyer--band + .gflyer--band {
+  margin-top: 0;
+}
+
+/* A little shorter than the walk, so three flyers share the screen and the
+   diagonal between them is legible. */
+.gtrack__row .gflyer__frame {
+  --h: clamp(240px, 42svh, 500px);
+}
+
+.gbrief__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(22px, 4vw, 64px);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(22px, 3vw, 40px);
+}
+
+.gbrief__head {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2vw, 22px);
+}
+
+.gbrief__title {
+  max-width: 16ch;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4.2vw, 58px);
+  font-weight: 600;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.gbrief__body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.4vw, 28px);
+}
+
+.gbrief__lead {
+  max-width: 46ch;
+  font-size: var(--step-1);
+  line-height: 1.5;
+}
+
+.gbrief__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gbrief__tags li {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.gbrief__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 22px;
+  padding-top: clamp(16px, 2vw, 24px);
+  border-top: 1px solid var(--line);
+}
+
+.gbrief__note {
+  max-width: 40ch;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.gbrief__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+}
+
+.graphics-note__grid {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.32fr) minmax(0, 1fr);
+  gap: clamp(18px, 3vw, 48px);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(20px, 2.6vw, 32px);
+}
+
+.graphics-note__lead {
+  max-width: 34ch;
+  font-size: var(--step-2);
+  line-height: 1.4;
+}
+
+.graphics-note__note {
+  grid-column: 2;
+  max-width: 48ch;
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.8;
+  color: var(--fg-soft);
+}
+
+/* ------------------------------------------------------------------
+   Lightbox
+------------------------------------------------------------------ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: clamp(14px, 3vw, 40px);
+  overscroll-behavior: contain;
+}
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  backdrop-filter: blur(18px);
+  cursor: pointer;
+}
+
+.lightbox__panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(220px, 0.55fr);
+  gap: clamp(20px, 3vw, 44px);
+  align-items: center;
+  max-width: min(1160px, 100%);
+  max-height: 100%;
+  padding: clamp(16px, 2vw, 26px);
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  overflow-y: auto;
+}
+
+.lightbox__figure img {
+  display: block;
+  width: 100%;
+  max-height: 76vh;
+  object-fit: contain;
+  background: var(--surface);
+}
+
+.lightbox__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lightbox__title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.2vw, 50px);
+  font-weight: 600;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.lightbox__kind {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.lightbox__note {
+  max-width: 34ch;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--fg-soft);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  padding: 8px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease),
+    border-color 0.3s var(--ease);
+}
+
+.lightbox__close:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* ------------------------------------------------------------------
+   New sections, small screens
+------------------------------------------------------------------ */
+@media (max-width: 960px) {
+  .stats__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats__item {
+    padding-inline: 0 clamp(12px, 2vw, 20px);
+  }
+
+  .stats__item:nth-child(2n) {
+    border-right: 0;
+    padding-left: clamp(12px, 2vw, 20px);
+  }
+
+  .stats__item:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .strengths,
+  .graphics-note__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .graphics-note__note {
+    grid-column: 1;
+  }
+
+  .gbrief__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .graphics-teaser__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .graphics-teaser__media img {
+    max-width: 320px;
+  }
+
+  .toolkit__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lightbox__panel {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .lightbox__figure img {
+    max-height: 54vh;
+  }
+}
+
+@media (max-width: 640px) {
+  .stats__value {
+    font-size: clamp(34px, 10vw, 48px);
+  }
+
+  .strengths__list,
+  .toolkit__list {
+    grid-template-columns: 1fr;
+  }
+
+  .graphics-head__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  /* The counter takes the room the label was using; the chips are readable
+     without a caption and can still be swiped. */
+  .gwfilter__label {
+    display: none;
+  }
+
+  .lightbox__note {
+    max-width: none;
+  }
+}
+
+/* Phones: the same walk, tighter and less sideways so nothing runs off. */
+@media (max-width: 720px) {
+  .gflyer {
+    left: calc(var(--lean, 0%) * 0.5);
+  }
+
+  .gflyer__frame {
+    --h: clamp(210px, 42svh, 430px);
+    --max-w: 82vw;
+  }
+
+  .gflyer + .gflyer {
+    margin-top: -2svh;
+  }
+
+  .gwfilter {
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gflyer + .gflyer {
+    margin-top: 5svh;
+  }
+
+  .gflyer__frame {
+    filter: none;
   }
 }

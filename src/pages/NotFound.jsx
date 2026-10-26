@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
+import SlideText from "../components/SlideText";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function NotFound() {
@@ -19,11 +20,14 @@ export default function NotFound() {
         </p>
         <div className="empty-page__actions">
           <Link to="/" className="btn btn--solid">
-            <span>Back home</span>
-            <span className="btn__arrow">↗</span>
+            <SlideText mode="word">Back home</SlideText>
+            <span className="btn__arrow" aria-hidden="true">
+              ↗
+            </span>
           </Link>
           <Link to="/work" className="link-arrow">
-            See the work <span>↗</span>
+            <SlideText mode="word">See the work</SlideText>
+            <span aria-hidden="true">↗</span>
           </Link>
         </div>
       </div>

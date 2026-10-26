@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import Marquee from "../components/Marquee";
 import Reveal from "../components/Reveal";
 import ProjectIndex from "../components/ProjectIndex";
+import SlideText from "../components/SlideText";
 import CTA from "../components/CTA";
 import { projects } from "../data/projects";
 import { capabilities, credentia, experience } from "../site";
@@ -110,7 +111,8 @@ export default function Home() {
 
             <Reveal className="intro__row" delay={120}>
               <Link to="/about" className="link-arrow" data-cursor="Read">
-                More about me <span>↗</span>
+                <SlideText mode="word">More about me</SlideText>
+                <span aria-hidden="true">↗</span>
               </Link>
             </Reveal>
           </div>
@@ -122,7 +124,8 @@ export default function Home() {
           <div className="section-head">
             <p className="eyebrow">(02) Selected projects</p>
             <Link to="/work" className="link-arrow" data-cursor="All projects">
-              All projects <span>↗</span>
+              <SlideText mode="word">All projects</SlideText>
+              <span aria-hidden="true">↗</span>
             </Link>
           </div>
 
@@ -135,10 +138,11 @@ export default function Home() {
           <ProjectIndex items={projects} />
 
           <Reveal className="work__note" delay={120}>
-            <span>2023 to 2026</span>
+            <span>2022 to 2026</span>
             <p>
-              Five products across food, fashion and law, each designed end to end, from the
-              first question to the shipped interface.
+              Five case studies across food, fashion and law, each designed end to end, from the
+              first question to the shipped interface. A sixth, a compliance platform, is on the
+              way.
             </p>
           </Reveal>
         </div>
@@ -186,7 +190,8 @@ export default function Home() {
           <div className="section-head">
             <p className="eyebrow">(05) Journey</p>
             <Link to="/about" className="link-arrow" data-cursor="Story">
-              The full story <span>↗</span>
+              <SlideText mode="word">The full story</SlideText>
+              <span aria-hidden="true">↗</span>
             </Link>
           </div>
 
@@ -227,7 +232,8 @@ export default function Home() {
                 rel="noreferrer"
                 data-cursor="Visit"
               >
-                Visit credentia.site <span>↗</span>
+                <SlideText mode="word">Visit credentia.site</SlideText>
+                <span aria-hidden="true">↗</span>
               </a>
             </div>
           </Reveal>

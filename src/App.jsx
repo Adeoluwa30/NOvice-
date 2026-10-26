@@ -15,6 +15,7 @@ const labelFor = (pathname) => {
   if (pathname === "/") return "Home";
   if (pathname.startsWith("/work/")) return "Case study";
   if (pathname.startsWith("/work")) return "Projects";
+  if (pathname.startsWith("/graphics")) return "Graphics";
   if (pathname.startsWith("/about")) return "About";
   if (pathname.startsWith("/contact")) return "Contact";
   return "404";
@@ -78,6 +79,7 @@ export default function App() {
           <Route path="/" element={<PageView name="Home" />} />
           <Route path="/work" element={<PageView name="Work" />} />
           <Route path="/work/:slug" element={<PageView name="Project" />} />
+          <Route path="/graphics" element={<PageView name="Graphics" />} />
           <Route path="/about" element={<PageView name="About" />} />
           <Route path="/contact" element={<PageView name="Contact" />} />
           <Route path="*" element={<PageView name="NotFound" />} />

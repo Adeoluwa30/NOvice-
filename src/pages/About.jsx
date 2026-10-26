@@ -1,6 +1,9 @@
+import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
 import CTA from "../components/CTA";
-import { experience, principles, site } from "../site";
+import SlideText from "../components/SlideText";
+import { biography, experience, principles, site, stats, strengths, tools } from "../site";
+import { graphics } from "../data/graphics";
 import { pageMeta } from "../data/meta";
 import { aboutSchema } from "../data/schema";
 import { usePageMeta } from "../hooks/usePageMeta";
@@ -9,6 +12,8 @@ export default function About() {
   usePageMeta(pageMeta.about.title, pageMeta.about.description, {
     schema: aboutSchema(pageMeta.about),
   });
+
+  const teaser = graphics[0];
 
   return (
     <>
@@ -19,16 +24,30 @@ export default function About() {
             <p className="eyebrow">Lagos, Nigeria</p>
           </div>
           <Reveal as="h1" className="page-head__title">
-            An <span className="serif">avid</span>{" interface "}
+            <span className="serif">avid</span>
+            {" interface "}
             <br />
             &amp; experience designer.
           </Reveal>
           <Reveal as="p" className="page-head__lede" delay={100}>
-            I design digital products where clarity, motion and craft meet, working across
-            experience design, interface systems and graphic design.
+            I design the whole product: the research and the flows, the interface, the system
+            underneath it, and the brand that sits on top. Four years and more than ten products,
+            from a legal case-management platform to an 800-screen compliance dashboard.
           </Reveal>
         </div>
       </header>
+
+      <section className="stats" aria-label="At a glance">
+        <div className="shell stats__grid">
+          {stats.map((item) => (
+            <div className="stats__item" key={item.label}>
+              <span className="stats__value">{item.value}</span>
+              <span className="stats__label">{item.label}</span>
+              <span className="stats__note">{item.note}</span>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="about-body section">
         <div className="shell">
@@ -38,10 +57,7 @@ export default function About() {
               <p className="about-intro__lead">
                 I&apos;m a designer who likes the space between the problem and the product.
               </p>
-              <p className="about-intro__note">
-                UI/UX and interface designer. Product thinking, visual craft, and the small
-                decisions in between.
-              </p>
+              <p className="about-intro__note">{biography}</p>
             </Reveal>
 
             <Reveal className="about-intro__media" delay={120}>
@@ -73,8 +89,13 @@ export default function About() {
                 <div>
                   <dt>Status</dt>
                   <dd>
-                    <span className="dot" />{` ${site.availability}`}
+                    <span className="dot" />
+                    {` ${site.availability}`}
                   </dd>
+                </div>
+                <div>
+                  <dt>Designing since</dt>
+                  <dd>2022, so four years and counting</dd>
                 </div>
                 <div>
                   <dt>Focus</dt>
@@ -82,30 +103,45 @@ export default function About() {
                 </div>
                 <div>
                   <dt>Industries</dt>
-                  <dd>Food, fashion, law, cybersecurity</dd>
+                  <dd>Food, fashion, law, cybersecurity, services</dd>
+                </div>
+                <div>
+                  <dt>Toolkit</dt>
+                  <dd>Figma, Affinity, Canva, Claude</dd>
                 </div>
               </dl>
             </aside>
 
             <div className="about-story__body">
               <Reveal as="p" className="about-story__lead">
-                Design, for me, has always been about curiosity. I&apos;ve been drawn to the way
-                things work, the way people interact, and how those small details shape big
-                experiences.
+                Design, for me, has always been about curiosity. Four years in, it still starts
+                with a question about how something works and who it is really for.
               </Reveal>
 
               <div className="about-story__cols">
                 <Reveal as="p" delay={60}>
-                  I read design as storytelling: a chance to make ideas tangible, simple and human.
-                  That is the thread running through the marketplaces, dashboards and mobile apps
-                  I&apos;ve designed.
+                  I started in 2022 with a legal case-management platform and a fashion store that
+                  wanted to leave WhatsApp. That first stretch taught me to design systems rather
+                  than screens: cases, stages, permissions, money, and everything that has to hold
+                  together once the demo ends.
                 </Reveal>
                 <Reveal as="p" delay={100}>
-                  My work sits across food, fashion, law and cybersecurity, but the approach stays
-                  the same. Understand the system, find the shortest honest path through it, and
-                  design every state on the way.
+                  Then came food tech at Chef4me, where I designed the user app and its redesign,
+                  the chef dashboard, the user web app and the site that ties them together. After
+                  that, product work at Intasect, and now compliance and security at Vernovi Cyber:
+                  three regional sites and the SecureComply dashboard, 800+ screens across three
+                  user roles, delivered in under a month.
                 </Reveal>
               </div>
+
+              <Reveal className="strengths" delay={120}>
+                <p className="eyebrow">(What I&apos;m good at)</p>
+                <ul className="strengths__list">
+                  {strengths.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </Reveal>
 
               <Reveal as="p" className="about-story__close" delay={140}>
                 Respect the complexity, then make it disappear.
@@ -124,7 +160,7 @@ export default function About() {
         <div className="shell">
           <div className="section-head">
             <p className="eyebrow">(Journey so far)</p>
-            <p className="section-head__note">Experience</p>
+            <p className="section-head__note">Five roles, four years</p>
           </div>
 
           <div className="journey__list">
@@ -139,6 +175,61 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      <section className="toolkit section">
+        <div className="shell">
+          <div className="section-head">
+            <p className="eyebrow">(Toolkit)</p>
+            <p className="section-head__note">What the work is actually made in</p>
+          </div>
+
+          <div className="toolkit__list">
+            {tools.map((tool, i) => (
+              <Reveal className="tool" key={tool.name} delay={i * 60}>
+                <div className="tool__head">
+                  <h3 className="tool__name">{tool.name}</h3>
+                  <span className="tool__kind">{tool.kind}</span>
+                </div>
+                <p className="tool__note">{tool.note}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {teaser && (
+        <section className="graphics-teaser section">
+          <div className="shell graphics-teaser__grid">
+            <Reveal className="graphics-teaser__media">
+              <img
+                src={teaser.small}
+                srcSet={`${teaser.small} 760w, ${teaser.src} 1200w`}
+                sizes="(max-width: 860px) 90vw, 38vw"
+                width={teaser.width}
+                height={teaser.height}
+                alt={teaser.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </Reveal>
+
+            <Reveal className="graphics-teaser__copy" delay={80}>
+              <p className="eyebrow">(Graphic design)</p>
+              <h2 className="graphics-teaser__title">
+                The other half of the <span className="serif">practice.</span>
+              </h2>
+              <p className="graphics-teaser__note">
+                Posters, campaign art, identity and the social work that runs beside the products.
+                It has its own room on this site now.
+              </p>
+              <Link to="/graphics" className="link-arrow" data-cursor="The wall">
+                <SlideText mode="word">See the graphics</SlideText>
+                <span aria-hidden="true">↗</span>
+              </Link>
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       <section className="principles section">
         <div className="shell">

@@ -16,6 +16,11 @@ export const pageMeta = {
     description:
       "Selected product design work by Adeoluwa Adeoye: Chef4me User, Chef4me Chef, Chef4me Web App, Brandit and Bubble.",
   },
+  graphics: {
+    title: "Graphic Design",
+    description:
+      "Graphic design by Adeoluwa Adeoye: campaign art, identity, packaging, posters and event graphics. Open for graphic design commissions, with the full archive on Behance.",
+  },
   about: {
     title: "About",
     description:

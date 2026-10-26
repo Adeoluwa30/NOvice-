@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import Marquee from "../components/Marquee";
 import Reveal from "../components/Reveal";
 import Magnetic from "../components/Magnetic";
+import SlideText from "../components/SlideText";
 import { faqs, site } from "../site";
 import { pageMeta } from "../data/meta";
 import { contactSchema } from "../data/schema";
@@ -13,6 +14,11 @@ const topics = [
     id: "project",
     label: "A project",
     text: "Hi Adeoluwa, I'd like to talk about a product. Here is what we are building: ",
+  },
+  {
+    id: "graphics",
+    label: "Graphic design",
+    text: "Hi Adeoluwa, I need graphic design work done. Here is the event or brand and what it needs: ",
   },
   {
     id: "freelance",
@@ -218,7 +224,7 @@ export default function Contact() {
               </p>
               <Magnetic>
                 <a className="btn btn--solid" href={`mailto:${site.email}`} data-cursor="Say hi">
-                  <span>Start a conversation</span>
+                  <SlideText mode="word">Start a conversation</SlideText>
                   <span className="btn__arrow" aria-hidden="true">
                     ↗
                   </span>

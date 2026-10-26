@@ -18,6 +18,7 @@ import {
   DEFAULT_OG_IMAGE,
   aboutSchema,
   contactSchema,
+  graphicsSchema,
   homeSchema,
   ogImageFor,
   projectSchema,
@@ -42,6 +43,7 @@ const routes = [
   },
   ...[
     ["/work", pageMeta.work, "0.9", workSchema],
+    ["/graphics", pageMeta.graphics, "0.8", graphicsSchema],
     ["/about", pageMeta.about, "0.8", aboutSchema],
     ["/contact", pageMeta.contact, "0.7", contactSchema],
   ].map(([routePath, meta, priority, build]) => ({

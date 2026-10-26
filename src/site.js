@@ -27,8 +27,59 @@ export const credentia = {
 
 export const roles = ["Interface Designer", "Experience Designer", "Product Designer"];
 
+// Four years by 2026: he started designing in 2022. Update both copy and the
+// notes here when the count changes.
+export const stats = [
+  { value: "4+", label: "Years designing", note: "Since 2022" },
+  { value: "10+", label: "Products & platforms", note: "Apps, sites, dashboards" },
+  { value: "5", label: "Industries", note: "Food, fashion, law, cyber, services" },
+  { value: "800+", label: "Screens in one product", note: "SecureComply, under a month" },
+];
+
 export const intro =
-  "I design digital products where clarity, motion and craft meet: interfaces that make complex things feel obvious, and simple things feel considered.";
+  "Four years of designing digital products where clarity, motion and craft meet: mobile apps, marketplaces, dashboards and the design systems that hold them together.";
+
+export const biography =
+  "I'm a product, interface and graphic designer. I work across mobile apps, web platforms and the design systems that keep them coherent, and I'm usually the person who turns an ambiguous brief into a set of screens people can use.";
+
+// What he is actually good at, in his own words rather than a tool list: the
+// About page had been underselling the range of work.
+export const strengths = [
+  "Product & UX strategy",
+  "Interface and interaction design",
+  "Design systems & tokens",
+  "Data-heavy dashboards",
+  "Mobile and web apps",
+  "Brand & graphic design",
+];
+
+export const tools = [
+  {
+    name: "Figma",
+    kind: "Interface & systems",
+    note: "The daily workspace: components, variables, prototypes and handoff for every product here.",
+  },
+  {
+    name: "Affinity",
+    kind: "Vector & layout",
+    note: "Brand marks, print-ready artwork and the vector work Figma was never built for.",
+  },
+  {
+    name: "Canva",
+    kind: "Campaigns",
+    note: "Fast social, launch and template work that a team can keep running after handoff.",
+  },
+  {
+    name: "Paper",
+    kind: "Thinking",
+    note: "Where every flow starts: thumbnails, wireframes and the first pass before a screen exists.",
+  },
+  {
+    name: "Claude",
+    kind: "AI-assisted production",
+    note: "Research, copy and production support. It is how an 800-screen dashboard shipped inside a month.",
+  },
+];
 
 export const manifesto = [
   "Design, for me, has always been about curiosity.",
@@ -73,7 +124,7 @@ export const experience = [
     period: "2026 - now",
     role: "UI/UX Designer",
     company: "Vernovi Cyber",
-    note: "Leading the redesign and product identity for Vernovi Cyber across its Africa, Europe and UAE sites, plus SecureComply, a GRC product for Nigerian fintechs.",
+    note: "Designed the Africa, UAE and Europe sites and the pages for Threat Analyzer, Secure Comply and Secure Assure. Led SecureComply's dashboard: 800+ screens across owner, admin and member roles, delivered in under a month with an AI-assisted workflow.",
   },
   {
     period: "2026 - now",
@@ -85,13 +136,19 @@ export const experience = [
     period: "2025",
     role: "Product Designer",
     company: "Intasect",
-    note: "High-fidelity prototypes for an LMS and a lifestyle app, plus a design-system audit that improved flow efficiency by 45%.",
+    note: "Redesigned and fine-tuned live products, including a creators platform and a services website, plus a design-system audit that improved flow efficiency by 45%.",
   },
   {
     period: "2024 - 2025",
     role: "UI/UX Designer",
     company: "Chef4me",
-    note: "Redesigned the user and chef experiences across mobile and web, delivering 30% better usability scores and 15% more daily actives.",
+    note: "Owned design across the ecosystem: the user mobile app and its redesign, the chef web app, the user web app and the website that ties the products together.",
+  },
+  {
+    period: "2022 - 2024",
+    role: "Independent Designer",
+    company: "Freelance",
+    note: "Bubble, a legal case-management platform; Brandit, a fashion store moved off WhatsApp; and a services site for businesses getting registered and legit.",
   },
 ];
 
