@@ -112,7 +112,7 @@ export default function About() {
                 </div>
                 <div>
                   <dt>Toolkit</dt>
-                  <dd>Figma, Affinity, Canva, Claude</dd>
+                  <dd>Figma, Cavalry, Affinity, Canva, Claude</dd>
                 </div>
               </dl>
             </aside>
@@ -122,22 +122,6 @@ export default function About() {
                 Design, for me, has always been about curiosity. A few years in, it still starts
                 with a question about how something works and who it is really for.
               </Reveal>
-
-              <div className="about-story__cols">
-                <Reveal as="p" delay={60}>
-                  I started in 2022 with a legal case-management platform and a fashion store that
-                  wanted to leave WhatsApp. That first stretch taught me to design systems rather
-                  than screens: cases, stages, permissions, money, and everything that has to hold
-                  together once the demo ends.
-                </Reveal>
-                <Reveal as="p" delay={100}>
-                  Then came food tech at Chef4me, where I designed the user app and its redesign,
-                  the chef dashboard, the user web app and the site that ties them together. After
-                  that, product work at Intasect, and now compliance and security at Vernovi Cyber:
-                  three regional sites and the SecureComply dashboard, 800+ screens across three
-                  user roles, delivered in under a month.
-                </Reveal>
-              </div>
 
               <Reveal className="strengths" delay={120}>
                 <p className="eyebrow">(What I&apos;m good at)</p>

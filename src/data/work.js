@@ -2,7 +2,7 @@
 // can be shared, prerendered and indexed on its own. `/work/:slug` is still a
 // case study; these fixed paths win over the slug route.
 export const WORK_TABS = [
-  { id: "product", path: "/work", label: "Product design" },
+  { id: "product", path: "/work", label: "UI/UX" },
   { id: "graphics", path: "/work/graphics", label: "Graphics" },
   { id: "motion", path: "/work/motion", label: "Motion" },
 ];

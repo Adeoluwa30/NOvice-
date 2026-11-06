@@ -1,7 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { motion } from "motion/react";
 import ScrollProgress from "../components/ScrollProgress";
-import Parallax from "../components/Parallax";
 import Reveal from "../components/Reveal";
 import ProjectThumb from "../components/ProjectThumb";
 import AutoVideo from "../components/AutoVideo";
@@ -161,40 +160,47 @@ export default function Project() {
               <p className="chapter__body">{chapter.body}</p>
             </Reveal>
 
-            <Reveal className="chapter__media" delay={80}>
-              {chapter.images ? (
-                <div className="chapter__duo">
-                  {chapter.images.map((image) => (
-                    <figure
-                      className={`chapter__figure chapter__figure--${image.layout}`}
-                      key={image.src}
-                    >
-                      <Parallax src={image.src} alt={image.alt} amount={18} />
-                    </figure>
-                  ))}
-                </div>
-              ) : chapter.video ? (
-                <figure className="chapter__figure chapter__figure--video">
-                  <AutoVideo video={chapter.video} label={chapter.alt || chapter.title} />
-                </figure>
-              ) : chapter.image ? (
-                <figure className="chapter__figure">
-                  <Parallax src={chapter.image} alt={chapter.alt} amount={22} />
-                </figure>
-              ) : (
-                <div className="chapter__statement">
-                  <span className="chapter__statement-label">{chapter.eyebrow}</span>
-                  <span className="chapter__statement-title">{chapter.title}</span>
-                  <span className="chapter__statement-num" aria-hidden="true">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="chapter__statement-mark" aria-hidden="true">
-                    ✳
-                  </span>
-                </div>
-              )}
-              {chapter.note && <figcaption>{chapter.note}</figcaption>}
-            </Reveal>
+            {/* A chapter with no visual is text only: an empty placeholder panel
+                read as a missing image, especially at full desktop width. */}
+            {chapter.images || chapter.video || chapter.image ? (
+              <Reveal className="chapter__media" delay={80}>
+                {chapter.images ? (
+                  <div className="chapter__duo">
+                    {chapter.images.map((image) => (
+                      <figure
+                        className={`chapter__figure chapter__figure--${image.layout}`}
+                        key={image.src}
+                      >
+                        <img
+                          className="chapter__img"
+                          src={image.src}
+                          alt={image.alt}
+                          loading="lazy"
+                          decoding="async"
+                          draggable="false"
+                        />
+                      </figure>
+                    ))}
+                  </div>
+                ) : chapter.video ? (
+                  <figure className="chapter__figure chapter__figure--video">
+                    <AutoVideo video={chapter.video} label={chapter.alt || chapter.title} />
+                  </figure>
+                ) : chapter.image ? (
+                  <figure className="chapter__figure">
+                    <img
+                      className="chapter__img"
+                      src={chapter.image}
+                      alt={chapter.alt}
+                      loading="lazy"
+                      decoding="async"
+                      draggable="false"
+                    />
+                  </figure>
+                ) : null}
+                {chapter.note && <figcaption>{chapter.note}</figcaption>}
+              </Reveal>
+            ) : null}
           </section>
         ))}
 

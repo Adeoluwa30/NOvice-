@@ -13,9 +13,9 @@ export const defaultMeta = {
 // `work`, `graphics` and `motion` are the three tabs of the Projects page.
 export const pageMeta = {
   work: {
-    title: "Product Design Projects",
+    title: "UI/UX Design Projects",
     description:
-      "Product design case studies by Adeoluwa Adeoye: Chef4me User, Chef4me Chef, Chef4me Web App, Brandit and Bubble, with SecureComply on the way.",
+      "UI/UX case studies by Adeoluwa Adeoye: Chef4me User, Chef4me Chef, Chef4me Web App, Brandit and Bubble, with SecureComply on the way.",
   },
   graphics: {
     title: "Graphic Design Projects",

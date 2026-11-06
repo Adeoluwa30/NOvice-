@@ -1,6 +1,4 @@
-import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "motion/react";
 import Marquee from "../components/Marquee";
 import Reveal from "../components/Reveal";
 import ProjectIndex from "../components/ProjectIndex";
@@ -10,40 +8,6 @@ import { projects } from "../data/projects";
 import { capabilities, credentia, experience, roles, site } from "../site";
 import { homeSchema } from "../data/schema";
 import { usePageMeta } from "../hooks/usePageMeta";
-
-function Word({ children, progress, range }) {
-  // The resting state has to stay legible: at 16% the words sat around 1.5:1
-  // against the background and failed WCAG contrast as they entered view.
-  const opacity = useTransform(progress, range, [0.5, 1]);
-  return (
-    <motion.span className="word" style={{ opacity }}>
-      {`${children} `}
-    </motion.span>
-  );
-}
-
-function ScrollStatement({ text }) {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 0.85", "end 0.5"],
-  });
-  const words = text.split(" ");
-
-  return (
-    <p className="manifesto__text" ref={ref}>
-      {words.map((word, i) => {
-        const start = i / words.length;
-        const end = start + 1 / words.length;
-        return (
-          <Word key={`${word}-${i}`} progress={scrollYProgress} range={[start, end]}>
-            {word}
-          </Word>
-        );
-      })}
-    </p>
-  );
-}
 
 export default function Home() {
   usePageMeta(undefined, undefined, { schema: homeSchema() });
@@ -87,31 +51,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="intro section" id="about-preview">
-        <div className="shell intro__grid">
-          <p className="eyebrow">(01) About</p>
-          <div className="intro__content">
-            <Reveal as="p" className="intro__statement">
-              {"I'm a designer who likes the "}
-              <em className="intro__accent">in&#8209;between</em>: the place where a business
-              problem becomes a flow, a flow becomes an interface, and an interface starts to feel
-              like a product people trust.
-            </Reveal>
-
-            <Reveal className="intro__row" delay={120}>
-              <Link to="/about" className="link-arrow" data-cursor="Read">
-                <SlideText mode="word">More about me</SlideText>
-                <span aria-hidden="true">↗</span>
-              </Link>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
       <section className="work section" id="work">
         <div className="shell">
           <div className="section-head">
-            <p className="eyebrow">(02) Selected projects</p>
+            <p className="eyebrow">(01) Selected projects</p>
             <Link to="/work" className="link-arrow" data-cursor="All projects">
               <SlideText mode="word">All projects</SlideText>
               <span aria-hidden="true">↗</span>
@@ -137,21 +80,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="manifesto section">
-        <div className="shell">
-          <div className="section-head">
-            <p className="eyebrow">(03) How I think</p>
-            <p className="section-head__note">A short manifesto</p>
-          </div>
-          <ScrollStatement text="Design, for me, has always been about curiosity. I didn't arrive here by accident. I've been drawn to the way things work, the way people interact, and how those small details shape big experiences. I see design not just as problem solving, but as storytelling: a chance to make ideas tangible, simple and human." />
-          <p className="manifesto__sign">Adeoluwa</p>
-        </div>
-      </section>
-
       <section className="capabilities section">
         <div className="shell">
           <div className="section-head">
-            <p className="eyebrow">(04) What I do</p>
+            <p className="eyebrow">(02) What I do</p>
             <p className="section-head__note">Services</p>
           </div>
 
@@ -177,7 +109,7 @@ export default function Home() {
       <section className="experience-preview section">
         <div className="shell">
           <div className="section-head">
-            <p className="eyebrow">(05) Journey</p>
+            <p className="eyebrow">(03) Journey</p>
             <Link to="/about" className="link-arrow" data-cursor="Story">
               <SlideText mode="word">The full story</SlideText>
               <span aria-hidden="true">↗</span>
@@ -202,28 +134,40 @@ export default function Home() {
         <div className="shell">
           <Reveal className="credentia__card">
             <div className="credentia__top">
-              <p className="eyebrow">(06) Currently building</p>
+              <p className="eyebrow">(04) Currently building</p>
               <span className="credentia__status">
                 <span className="dot" /> Live
               </span>
             </div>
 
+            <div className="credentia__lead">
+              <h2 className="credentia__title">{credentia.name}</h2>
+              <p className="credentia__role">{credentia.role}</p>
+            </div>
+
             <div className="credentia__body">
-              <div className="credentia__lead">
-                <h2 className="credentia__title">{credentia.name}</h2>
-                <p className="credentia__role">{credentia.role}</p>
+              <div className="credentia__copy">
+                <p className="credentia__blurb">{credentia.blurb}</p>
+                <a
+                  className="credentia__link"
+                  href={credentia.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-cursor="Visit"
+                >
+                  <SlideText mode="word">Visit credentia.site</SlideText>
+                  <span aria-hidden="true">↗</span>
+                </a>
               </div>
-              <p className="credentia__blurb">{credentia.blurb}</p>
-              <a
-                className="credentia__link"
-                href={credentia.href}
-                target="_blank"
-                rel="noreferrer"
-                data-cursor="Visit"
-              >
-                <SlideText mode="word">Visit credentia.site</SlideText>
-                <span aria-hidden="true">↗</span>
-              </a>
+
+              <dl className="credentia__facts">
+                {credentia.facts.map((fact) => (
+                  <div key={fact.label}>
+                    <dt>{fact.label}</dt>
+                    <dd>{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           </Reveal>
         </div>
