@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { workTabFor } from "../data/work";
 
 // A single smooth-scroll instance drives the page. Overlays (the menu) pause it
 // instead of collapsing the document with CSS, which used to reset the scroll
@@ -12,6 +13,19 @@ export function setScrollLocked(locked) {
   if (!activeLenis) return;
   if (locked) activeLenis.stop();
   else activeLenis.start();
+}
+
+// Scroll the page from code. With smooth scrolling on, this has to go through
+// Lenis: a native window.scrollTo underneath it gets pulled back towards
+// wherever Lenis thinks the page is, which is what made the graphics filter's
+// jump-back stutter in production.
+export function scrollToY(top, { immediate = false } = {}) {
+  if (activeLenis) {
+    activeLenis.scrollTo(top, { immediate });
+    return;
+  }
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({ top, behavior: immediate || reduce ? "auto" : "smooth" });
 }
 
 export function useLenis() {
@@ -67,7 +81,15 @@ export function useLenis() {
     };
   }, []);
 
+  const previousPath = useRef(pathname);
+
   useEffect(() => {
+    // Switching between the Projects tabs is not a new page: the Projects page
+    // keeps the visitor's place and decides where to scroll itself.
+    const from = previousPath.current;
+    previousPath.current = pathname;
+    if (from !== pathname && workTabFor(from) && workTabFor(pathname)) return;
+
     const lenis = lenisRef.current;
     if (lenis) {
       lenis.scrollTo(0, { immediate: true });

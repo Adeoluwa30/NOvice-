@@ -25,14 +25,15 @@ export default function About() {
           </div>
           <Reveal as="h1" className="page-head__title">
             <span className="serif">avid</span>
-            {" interface "}
+            {" product "}
             <br />
-            &amp; experience designer.
+            &amp; motion designer.
           </Reveal>
           <Reveal as="p" className="page-head__lede" delay={100}>
             I design the whole product: the research and the flows, the interface, the system
-            underneath it, and the brand that sits on top. Four years and more than ten products,
-            from a legal case-management platform to an 800-screen compliance dashboard.
+            underneath it, the brand that sits on top and the motion that brings it to life. Three-plus
+            years and more than ten products, from a legal case-management platform to an
+            800-screen compliance dashboard.
           </Reveal>
         </div>
       </header>
@@ -95,15 +96,19 @@ export default function About() {
                 </div>
                 <div>
                   <dt>Designing since</dt>
-                  <dd>2022, so four years and counting</dd>
+                  <dd>2022, 3+ years and counting</dd>
                 </div>
                 <div>
                   <dt>Focus</dt>
-                  <dd>Experience, interface and systems</dd>
+                  <dd>Product, interface and motion</dd>
                 </div>
                 <div>
                   <dt>Industries</dt>
                   <dd>Food, fashion, law, cybersecurity, services</dd>
+                </div>
+                <div>
+                  <dt>Works</dt>
+                  <dd>Remote or on-site, worldwide (WAT, UTC+1)</dd>
                 </div>
                 <div>
                   <dt>Toolkit</dt>
@@ -114,7 +119,7 @@ export default function About() {
 
             <div className="about-story__body">
               <Reveal as="p" className="about-story__lead">
-                Design, for me, has always been about curiosity. Four years in, it still starts
+                Design, for me, has always been about curiosity. A few years in, it still starts
                 with a question about how something works and who it is really for.
               </Reveal>
 
@@ -160,7 +165,7 @@ export default function About() {
         <div className="shell">
           <div className="section-head">
             <p className="eyebrow">(Journey so far)</p>
-            <p className="section-head__note">Five roles, four years</p>
+            <p className="section-head__note">Five roles, 3+ years</p>
           </div>
 
           <div className="journey__list">
@@ -219,13 +224,19 @@ export default function About() {
                 The other half of the <span className="serif">practice.</span>
               </h2>
               <p className="graphics-teaser__note">
-                Posters, campaign art, identity and the social work that runs beside the products.
-                It has its own room on this site now.
+                Posters, campaign art, identity, motion and the social work that runs beside the
+                products. It sits in Projects, right next to the case studies.
               </p>
-              <Link to="/graphics" className="link-arrow" data-cursor="The wall">
-                <SlideText mode="word">See the graphics</SlideText>
-                <span aria-hidden="true">↗</span>
-              </Link>
+              <div className="graphics-teaser__links">
+                <Link to="/work/graphics" className="link-arrow" data-cursor="The wall">
+                  <SlideText mode="word">See the graphics</SlideText>
+                  <span aria-hidden="true">↗</span>
+                </Link>
+                <Link to="/work/motion" className="link-arrow" data-cursor="Motion">
+                  <SlideText mode="word">See the motion</SlideText>
+                  <span aria-hidden="true">↗</span>
+                </Link>
+              </div>
             </Reveal>
           </div>
         </section>

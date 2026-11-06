@@ -2,7 +2,7 @@
 // (on client-side navigation) and in scripts/prerender.mjs, so the markup a
 // crawler reads is always identical to what the app would have rendered.
 
-import { projects } from "./projects.js";
+import { projects, projectsIn } from "./projects.js";
 import { graphics } from "./graphics.js";
 import { SITE_ORIGIN, defaultMeta } from "./meta.js";
 import { site, faqs } from "../site.js";
@@ -72,11 +72,15 @@ const personNode = () => ({
   },
   sameAs: site.socials.map((social) => social.href),
   knowsAbout: [
-    "Experience design",
-    "Interface design",
-    "Design systems",
     "Product design",
+    "UX design",
+    "UI design",
+    "Interaction design",
+    "Design systems",
+    "Web design",
+    "Brand identity",
     "Graphic design",
+    "Motion design",
   ],
 });
 
@@ -157,7 +161,7 @@ export function workSchema(meta) {
       ["Home", "/"],
       ["Projects", "/work"],
     ]),
-    itemList(projects.map(workNode)),
+    itemList(projectsIn("product").map(workNode)),
   ]);
 }
 
@@ -202,13 +206,13 @@ export function graphicsSchema(meta) {
     websiteNode(),
     page(
       "CollectionPage",
-      "/graphics",
+      "/work/graphics",
       `Graphic design, ${site.name}`,
       meta.description
     ),
     {
       "@type": "ImageGallery",
-      "@id": `${SITE_ORIGIN}/graphics#gallery`,
+      "@id": `${SITE_ORIGIN}/work/graphics#gallery`,
       name: `Graphic design, ${site.name}`,
       description: meta.description,
       about: { "@id": PERSON_ID },
@@ -216,7 +220,23 @@ export function graphicsSchema(meta) {
     },
     breadcrumbs([
       ["Home", "/"],
-      ["Graphics", "/graphics"],
+      ["Projects", "/work"],
+      ["Graphics", "/work/graphics"],
+    ]),
+  ]);
+}
+
+export function motionSchema(meta) {
+  const studies = projectsIn("motion");
+  return graph([
+    personNode(),
+    websiteNode(),
+    page("CollectionPage", "/work/motion", `Motion design, ${site.name}`, meta.description),
+    ...(studies.length ? [itemList(studies.map(workNode))] : []),
+    breadcrumbs([
+      ["Home", "/"],
+      ["Projects", "/work"],
+      ["Motion", "/work/motion"],
     ]),
   ]);
 }

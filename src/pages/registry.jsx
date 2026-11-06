@@ -8,12 +8,12 @@
  * import settles, which happens under the route-wipe on navigations.
  */
 import { useEffect, useState } from "react";
+import { workTabFor } from "../data/work";
 
 const loaders = {
   Home: () => import("./Home"),
   Work: () => import("./Work"),
   Project: () => import("./Project"),
-  Graphics: () => import("./Graphics"),
   About: () => import("./About"),
   Contact: () => import("./Contact"),
   NotFound: () => import("./NotFound"),
@@ -68,9 +68,9 @@ export function PageView({ name }) {
 }
 
 export function pageForPath(pathname) {
+  if (workTabFor(pathname)) return "Work";
   if (pathname.startsWith("/work/")) return "Project";
-  if (pathname.startsWith("/work")) return "Work";
-  if (pathname.startsWith("/graphics")) return "Graphics";
+  if (pathname.startsWith("/graphics")) return "Work";
   if (pathname.startsWith("/about")) return "About";
   if (pathname.startsWith("/contact")) return "Contact";
   if (pathname === "/" || pathname === "") return "Home";

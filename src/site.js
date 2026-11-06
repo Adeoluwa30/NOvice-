@@ -1,7 +1,9 @@
 export const site = {
   name: "Adeoluwa Adeoye",
   shortName: "AdE",
-  role: "Product Designer & Interface Designer",
+  role: "Product & Motion Designer",
+  // The positioning line used in the page title, the hero heading and the footer.
+  headline: "Product & Motion Designer",
   location: "Lagos, Nigeria",
   timezone: "Africa/Lagos",
   email: "deoluwadeoye1@gmail.com",
@@ -9,7 +11,8 @@ export const site = {
   // Left empty the contact screen falls back to a pre-filled email.
   whatsapp: "",
   availability: "Open for work",
-  availabilityNote: "Available for select projects, collaborations and full-time roles.",
+  availabilityNote:
+    "Available for product and motion projects, collaborations and full-time roles, remote or on-site, worldwide.",
   socials: [
     { label: "LinkedIn", href: "https://linkedin.com/in/deoluwadeoye" },
     { label: "Twitter", href: "https://x.com/deoluwa30" },
@@ -25,32 +28,32 @@ export const credentia = {
     "A free public document directory that helps Lagos residents navigate the paperwork behind major life events: 15 life categories, 79 checklists, and a correction flow that keeps every answer current.",
 };
 
-export const roles = ["Interface Designer", "Experience Designer", "Product Designer"];
+// The three hero marquee lines, top to bottom. The middle one is outlined.
+export const roles = ["Product Designer", "Motion Designer", "Product & Motion Designer"];
 
-// Four years by 2026: he started designing in 2022. Update both copy and the
+// Shown as 3+ years. He started designing in 2022; update the copy and the
 // notes here when the count changes.
 export const stats = [
-  { value: "4+", label: "Years designing", note: "Since 2022" },
+  { value: "3+", label: "Years designing", note: "Since 2022" },
   { value: "10+", label: "Products & platforms", note: "Apps, sites, dashboards" },
   { value: "5", label: "Industries", note: "Food, fashion, law, cyber, services" },
   { value: "800+", label: "Screens in one product", note: "SecureComply, under a month" },
 ];
 
-export const intro =
-  "Four years of designing digital products where clarity, motion and craft meet: mobile apps, marketplaces, dashboards and the design systems that hold them together.";
-
 export const biography =
-  "I'm a product, interface and graphic designer. I work across mobile apps, web platforms and the design systems that keep them coherent, and I'm usually the person who turns an ambiguous brief into a set of screens people can use.";
+  "I'm a product and motion designer, and a graphic designer too. I work across mobile apps, web platforms and the design systems that keep them coherent, then give them the movement that makes them memorable. I'm usually the person who turns an ambiguous brief into a set of screens people can use.";
 
 // What he is actually good at, in his own words rather than a tool list: the
 // About page had been underselling the range of work.
 export const strengths = [
   "Product & UX strategy",
-  "Interface and interaction design",
+  "UI and interaction design",
   "Design systems & tokens",
   "Data-heavy dashboards",
-  "Mobile and web apps",
+  "Mobile apps, web apps & websites",
   "Brand & graphic design",
+  "Motion & micro-interactions",
+  "AI-accelerated design: months of work in weeks",
 ];
 
 export const tools = [
@@ -76,46 +79,54 @@ export const tools = [
   },
   {
     name: "Claude",
-    kind: "AI-assisted production",
-    note: "Research, copy and production support. It is how an 800-screen dashboard shipped inside a month.",
+    kind: "AI-accelerated design",
+    note: "Research, copy, production support and coded prototypes. It is how an 800-screen dashboard shipped inside a month.",
   },
 ];
 
-export const manifesto = [
-  "Design, for me, has always been about curiosity.",
-  "I didn't arrive here by accident. I've been drawn to the way things work, the way people interact, and how those small details shape big experiences.",
-  "My path has been shaped by a mix of learning, experimenting, and asking “what if?” again and again.",
-  "I see design not just as problem solving, but as storytelling: a chance to make ideas tangible, simple and human.",
-];
-
+// The services list on the home page. Each one is backed by work on the site.
 export const capabilities = [
   {
     index: "01",
     title: "Experience Design",
     blurb:
-      "End-to-end product thinking: research, flows and the decisions that make a product feel inevitable.",
-    tags: ["User flows", "Wireframes", "Prototyping", "Usability"],
+      "End-to-end product thinking: research, flows and the decisions that make a complex service feel obvious.",
+    tags: ["User research", "User flows", "Wireframes", "Prototyping"],
   },
   {
     index: "02",
     title: "Interface Design",
     blurb:
-      "Interfaces with hierarchy, rhythm and motion, built to be used, not just looked at.",
-    tags: ["Visual systems", "Interaction design", "Responsive layouts", "Motion"],
+      "Interfaces with hierarchy, rhythm and clear states, built to be used, not just looked at.",
+    tags: ["Visual design", "Interaction", "Responsive layouts", "Accessibility"],
   },
   {
     index: "03",
     title: "Design Systems",
     blurb:
-      "Components, tokens and documentation that keep a product coherent as it grows.",
+      "Components, tokens and documentation that keep a product coherent as it grows and the team ships faster.",
     tags: ["Components", "Tokens", "Documentation", "Handoff"],
   },
   {
     index: "04",
-    title: "Graphic Design",
+    title: "Websites & Landing Pages",
     blurb:
-      "Identity and art direction that give a product a voice before it says a word.",
-    tags: ["Identity", "Art direction", "Campaigns", "Social"],
+      "Marketing sites that explain a product in one scroll, structured for the story and designed for the build.",
+    tags: ["Web design", "Landing pages", "Content structure", "Responsive"],
+  },
+  {
+    index: "05",
+    title: "Brand & Graphic Design",
+    blurb:
+      "Identity, campaigns and art direction that give a product a voice before it says a word.",
+    tags: ["Identity", "Campaigns", "Social", "Print & packaging"],
+  },
+  {
+    index: "06",
+    title: "Motion Design & Graphics",
+    blurb:
+      "Movement with a job to do: motion graphics, interfaces that explain themselves and brand moments that land in seconds.",
+    tags: ["Motion graphics", "UI animation", "Brand animation", "Social & launch video"],
   },
 ];
 
@@ -173,7 +184,7 @@ export const principles = [
 export const faqs = [
   {
     q: "What kind of projects do you take on?",
-    a: "I'm open to product design projects across various industries, from early-stage ideas to live platforms. I especially enjoy working on complex systems, marketplaces, or products that require thinking across user types and flows.",
+    a: "Product design across industries, from early-stage ideas to live platforms, plus the brand, graphic and motion work around them. I especially enjoy complex systems, marketplaces and products that require thinking across user types and flows.",
   },
   {
     q: "Can you lead a project or work independently?",
@@ -181,7 +192,7 @@ export const faqs = [
   },
   {
     q: "Are you open to full-time roles, freelance, or collaboration?",
-    a: "Yes to all three. I'm open to full-time product design roles, focused freelance engagements and collaborations with studios or founders. The common thread is interesting problems and people who care about the work.",
+    a: "Yes to all three, remote or on-site. I'm open to full-time product design roles, focused freelance engagements and collaborations with studios or founders anywhere in the world. I work from Lagos on West Africa Time (UTC+1), which overlaps with working hours in Europe, the Middle East and the US East Coast.",
   },
   {
     q: "What inspires your design approach?",

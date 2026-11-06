@@ -1,8 +1,9 @@
 # Adeoluwa Adeoye, Portfolio
 
-A custom, multi-page portfolio for **Adeoluwa Adeoye**, interface & experience designer.
+A custom, multi-page portfolio for **Adeoluwa Adeoye**, product & motion designer.
 Editorial layout, oversized condensed typography, scroll-driven motion, and three themes.
-Product case studies sit alongside a scroll-driven wall of graphic design work.
+The Projects page holds three tabs: product design case studies, a scroll-driven wall of graphic
+design work, and motion case studies.
 
 Live design references: [Russell Numo](https://www.russellnumo.nl/) (layout language) and the
 previous [Figma site](https://adeoluwaadeoye.figma.site/) (content + brand).
@@ -29,16 +30,22 @@ npm run preview  # preview the production build
 | Route | Page |
 | --- | --- |
 | `/` | Home, marquee hero, selected work, manifesto, capabilities, experience |
-| `/work` | Full project index, plus the SecureComply card that is not a link yet |
+| `/work` | Projects, Product design tab: the case studies plus the SecureComply card that is not a link yet |
+| `/work/graphics` | Projects, Graphics tab: 22 pieces in a diagonal stack with a campaign filter, plus the commissions brief |
+| `/work/motion` | Projects, Motion tab: motion case studies, plus an animated coming-soon card |
 | `/work/chef4me-user` | Chef4me User, mobile app, 2025 |
 | `/work/chef4me-chef` | Chef4me Chef, chef web app, 2025 |
 | `/work/brandit` | Brandit, e-commerce, 2024 |
 | `/work/chef4me-web` | Chef4me Web, user marketplace, 2024 |
 | `/work/bubble` | Bubble, legal case management, 2023 |
-| `/graphics` | Graphic design wall: 22 pieces in a diagonal stack with a campaign filter, plus the commissions brief |
 | `/about` | Bio, numbers, toolkit, journey, principles |
 | `/contact` | Email, WhatsApp-style message composer, FAQ |
 | `*` | 404 with a way back |
+
+The three Projects tabs are one page (`src/pages/Work.jsx`, tab content in `src/pages/work/`), each on
+its own URL so it can be shared, prerendered and indexed. Switching tabs keeps your scroll position and
+skips the route wipe. The tabs are listed in `src/data/work.js`. The old `/graphics` URL is a permanent
+redirect to `/work/graphics` in `vercel.json`, so existing links keep working.
 
 ## Theming
 
@@ -63,7 +70,7 @@ also shift to `--accent` (red on Night and Day, near-black on the red AdE theme)
 drawn with `content: attr(data-char)` pseudo-elements, so the DOM still carries the label exactly
 once and copy-paste stays clean. The graphics wall is a vertical stack where the piece at the centre
 of the screen is in colour and full size while everything around it falls back to black and white at
-two thirds scale (`Flyer` in `src/pages/Graphics.jsx`). Each piece also drifts sideways as it passes,
+two thirds scale (`Flyer` in `src/pages/work/GraphicsWall.jsx`). Each piece also drifts sideways as it passes,
 so the column reads as a diagonal, and clicking one opens it full size in a lightbox. Reduced motion
 gets the same stack without the colour or scale change.
 
@@ -84,8 +91,8 @@ Only these two families ship with the site. All fonts are self-hosted in `public
 All copy and project data live in:
 
 - `src/site.js`, profile, bio, numbers, strengths, toolkit, capabilities, experience, FAQ
-- `src/data/projects.js`, the five case studies, chapter copy, imagery, next-project chain,
-  plus the `upcoming` list behind the SecureComply card
+- `src/data/projects.js`, every case study (product and motion), chapter copy, imagery,
+  next-project chain, plus the `upcoming` list behind the coming-soon cards
 - `src/data/graphics.js`, the graphic design wall, the pieces in the run, the commissions list
   and the Behance links
 
@@ -124,13 +131,36 @@ Any converter will do (Squoosh, ImageMagick, `Pillow`); this repo has no image p
 Order in that array is the order of the wall, so sorting it is how the wall is composed. Nothing is
 cropped: each frame takes the artwork's own proportions.
 
-The wall has two readings, both in `src/pages/Graphics.jsx`. On a desktop it is a pinned horizontal
+The wall has two readings, both in `src/pages/work/GraphicsWall.jsx`. On a desktop it is a pinned horizontal
 run: the section holds still for the length of the row and scrolling down pans the flyers sideways
 past a fixed stage. The vertical offsets step down the screen in runs of five (`BAND`) with a tilt
 on every piece (`TILTS`), which is what makes the row read as a diagonal rather than a shelf.
 Phones, and anyone whose system asks for less motion, get the vertical walk instead, where the
 staggered `LEANS` offset does the same job. Adding a piece lengthens the run automatically, and a
 new `campaign` value shows up as a new filter chip with its own count.
+
+### Adding a motion case study
+
+Motion pieces are case studies on the same template as the product work: the brief, the process,
+the tools and the thinking, with the motion itself in the chapters.
+
+1. Export each clip as MP4 (H.264, ideally under 8 MB; a WebM next to it is optional but
+   smaller) and one still frame of it as a WebP poster, into `public/assets/<project>/`.
+2. Add a thumbnail (3:2 WebP, plus a `-900` version) to `public/assets/thumbs/`.
+3. Add an entry to `catalogue` in `src/data/projects.js` with `track: "motion"`. It takes every
+   field a product study does, plus `tools` (shown in the case-study header) and, on any chapter,
+   a `video` in place of `image`. The comment at the top of that file shows the shape.
+4. Remove the `motion-01` entry from `upcoming` once the first real study is in.
+
+The study then shows up under the Motion tab, counts and links back within the motion work, and
+gets its own prerendered page and sitemap entry. Chapter videos play muted and looped while on
+screen. Videos must be self-hosted: the site's Content-Security-Policy only allows media from its
+own domain, so YouTube or Vimeo embeds would be blocked unless that policy is widened in
+`vercel.json`.
+
+While the Motion tab has a single card, a short note fills the second column
+(`src/pages/work/MotionWork.jsx`). The coming-soon card's animation is `SignatureMark`
+(`src/components/SignatureMark.jsx`, styles under `.sig` in `main.css`).
 
 ### The SecureComply card
 

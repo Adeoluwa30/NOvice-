@@ -50,9 +50,6 @@ export default function Footer() {
             <Link to="/work">
               <SlideText mode="word">Projects</SlideText>
             </Link>
-            <Link to="/graphics">
-              <SlideText mode="word">Graphics</SlideText>
-            </Link>
             <Link to="/about">
               <SlideText mode="word">About</SlideText>
             </Link>
@@ -80,8 +77,8 @@ export default function Footer() {
         </div>
 
         <div className="footer__bottom">
-          <span>© 2026</span>
-          <span>Interface &amp; experience designer</span>
+          <span>{`© ${new Date().getFullYear()}`}</span>
+          <span>{site.headline}</span>
           <button
             type="button"
             className="footer__top-link"

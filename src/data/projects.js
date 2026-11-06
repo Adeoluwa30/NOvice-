@@ -1,5 +1,24 @@
 const img = (project, name) => `/assets/${project}/${name}.webp`;
 
+// Every case study belongs to a track, which decides the Projects tab it
+// appears under: "product" (the default) or "motion". Both use the same case
+// study page, so a motion piece gets the brief, the process, the tools and the
+// thinking, not just a video.
+//
+// Motion case studies can use two extra fields:
+// - `tools`: what it was made in, e.g. ["Figma", "After Effects"]. Shown in the
+//   case study header. Any project can have it.
+// - a chapter `video` in place of `image`:
+//     video: {
+//       src: "/assets/<project>/<name>.mp4",    // H.264, ideally under 8 MB
+//       webm: "/assets/<project>/<name>.webm",  // optional, smaller
+//       poster: "/assets/<project>/<name>.webp", // a still frame
+//       width: 1920,
+//       height: 1080,
+//     },
+//   It plays muted and looped while it is on screen. Videos must be
+//   self-hosted: the site's security policy blocks YouTube and Vimeo embeds.
+
 const catalogue = [
   {
     slug: "chef4me-user",
@@ -484,6 +503,8 @@ const catalogue = [
 export const upcoming = [
   {
     slug: "securecomply",
+    track: "product",
+    mark: "securecomply",
     index: "06",
     title: "SecureComply",
     display: "Secure",
@@ -495,11 +516,30 @@ export const upcoming = [
     blurb:
       "A GRC workspace for compliance teams: 800+ screens across owner, admin and member roles, designed and delivered in under a month.",
   },
+  {
+    slug: "motion-01",
+    track: "motion",
+    mark: "signature",
+    index: "01",
+    title: "Motion case study",
+    display: "Motion",
+    displayAccent: "Study",
+    kind: "Motion · Case study",
+    year: "2026",
+    status: "In production",
+    note: "The first motion case study is in production. It lands here, process and all, when it's ready.",
+    blurb:
+      "Each motion piece arrives as a full case study: the brief, the storyboard, the tools and the thinking behind every frame.",
+  },
 ];
 
 // Chef4me Web is the user-facing web app: its own project, distinct from the
 // chef dashboard and the mobile user app.
 export const projects = catalogue;
+
+const trackOf = (item) => item.track || "product";
+export const projectsIn = (track) => projects.filter((p) => trackOf(p) === track);
+export const upcomingIn = (track) => upcoming.filter((u) => trackOf(u) === track);
 
 export const getProject = (slug) => projects.find((p) => p.slug === slug);
 export const getNextProject = (slug) => {

@@ -895,40 +895,56 @@ button:hover .stext__ch::after {
   inset: -5px;
 }
 
+/* The click target is a 56px circle, well past the 44px minimum, while the
+   two lines stay the same size. The negative margin keeps the lines on the
+   page gutter, where the smaller button used to put them. */
 .burger {
   display: block;
-  width: 36px;
-  height: 36px;
+  width: 56px;
+  height: 56px;
+  margin-right: -10px;
   border: 0;
   border-radius: 50%;
   position: relative;
   color: var(--fg);
+  transition: background-color 0.3s var(--ease);
+}
+
+.burger:focus-visible {
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+}
+
+/* Touch screens keep :hover after a tap, so the circle would stick there. */
+@media (hover: hover) {
+  .burger:hover {
+    background: color-mix(in srgb, var(--fg) 8%, transparent);
+  }
 }
 
 .burger span {
   position: absolute;
-  left: 9px;
-  right: 9px;
+  left: 19px;
+  right: 19px;
   height: 1px;
   background: var(--fg);
   transition: transform 0.35s var(--ease), top 0.35s var(--ease);
 }
 
 .burger span:first-child {
-  top: 15px;
+  top: calc(50% - 3px);
 }
 
 .burger span:last-child {
-  top: 20px;
+  top: calc(50% + 2px);
 }
 
 .burger.is-open span:first-child {
-  top: 17.5px;
+  top: calc(50% - 0.5px);
   transform: rotate(45deg);
 }
 
 .burger.is-open span:last-child {
-  top: 17.5px;
+  top: calc(50% - 0.5px);
   transform: rotate(-45deg);
 }
 
@@ -1128,7 +1144,7 @@ button:hover .stext__ch::after {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
-  width: clamp(190px, 22vw, 340px);
+  width: clamp(209px, 24.2vw, 374px);
   margin: 0;
 }
 
@@ -3439,7 +3455,7 @@ body.is-locked .marquee__track {
   }
 
   .hero__portrait {
-    width: 128px;
+    width: 141px;
   }
 
   .hero__foot {
@@ -3668,7 +3684,7 @@ body.is-locked .marquee__track {
   }
 
   .hero__portrait {
-    width: 98px;
+    width: 108px;
   }
 
   .hero__type {
@@ -4019,7 +4035,7 @@ html.theme-anim *::after {
   }
 
   .hero__portrait {
-    width: clamp(174px, 25vw, 250px);
+    width: clamp(191px, 27.5vw, 275px);
   }
 
   .hero__foot {
@@ -4155,24 +4171,6 @@ html.theme-anim *::after {
     inset: -3px;
   }
 
-  .burger {
-    width: 40px;
-    height: 40px;
-  }
-
-  .burger span:first-child {
-    top: 17px;
-  }
-
-  .burger span:last-child {
-    top: 22px;
-  }
-
-  .burger.is-open span:first-child,
-  .burger.is-open span:last-child {
-    top: 19.5px;
-  }
-
   .menu__links a {
     font-size: clamp(40px, 14vw, 62px);
     padding: 14px 0;
@@ -4234,7 +4232,7 @@ html.theme-anim *::after {
     left: auto;
     top: auto;
     transform: none;
-    width: min(58vw, 238px);
+    width: min(64vw, 262px);
     margin: 0 auto 14px;
   }
 
@@ -5035,7 +5033,7 @@ html.theme-anim *::after {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: clamp(150px, min(60vw, 38vh), 300px);
+    width: clamp(165px, min(66vw, 41.8vh), 330px);
     margin: 0;
     z-index: 3;
   }
@@ -5456,7 +5454,7 @@ html.theme-anim *::after {
   }
 
   .hero__portrait {
-    width: clamp(180px, 24vw, 268px);
+    width: clamp(198px, 26.4vw, 295px);
   }
 
   /* 961-1024px portrait is wider than the phone breakpoint, so the About
@@ -5540,7 +5538,7 @@ html.theme-anim *::after {
   }
 
   .hero__portrait {
-    width: clamp(104px, min(24vw, 32vh), 168px);
+    width: clamp(114px, min(26.4vw, 35.2vh), 185px);
   }
 
   .section {
@@ -5876,7 +5874,7 @@ html.theme-anim *::after {
 /* ------------------------------------------------------------------
    Graphics wall: a diagonal stack. The piece at the centre of the screen
    is in colour and full size; the ones above and below it drop to black
-   and white and shrink. The motion lives in Flyer, src/pages/Graphics.jsx.
+   and white and shrink. The motion lives in Flyer, src/pages/work/GraphicsWall.jsx.
 ------------------------------------------------------------------ */
 .gstack {
   position: relative;
@@ -6088,7 +6086,7 @@ body:has(.nav.is-hidden) .gwfilter {
    The wall on desktop: the same flyers laid out as a horizontal run. The
    section is pinned for the length of the run, so scrolling down pans the
    row sideways past a fixed stage instead of moving the page. The pan and
-   the per-piece offsets are set in src/pages/Graphics.jsx.
+   the per-piece offsets are set in src/pages/work/GraphicsWall.jsx.
 ------------------------------------------------------------------ */
 .gtrack {
   /* The run's own length, plus one screen for the pin. */
@@ -6442,4 +6440,345 @@ body:has(.nav.is-hidden) .gwfilter {
   .gflyer__frame {
     filter: none;
   }
+}
+
+/* ------------------------------------------------------------------
+   Projects tabs: Product design, Graphics, Motion. Each tab is its own
+   URL; src/pages/Work.jsx swaps the content under one shared head.
+------------------------------------------------------------------ */
+.page-head--work {
+  padding-bottom: clamp(26px, 3.4vw, 48px);
+}
+
+.work-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: clamp(26px, 3.4vw, 46px);
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: calc(var(--nav-h) + 24px);
+}
+
+.work-tabs__tab {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--fg-soft);
+  transition: color 0.35s var(--ease), border-color 0.35s var(--ease),
+    background-color 0.35s var(--ease);
+}
+
+.work-tabs__tab:hover,
+.work-tabs__tab:focus-visible {
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+.work-tabs__tab.is-active {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+.work-tabs__count {
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.6;
+}
+
+.work-tabs__tab.is-active .work-tabs__count {
+  color: var(--accent);
+  opacity: 1;
+}
+
+[data-theme="brand"] .work-tabs__tab.is-active .work-tabs__count {
+  color: inherit;
+}
+
+/* The graphics wall's intro row sat under its own page head before it moved
+   into a tab; it now opens the tab instead. */
+.page-head--work + .shell .graphics-head__row {
+  margin-top: 0;
+  margin-bottom: clamp(18px, 2.4vw, 30px);
+}
+
+@media (max-width: 640px) {
+  .work-tabs {
+    gap: 8px;
+  }
+
+  .work-tabs__tab {
+    padding: 11px 15px;
+    letter-spacing: 0.1em;
+  }
+}
+
+.graphics-teaser__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+}
+
+.work__note p a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+  transition: color 0.3s var(--ease), text-decoration-color 0.3s var(--ease);
+}
+
+.work__note p a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+/* ------------------------------------------------------------------
+   Motion coming-soon card: a title card on loop. The AdE mark spins into
+   place, the name types itself out, a rule and caption follow, then the
+   frame clears and plays again. One 7s cycle drives every part, so the
+   pieces stay in step on every loop. src/components/SignatureMark.jsx
+------------------------------------------------------------------ */
+.work-card__media--signature {
+  background: #0b0b0d;
+  border-color: var(--line);
+  color: #f1eee8;
+}
+
+/* The frame is dark in every theme, so its badge and index are too. */
+.work-card__media--signature .soon__badge {
+  color: #f1eee8;
+}
+
+.work-card__media--signature .work-card__index {
+  background: rgba(241, 238, 232, 0.1);
+  color: #f1eee8;
+}
+
+.sig {
+  --cycle: 7s;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 1.6vw, 20px);
+  background: radial-gradient(
+    ellipse at 50% 46%,
+    rgba(227, 6, 59, 0.16),
+    rgba(227, 6, 59, 0) 62%
+  );
+}
+
+.sig__logo {
+  display: grid;
+  color: #e3063b;
+  animation: sig-logo var(--cycle) var(--ease) infinite both;
+}
+
+.sig__logo svg {
+  width: clamp(48px, 6vw, 78px);
+  height: auto;
+}
+
+.sig__logo path:last-child {
+  color: #f1eee8;
+}
+
+.sig__name {
+  display: flex;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.4vw, 50px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.sig__char {
+  display: inline-block;
+  animation: sig-char var(--cycle) var(--ease) infinite both;
+  animation-delay: calc(var(--i) * 34ms);
+}
+
+.sig__rule {
+  width: clamp(60px, 9vw, 120px);
+  height: 1px;
+  background: #e3063b;
+  transform-origin: left;
+  animation: sig-rule var(--cycle) var(--ease-io) infinite both;
+}
+
+.sig__caption {
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(241, 238, 232, 0.7);
+  animation: sig-caption var(--cycle) var(--ease) infinite both;
+}
+
+/* A playback bar along the foot of the frame, so it reads as a video. */
+.sig__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: #e3063b;
+  transform-origin: left;
+  animation: sig-progress var(--cycle) linear infinite both;
+}
+
+@keyframes sig-logo {
+  0% {
+    opacity: 0;
+    transform: scale(0.55) rotate(-120deg);
+    filter: blur(6px);
+  }
+  14%,
+  84% {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+  94%,
+  100% {
+    opacity: 0;
+    transform: scale(1.06);
+    filter: blur(4px);
+  }
+}
+
+@keyframes sig-char {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateY(105%);
+  }
+  24%,
+  84% {
+    opacity: 1;
+    transform: none;
+  }
+  94%,
+  100% {
+    opacity: 0;
+    transform: translateY(-40%);
+  }
+}
+
+@keyframes sig-rule {
+  0%,
+  28% {
+    transform: scaleX(0);
+  }
+  38%,
+  84% {
+    transform: scaleX(1);
+  }
+  94%,
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+
+@keyframes sig-caption {
+  0%,
+  34% {
+    opacity: 0;
+    letter-spacing: 0.5em;
+  }
+  46%,
+  84% {
+    opacity: 1;
+    letter-spacing: 0.24em;
+  }
+  94%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes sig-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* The hover veil already says the status, so the frame keeps playing under
+   it rather than freezing. */
+.work-card__media--signature .soon__veil {
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sig__logo,
+  .sig__char,
+  .sig__rule,
+  .sig__caption,
+  .sig__progress {
+    animation: none;
+  }
+
+  .sig__progress {
+    transform: scaleX(0.4);
+  }
+}
+
+/* A short note that fills the second column while a tab has only one card. */
+.work-aside {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.8vw, 20px);
+  padding-top: clamp(18px, 2vw, 24px);
+  border-top: 1px solid var(--line);
+}
+
+.work-aside__lead {
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 46px);
+  font-weight: 600;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.work-aside__note {
+  max-width: 40ch;
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.75;
+  color: var(--fg-soft);
+}
+
+@media (max-width: 960px) {
+  .work-aside.work-card--offset {
+    margin-top: 0;
+  }
+}
+
+/* Case-study video chapters (motion studies). The figure keeps the chapter
+   frame's proportions; the clip fills it like the screenshots do. */
+.chapter__figure--video .auto-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
 }

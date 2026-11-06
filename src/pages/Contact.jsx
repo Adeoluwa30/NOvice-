@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import Marquee from "../components/Marquee";
 import Reveal from "../components/Reveal";
@@ -19,6 +20,11 @@ const topics = [
     id: "graphics",
     label: "Graphic design",
     text: "Hi Adeoluwa, I need graphic design work done. Here is the event or brand and what it needs: ",
+  },
+  {
+    id: "motion",
+    label: "Motion",
+    text: "Hi Adeoluwa, I'd like some motion work: a product animation, motion graphics or a launch video. Here is what it is for: ",
   },
   {
     id: "freelance",
@@ -46,6 +52,19 @@ export default function Contact() {
   const [topic, setTopic] = useState(topics[0]);
   const [message, setMessage] = useState(topics[0].text);
   const [openFaq, setOpenFaq] = useState(0);
+  const [params] = useSearchParams();
+
+  // Links from the Graphics and Motion tabs arrive with ?topic= so the composer
+  // opens on the right reason. Applied after mount: the prerendered page always
+  // starts on the first topic, and changing it during hydration would not match.
+  const requested = params.get("topic");
+  useEffect(() => {
+    const match = topics.find((item) => item.id === requested);
+    if (match) {
+      setTopic(match);
+      setMessage(match.text);
+    }
+  }, [requested]);
 
   const whatsappHref = useMemo(() => {
     const digits = (site.whatsapp || "").replace(/\D/g, "");

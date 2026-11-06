@@ -14,9 +14,8 @@ const themeLabels = {
 
 const links = [
   { to: "/work", label: "Projects", index: "01" },
-  { to: "/graphics", label: "Graphics", index: "02" },
-  { to: "/about", label: "About", index: "03" },
-  { to: "/contact", label: "Contact", index: "04" },
+  { to: "/about", label: "About", index: "02" },
+  { to: "/contact", label: "Contact", index: "03" },
 ];
 
 export default function Nav() {
@@ -109,7 +108,11 @@ export default function Nav() {
                 to={link.to}
                 data-index={link.index}
                 tabIndex={open ? 0 : -1}
-                aria-current={pathname === link.to ? "page" : undefined}
+                aria-current={
+                  pathname === link.to || (link.to === "/work" && pathname.startsWith("/work/"))
+                    ? "page"
+                    : undefined
+                }
               >
                 <SlideText mode="char">{link.label}</SlideText>
               </Link>

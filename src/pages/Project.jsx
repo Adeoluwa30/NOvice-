@@ -4,9 +4,10 @@ import ScrollProgress from "../components/ScrollProgress";
 import Parallax from "../components/Parallax";
 import Reveal from "../components/Reveal";
 import ProjectThumb from "../components/ProjectThumb";
+import AutoVideo from "../components/AutoVideo";
 import SlideText from "../components/SlideText";
 import CTA from "../components/CTA";
-import { getNextProject, getProject, projects } from "../data/projects";
+import { getNextProject, getProject, projectsIn } from "../data/projects";
 import { projectMeta } from "../data/meta";
 import { ogImageFor, projectSchema } from "../data/schema";
 import { usePageMeta } from "../hooks/usePageMeta";
@@ -44,6 +45,11 @@ export default function Project() {
   }
 
   const next = getNextProject(project.slug);
+  // A study counts and links back within its own track, so a motion study
+  // says "01 / 02" of the motion work and returns to the Motion tab.
+  const track = project.track || "product";
+  const trackSize = projectsIn(track).length;
+  const backTo = track === "motion" ? "/work/motion" : "/work";
 
   return (
     <article className="case">
@@ -52,11 +58,11 @@ export default function Project() {
       <header className="case-hero">
         <div className="shell">
           <div className="case-hero__top">
-            <Link to="/work" className="back-link" data-cursor="Back">
+            <Link to={backTo} className="back-link" data-cursor="Back">
               <SlideText mode="word">← All work</SlideText>
             </Link>
             <span className="eyebrow">
-              {`Case Study, ${project.index} / ${String(projects.length).padStart(2, "0")}`}
+              {`Case Study, ${project.index} / ${String(trackSize).padStart(2, "0")}`}
             </span>
           </div>
 
@@ -110,6 +116,12 @@ export default function Project() {
                 <dt>Scope</dt>
                 <dd>{project.scope}</dd>
               </div>
+              {project.tools?.length ? (
+                <div>
+                  <dt>Tools</dt>
+                  <dd>{project.tools.join(", ")}</dd>
+                </div>
+              ) : null}
             </motion.dl>
           </div>
         </div>
@@ -161,6 +173,10 @@ export default function Project() {
                     </figure>
                   ))}
                 </div>
+              ) : chapter.video ? (
+                <figure className="chapter__figure chapter__figure--video">
+                  <AutoVideo video={chapter.video} label={chapter.alt || chapter.title} />
+                </figure>
               ) : chapter.image ? (
                 <figure className="chapter__figure">
                   <Parallax src={chapter.image} alt={chapter.alt} amount={22} />

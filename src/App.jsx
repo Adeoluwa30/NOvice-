@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Navigate, Routes, Route, useLocation } from "react-router-dom";
 import Loader from "./components/Loader";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Cursor from "./components/Cursor";
 import RouteWipe from "./components/RouteWipe";
 import { useLenis } from "./hooks/useLenis";
+import { workTabFor } from "./data/work";
 
 // Each page is its own chunk. A visitor reading the home page never downloads
 // the case-study template, and the loader covers the first chunk request.
@@ -13,13 +14,16 @@ import { PageView } from "./pages/registry";
 
 const labelFor = (pathname) => {
   if (pathname === "/") return "Home";
+  if (workTabFor(pathname)) return "Projects";
   if (pathname.startsWith("/work/")) return "Case study";
-  if (pathname.startsWith("/work")) return "Projects";
-  if (pathname.startsWith("/graphics")) return "Graphics";
   if (pathname.startsWith("/about")) return "About";
   if (pathname.startsWith("/contact")) return "Contact";
   return "404";
 };
+
+// The three Projects tabs are one page: moving between them swaps the tab
+// content in place instead of remounting the page behind a route wipe.
+const pageKeyFor = (pathname) => (workTabFor(pathname) ? "/work" : pathname);
 
 export default function App() {
   // The intro is a first-impression moment, not a tax on every visit: repeats
@@ -45,7 +49,11 @@ export default function App() {
   // already shows the page, so covering it with a sheet only delays it. The
   // router's key is read once and never changes, so only real navigations
   // (not the mount re-render) replay the sheet.
-  const introKey = useRef(location.key);
+  const pageKey = pageKeyFor(location.pathname);
+  const wipe = useRef({ pageKey, key: location.key });
+  if (wipe.current.pageKey !== pageKey) wipe.current = { pageKey, key: location.key };
+  const wipeKey = wipe.current.key;
+  const introKey = useRef(wipeKey);
   useLenis();
 
   const finishLoading = () => {
@@ -67,19 +75,23 @@ export default function App() {
 
       <Cursor />
       <Nav />
-      {location.key !== introKey.current && (
-        <RouteWipe key={`wipe-${location.key}`} label={labelFor(location.pathname)} />
+      {wipeKey !== introKey.current && (
+        <RouteWipe key={`wipe-${wipeKey}`} label={labelFor(location.pathname)} />
       )}
 
       {/* The route wipe covers the page swap, so the content itself does not
           need an exit animation (which also kept hydrated pages from ever
           completing a navigation). */}
-      <main id="main" key={`page-${location.pathname}`}>
+      <main id="main" key={`page-${pageKey}`}>
         <Routes location={location}>
           <Route path="/" element={<PageView name="Home" />} />
           <Route path="/work" element={<PageView name="Work" />} />
+          <Route path="/work/graphics" element={<PageView name="Work" />} />
+          <Route path="/work/motion" element={<PageView name="Work" />} />
           <Route path="/work/:slug" element={<PageView name="Project" />} />
-          <Route path="/graphics" element={<PageView name="Graphics" />} />
+          {/* Graphics moved under Projects. Vercel answers the old URL with a
+              permanent redirect; this covers the dev server and in-app links. */}
+          <Route path="/graphics" element={<Navigate to="/work/graphics" replace />} />
           <Route path="/about" element={<PageView name="About" />} />
           <Route path="/contact" element={<PageView name="Contact" />} />
           <Route path="*" element={<PageView name="NotFound" />} />
