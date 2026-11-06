@@ -6452,17 +6452,6 @@ body:has(.nav.is-hidden) .gwfilter {
   padding-bottom: clamp(26px, 3.4vw, 48px);
 }
 
-.work-lede {
-  animation: work-lede-in 0.6s var(--ease) both;
-}
-
-@keyframes work-lede-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-}
-
 .work-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -6525,316 +6514,6 @@ body:has(.nav.is-hidden) .gwfilter {
   margin-bottom: clamp(18px, 2.4vw, 30px);
 }
 
-/* ------------------------------------------------------------------
-   Motion tab: the reel
------------------------------------------------------------------- */
-.mreel {
-  padding-block: clamp(20px, 3vw, 40px) clamp(60px, 8vw, 120px);
-}
-
-.mreel__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(44px, 6vw, 100px) clamp(24px, 4vw, 64px);
-  align-items: start;
-}
-
-.mcard--offset {
-  margin-top: clamp(60px, 9vw, 150px);
-}
-
-.mcard__media {
-  position: relative;
-  display: block;
-  width: 100%;
-  aspect-ratio: var(--ratio, 16 / 9);
-  max-height: 78svh;
-  padding: 0;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.mcard__media video {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.9s var(--ease);
-}
-
-.mcard__media:hover video,
-.mcard__media:focus-visible video {
-  transform: scale(1.025);
-}
-
-.mcard__index,
-.mcard__time {
-  position: absolute;
-  top: 14px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--bg) 70%, transparent);
-  backdrop-filter: blur(8px);
-  color: var(--fg);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  font-variant-numeric: tabular-nums;
-}
-
-.mcard__index {
-  left: 14px;
-}
-
-.mcard__time {
-  right: 14px;
-}
-
-.mcard__play {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  display: grid;
-  place-items: center;
-  width: 64px;
-  height: 64px;
-  margin: -32px 0 0 -32px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--accent-contrast);
-  font-size: 18px;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
-}
-
-.mcard__media:hover .mcard__play,
-.mcard__media:focus-visible .mcard__play {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Touch screens have no hover, so the play cue stays visible there. */
-@media (hover: none) {
-  .mcard__play {
-    opacity: 0.92;
-    transform: scale(0.86);
-  }
-}
-
-.mcard__meta {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  margin-top: 18px;
-}
-
-.mcard__title {
-  font-family: var(--font-display);
-  font-size: clamp(26px, 2.6vw, 42px);
-  font-weight: 600;
-  line-height: 0.95;
-  text-transform: uppercase;
-}
-
-.mcard__kind {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.mcard__note {
-  max-width: 46ch;
-  margin-top: 10px;
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--fg-soft);
-}
-
-.lightbox__video {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 76vh;
-  background: #000;
-}
-
-/* ------------------------------------------------------------------
-   Motion tab: in the edit (shown until the first piece is added)
------------------------------------------------------------------- */
-.msoon {
-  padding-block: clamp(20px, 3vw, 40px) clamp(60px, 8vw, 120px);
-}
-
-.msoon__card {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(26px, 4vw, 70px);
-  align-items: center;
-  padding: clamp(20px, 3.2vw, 48px);
-  border: 1px solid var(--line);
-  background: var(--bg-2);
-}
-
-/* A small editing timeline: a ruler, three tracks of keyframes and a
-   playhead sweeping across them. Decorative only. */
-.msoon__timeline {
-  position: relative;
-  display: grid;
-  gap: 14px;
-  aspect-ratio: 4 / 3;
-  align-content: center;
-  padding: clamp(18px, 3vw, 40px);
-  border: 1px solid var(--line);
-  background: var(--surface);
-  overflow: hidden;
-}
-
-.msoon__ruler {
-  height: 12px;
-  margin-bottom: 8px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--line-strong) 0 1px,
-    transparent 1px 10%
-  );
-  opacity: 0.8;
-}
-
-.msoon__track {
-  position: relative;
-  height: clamp(26px, 3.4vw, 42px);
-  border-radius: 4px;
-  background: color-mix(in srgb, var(--fg) 6%, transparent);
-}
-
-.msoon__track i {
-  position: absolute;
-  top: 50%;
-  width: 11px;
-  height: 11px;
-  margin-top: -5.5px;
-  background: var(--fg-soft);
-  transform: rotate(45deg);
-}
-
-.msoon__track--a {
-  margin-right: 18%;
-}
-
-.msoon__track--a::before,
-.msoon__track--b::before,
-.msoon__track--c::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-}
-
-.msoon__track--a::before {
-  left: 8%;
-  right: 22%;
-  background: color-mix(in srgb, var(--accent) 34%, transparent);
-}
-
-.msoon__track--b::before {
-  left: 30%;
-  right: 6%;
-  background: color-mix(in srgb, var(--fg) 14%, transparent);
-}
-
-.msoon__track--c {
-  margin-left: 12%;
-}
-
-.msoon__track--c::before {
-  left: 0;
-  right: 40%;
-  background: color-mix(in srgb, var(--accent) 18%, transparent);
-}
-
-.msoon__track--a i:nth-child(1) { left: 8%; }
-.msoon__track--a i:nth-child(2) { left: 38%; }
-.msoon__track--a i:nth-child(3) { left: 76%; }
-.msoon__track--b i:nth-child(1) { left: 30%; }
-.msoon__track--b i:nth-child(2) { left: 92%; }
-.msoon__track--c i:nth-child(1) { left: 0; }
-.msoon__track--c i:nth-child(2) { left: 20%; }
-.msoon__track--c i:nth-child(3) { left: 41%; }
-.msoon__track--c i:nth-child(4) { left: 58%; }
-
-.msoon__playhead {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 12%;
-  width: 2px;
-  background: var(--accent);
-  animation: msoon-play 5.2s var(--ease-io) infinite alternate;
-}
-
-.msoon__playhead::before {
-  content: "";
-  position: absolute;
-  top: clamp(14px, 2.6vw, 34px);
-  left: -6px;
-  width: 14px;
-  height: 14px;
-  border-radius: 3px 3px 50% 50%;
-  background: var(--accent);
-}
-
-[data-theme="brand"] .msoon__playhead,
-[data-theme="brand"] .msoon__playhead::before {
-  background: var(--fg);
-}
-
-@keyframes msoon-play {
-  to {
-    left: 86%;
-  }
-}
-
-.msoon__copy {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(14px, 2vw, 22px);
-}
-
-.msoon__title {
-  font-family: var(--font-display);
-  font-size: clamp(36px, 5vw, 76px);
-  font-weight: 700;
-  line-height: 0.9;
-  text-transform: uppercase;
-}
-
-.msoon__lead {
-  max-width: 44ch;
-  font-size: var(--step-0);
-  line-height: 1.7;
-  color: var(--fg-soft);
-}
-
-.msoon__actions {
-  padding-top: 6px;
-}
-
-@media (max-width: 960px) {
-  .mreel__grid,
-  .msoon__card {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .mcard--offset {
-    margin-top: 0;
-  }
-}
-
 @media (max-width: 640px) {
   .work-tabs {
     gap: 8px;
@@ -6843,17 +6522,6 @@ body:has(.nav.is-hidden) .gwfilter {
   .work-tabs__tab {
     padding: 11px 15px;
     letter-spacing: 0.1em;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .work-lede {
-    animation: none;
-  }
-
-  .msoon__playhead {
-    animation: none;
-    left: 46%;
   }
 }
 
@@ -6874,4 +6542,245 @@ body:has(.nav.is-hidden) .gwfilter {
 .work__note p a:hover {
   color: var(--accent);
   text-decoration-color: currentColor;
+}
+
+/* ------------------------------------------------------------------
+   Motion coming-soon card: a title card on loop. The AdE mark spins into
+   place, the name types itself out, a rule and caption follow, then the
+   frame clears and plays again. One 7s cycle drives every part, so the
+   pieces stay in step on every loop. src/components/SignatureMark.jsx
+------------------------------------------------------------------ */
+.work-card__media--signature {
+  background: #0b0b0d;
+  border-color: var(--line);
+  color: #f1eee8;
+}
+
+/* The frame is dark in every theme, so its badge and index are too. */
+.work-card__media--signature .soon__badge {
+  color: #f1eee8;
+}
+
+.work-card__media--signature .work-card__index {
+  background: rgba(241, 238, 232, 0.1);
+  color: #f1eee8;
+}
+
+.sig {
+  --cycle: 7s;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 1.6vw, 20px);
+  background: radial-gradient(
+    ellipse at 50% 46%,
+    rgba(227, 6, 59, 0.16),
+    rgba(227, 6, 59, 0) 62%
+  );
+}
+
+.sig__logo {
+  display: grid;
+  color: #e3063b;
+  animation: sig-logo var(--cycle) var(--ease) infinite both;
+}
+
+.sig__logo svg {
+  width: clamp(48px, 6vw, 78px);
+  height: auto;
+}
+
+.sig__logo path:last-child {
+  color: #f1eee8;
+}
+
+.sig__name {
+  display: flex;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.4vw, 50px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.sig__char {
+  display: inline-block;
+  animation: sig-char var(--cycle) var(--ease) infinite both;
+  animation-delay: calc(var(--i) * 34ms);
+}
+
+.sig__rule {
+  width: clamp(60px, 9vw, 120px);
+  height: 1px;
+  background: #e3063b;
+  transform-origin: left;
+  animation: sig-rule var(--cycle) var(--ease-io) infinite both;
+}
+
+.sig__caption {
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(241, 238, 232, 0.7);
+  animation: sig-caption var(--cycle) var(--ease) infinite both;
+}
+
+/* A playback bar along the foot of the frame, so it reads as a video. */
+.sig__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: #e3063b;
+  transform-origin: left;
+  animation: sig-progress var(--cycle) linear infinite both;
+}
+
+@keyframes sig-logo {
+  0% {
+    opacity: 0;
+    transform: scale(0.55) rotate(-120deg);
+    filter: blur(6px);
+  }
+  14%,
+  84% {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+  94%,
+  100% {
+    opacity: 0;
+    transform: scale(1.06);
+    filter: blur(4px);
+  }
+}
+
+@keyframes sig-char {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateY(105%);
+  }
+  24%,
+  84% {
+    opacity: 1;
+    transform: none;
+  }
+  94%,
+  100% {
+    opacity: 0;
+    transform: translateY(-40%);
+  }
+}
+
+@keyframes sig-rule {
+  0%,
+  28% {
+    transform: scaleX(0);
+  }
+  38%,
+  84% {
+    transform: scaleX(1);
+  }
+  94%,
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+
+@keyframes sig-caption {
+  0%,
+  34% {
+    opacity: 0;
+    letter-spacing: 0.5em;
+  }
+  46%,
+  84% {
+    opacity: 1;
+    letter-spacing: 0.24em;
+  }
+  94%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes sig-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* The hover veil already says the status, so the frame keeps playing under
+   it rather than freezing. */
+.work-card__media--signature .soon__veil {
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sig__logo,
+  .sig__char,
+  .sig__rule,
+  .sig__caption,
+  .sig__progress {
+    animation: none;
+  }
+
+  .sig__progress {
+    transform: scaleX(0.4);
+  }
+}
+
+/* A short note that fills the second column while a tab has only one card. */
+.work-aside {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.8vw, 20px);
+  padding-top: clamp(18px, 2vw, 24px);
+  border-top: 1px solid var(--line);
+}
+
+.work-aside__lead {
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 46px);
+  font-weight: 600;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.work-aside__note {
+  max-width: 40ch;
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.75;
+  color: var(--fg-soft);
+}
+
+@media (max-width: 960px) {
+  .work-aside.work-card--offset {
+    margin-top: 0;
+  }
+}
+
+/* Case-study video chapters (motion studies). The figure keeps the chapter
+   frame's proportions; the clip fills it like the screenshots do. */
+.chapter__figure--video .auto-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
 }

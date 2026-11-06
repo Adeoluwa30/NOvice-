@@ -24,15 +24,16 @@ export default function About() {
             <p className="eyebrow">Lagos, Nigeria</p>
           </div>
           <Reveal as="h1" className="page-head__title">
-            {"Product designer, "}
+            <span className="serif">avid</span>
+            {" interface, "}
             <br />
-            first <span className="serif">flow</span> to final <span className="serif">frame.</span>
+            experience &amp; motion designer.
           </Reveal>
           <Reveal as="p" className="page-head__lede" delay={100}>
             I design the whole product: the research and the flows, the interface, the system
             underneath it, the brand that sits on top and the motion that brings it to life. Four
             years and more than ten products, from a legal case-management platform to an
-            800-screen compliance dashboard, for teams wherever they are.
+            800-screen compliance dashboard.
           </Reveal>
         </div>
       </header>
@@ -99,7 +100,7 @@ export default function About() {
                 </div>
                 <div>
                   <dt>Focus</dt>
-                  <dd>Product, UI/UX, brand and motion</dd>
+                  <dd>Interface, experience and motion</dd>
                 </div>
                 <div>
                   <dt>Industries</dt>

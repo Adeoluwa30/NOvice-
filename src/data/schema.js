@@ -2,9 +2,8 @@
 // (on client-side navigation) and in scripts/prerender.mjs, so the markup a
 // crawler reads is always identical to what the app would have rendered.
 
-import { projects } from "./projects.js";
+import { projects, projectsIn } from "./projects.js";
 import { graphics } from "./graphics.js";
-import { motionWork } from "./motion.js";
 import { SITE_ORIGIN, defaultMeta } from "./meta.js";
 import { site, faqs } from "../site.js";
 
@@ -162,7 +161,7 @@ export function workSchema(meta) {
       ["Home", "/"],
       ["Projects", "/work"],
     ]),
-    itemList(projects.map(workNode)),
+    itemList(projectsIn("product").map(workNode)),
   ]);
 }
 
@@ -228,31 +227,12 @@ export function graphicsSchema(meta) {
 }
 
 export function motionSchema(meta) {
+  const studies = projectsIn("motion");
   return graph([
     personNode(),
     websiteNode(),
     page("CollectionPage", "/work/motion", `Motion design, ${site.name}`, meta.description),
-    ...(motionWork.length
-      ? [
-          {
-            "@type": "ItemList",
-            name: `Motion design, ${site.name}`,
-            numberOfItems: motionWork.length,
-            itemListElement: motionWork.map((piece, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              item: {
-                "@type": "VideoObject",
-                name: piece.title,
-                description: piece.description || piece.note || piece.title,
-                thumbnailUrl: `${SITE_ORIGIN}${piece.poster}`,
-                contentUrl: `${SITE_ORIGIN}${piece.src}`,
-                creator: { "@id": PERSON_ID },
-              },
-            })),
-          },
-        ]
-      : []),
+    ...(studies.length ? [itemList(studies.map(workNode))] : []),
     breadcrumbs([
       ["Home", "/"],
       ["Projects", "/work"],

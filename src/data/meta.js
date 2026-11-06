@@ -5,9 +5,9 @@
 export const SITE_ORIGIN = "https://adeoluwa.site";
 
 export const defaultMeta = {
-  title: "Adeoluwa Adeoye, Product Designer: UI/UX, Brand & Motion",
+  title: "Adeoluwa Adeoye, Interface, Experience & Motion Designer",
   description:
-    "Adeoluwa Adeoye is a product designer in Lagos, Nigeria, working worldwide across UI/UX, design systems, brand and motion: mobile apps, web platforms and the identity around them.",
+    "Adeoluwa Adeoye is an interface, experience and motion designer in Lagos, Nigeria, designing digital products where clarity, motion and craft meet, for teams worldwide.",
 };
 
 // `work`, `graphics` and `motion` are the three tabs of the Projects page.
@@ -25,17 +25,17 @@ export const pageMeta = {
   motion: {
     title: "Motion Design Projects",
     description:
-      "Motion design by Adeoluwa Adeoye: product and UI animation, micro-interactions, motion graphics and social video. Open for motion commissions.",
+      "Motion design case studies by Adeoluwa Adeoye: motion graphics, UI animation and brand motion, each told from the first storyboard to the final frame.",
   },
   about: {
     title: "About",
     description:
-      "Adeoluwa Adeoye is a product designer in Lagos, Nigeria, working across UX, interface design, design systems, brand and motion for teams worldwide.",
+      "Adeoluwa Adeoye is an interface, experience and motion designer in Lagos, Nigeria, working across product design, design systems, graphic design and motion.",
   },
   contact: {
     title: "Contact",
     description:
-      "Start a project, ask a question or just say hello. Contact Adeoluwa Adeoye, product designer for UI/UX, brand and motion.",
+      "Start a project, ask a question or just say hello. Contact Adeoluwa Adeoye, interface, experience and motion designer.",
   },
 };
 

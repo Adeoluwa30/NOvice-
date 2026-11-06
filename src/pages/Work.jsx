@@ -6,9 +6,8 @@ import SlideText from "../components/SlideText";
 import ProductDesign from "./work/ProductDesign";
 import GraphicsWall from "./work/GraphicsWall";
 import MotionWork from "./work/MotionWork";
-import { projects, upcoming } from "../data/projects";
+import { projectsIn, upcomingIn } from "../data/projects";
 import { graphics } from "../data/graphics";
-import { motionWork } from "../data/motion";
 import { WORK_TABS, workTabFor } from "../data/work";
 import { pageMeta } from "../data/meta";
 import { graphicsSchema, motionSchema, workSchema } from "../data/schema";
@@ -16,13 +15,22 @@ import { usePageMeta } from "../hooks/usePageMeta";
 import { scrollToY } from "../hooks/useLenis";
 
 const pad = (value) => String(value).padStart(2, "0");
+const motionCount = projectsIn("motion").length;
 
+// Each tab keeps the head its section had as a page of its own: the Graphics
+// tab reads exactly as the old Graphics page did.
 const tabs = {
   product: {
     meta: pageMeta.work,
     schema: () => workSchema(pageMeta.work),
-    count: pad(projects.length + upcoming.length),
-    heading: "product design",
+    count: pad(projectsIn("product").length + upcomingIn("product").length),
+    label: "(Projects)",
+    aside: "2022 to 2026",
+    title: (
+      <>
+        Selected <span className="serif">projects</span>
+      </>
+    ),
     lede:
       "Five case studies, five different problems. Each one designed from the inside out: the research, the flows, the interface and the small details that make it feel finished. The sixth is still in preparation.",
     Content: ProductDesign,
@@ -31,18 +39,30 @@ const tabs = {
     meta: pageMeta.graphics,
     schema: () => graphicsSchema(pageMeta.graphics),
     count: pad(graphics.length),
-    heading: "graphic design",
+    label: "(Graphics)",
+    aside: `${graphics.length} pieces`,
+    title: (
+      <>
+        Graphic <span className="serif">design</span>
+      </>
+    ),
     lede:
-      "Campaign art, identity, packaging and print: the pieces that give a product a voice before it says a word.",
+      "The other half of the practice: campaign art, identity, packaging and print. These are the pieces that give a product a voice before it says a word.",
     Content: GraphicsWall,
   },
   motion: {
     meta: pageMeta.motion,
     schema: () => motionSchema(pageMeta.motion),
-    count: motionWork.length ? pad(motionWork.length) : "New",
-    heading: "motion design",
+    count: motionCount ? pad(motionCount) : "Soon",
+    label: "(Motion)",
+    aside: "Case studies",
+    title: (
+      <>
+        Motion <span className="serif">design</span>
+      </>
+    ),
     lede:
-      "Movement with a job to do: interfaces that explain themselves, and brand moments that land in a few seconds.",
+      "Interfaces that explain themselves and brand moments that land in a few seconds, each told from the first storyboard to the final frame.",
     Content: MotionWork,
   },
 };
@@ -77,16 +97,17 @@ export default function Work() {
       <header className="page-head page-head--work">
         <div className="shell">
           <div className="page-head__top">
-            <p className="eyebrow">(Projects)</p>
-            <p className="eyebrow">2022 to 2026</p>
+            <p className="eyebrow">{tab.label}</p>
+            <p className="eyebrow">{tab.aside}</p>
           </div>
-          <Reveal as="h1" className="page-head__title">
-            Selected <span className="serif">projects</span>
-            <span className="sr-only">{`: ${tab.heading}`}</span>
+          {/* Keyed by tab, so switching tabs replays the same reveal the page
+              head gets on arrival. */}
+          <Reveal as="h1" className="page-head__title" key={`title-${active}`}>
+            {tab.title}
           </Reveal>
-          <p className="page-head__lede work-lede" key={active}>
+          <Reveal as="p" className="page-head__lede" delay={100} key={`lede-${active}`}>
             {tab.lede}
-          </p>
+          </Reveal>
 
           <nav className="work-tabs" aria-label="Project types" ref={tabsRef}>
             {WORK_TABS.map((item) => {

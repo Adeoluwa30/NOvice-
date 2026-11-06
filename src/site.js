@@ -1,11 +1,9 @@
 export const site = {
   name: "Adeoluwa Adeoye",
   shortName: "AdE",
-  role: "Product Designer",
-  // The full positioning line: the role plus the range around it. Used in the
-  // page title, the footer and anywhere the role needs its context.
-  headline: "Product Designer: UI/UX, Brand & Motion",
-  disciplines: "UI/UX, brand & motion",
+  role: "Interface, Experience & Motion Designer",
+  // The positioning line used in the page title, the hero heading and the footer.
+  headline: "Interface, Experience & Motion Designer",
   location: "Lagos, Nigeria",
   timezone: "Africa/Lagos",
   email: "deoluwadeoye1@gmail.com",
@@ -14,7 +12,7 @@ export const site = {
   whatsapp: "",
   availability: "Open for work",
   availabilityNote:
-    "Available for product, brand and motion projects, collaborations and full-time roles, remote or on-site, worldwide.",
+    "Available for interface, experience and motion projects, collaborations and full-time roles, remote or on-site, worldwide.",
   socials: [
     { label: "LinkedIn", href: "https://linkedin.com/in/deoluwadeoye" },
     { label: "Twitter", href: "https://x.com/deoluwa30" },
@@ -31,7 +29,7 @@ export const credentia = {
 };
 
 // The three hero marquee lines, top to bottom. The middle one is outlined.
-export const roles = ["Product Designer", "UI/UX Designer", "Brand & Motion Designer"];
+export const roles = ["Interface Designer", "Experience Designer", "Motion Designer"];
 
 // Four years by 2026: he started designing in 2022. Update both copy and the
 // notes here when the count changes.
@@ -43,7 +41,7 @@ export const stats = [
 ];
 
 export const biography =
-  "I'm a product designer working across UI/UX, brand and motion. I design mobile apps, web platforms, websites and the systems that keep them coherent, then give them the identity and movement that make them memorable. I'm usually the person who turns an ambiguous brief into a set of screens people can use.";
+  "I'm an interface, experience and motion designer, and a graphic designer too. I work across mobile apps, web platforms and the design systems that keep them coherent, then give them the movement that makes them memorable. I'm usually the person who turns an ambiguous brief into a set of screens people can use.";
 
 // What he is actually good at, in his own words rather than a tool list: the
 // About page had been underselling the range of work.
@@ -55,7 +53,7 @@ export const strengths = [
   "Mobile apps, web apps & websites",
   "Brand & graphic design",
   "Motion & micro-interactions",
-  "AI-assisted design workflow",
+  "AI-augmented delivery: months of work in weeks",
 ];
 
 export const tools = [
@@ -81,7 +79,7 @@ export const tools = [
   },
   {
     name: "Claude",
-    kind: "AI-assisted production",
+    kind: "AI-augmented production",
     note: "Research, copy, production support and coded prototypes. It is how an 800-screen dashboard shipped inside a month.",
   },
 ];
@@ -90,14 +88,14 @@ export const tools = [
 export const capabilities = [
   {
     index: "01",
-    title: "Product & UX Design",
+    title: "Experience Design",
     blurb:
       "End-to-end product thinking: research, flows and the decisions that make a complex service feel obvious.",
     tags: ["User research", "User flows", "Wireframes", "Prototyping"],
   },
   {
     index: "02",
-    title: "UI & Interaction Design",
+    title: "Interface Design",
     blurb:
       "Interfaces with hierarchy, rhythm and clear states, built to be used, not just looked at.",
     tags: ["Visual design", "Interaction", "Responsive layouts", "Accessibility"],
@@ -125,10 +123,10 @@ export const capabilities = [
   },
   {
     index: "06",
-    title: "Motion Design",
+    title: "Motion Design & Graphics",
     blurb:
-      "Movement with a job to do: interfaces that explain themselves and brand moments that land in seconds.",
-    tags: ["UI animation", "Micro-interactions", "Motion graphics", "Social video"],
+      "Movement with a job to do: motion graphics, interfaces that explain themselves and brand moments that land in seconds.",
+    tags: ["Motion graphics", "UI animation", "Brand animation", "Social & launch video"],
   },
 ];
 

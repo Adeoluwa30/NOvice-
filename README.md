@@ -1,9 +1,9 @@
 # Adeoluwa Adeoye, Portfolio
 
-A custom, multi-page portfolio for **Adeoluwa Adeoye**, product designer across UI/UX, brand and motion.
+A custom, multi-page portfolio for **Adeoluwa Adeoye**, interface, experience & motion designer.
 Editorial layout, oversized condensed typography, scroll-driven motion, and three themes.
 The Projects page holds three tabs: product design case studies, a scroll-driven wall of graphic
-design work, and a motion reel.
+design work, and motion case studies.
 
 Live design references: [Russell Numo](https://www.russellnumo.nl/) (layout language) and the
 previous [Figma site](https://adeoluwaadeoye.figma.site/) (content + brand).
@@ -32,7 +32,7 @@ npm run preview  # preview the production build
 | `/` | Home, marquee hero, selected work, manifesto, capabilities, experience |
 | `/work` | Projects, Product design tab: the case studies plus the SecureComply card that is not a link yet |
 | `/work/graphics` | Projects, Graphics tab: 22 pieces in a diagonal stack with a campaign filter, plus the commissions brief |
-| `/work/motion` | Projects, Motion tab: the motion reel, or an "in the edit" panel until the first piece is added |
+| `/work/motion` | Projects, Motion tab: motion case studies, plus an animated coming-soon card |
 | `/work/chef4me-user` | Chef4me User, mobile app, 2025 |
 | `/work/chef4me-chef` | Chef4me Chef, chef web app, 2025 |
 | `/work/brandit` | Brandit, e-commerce, 2024 |
@@ -91,11 +91,10 @@ Only these two families ship with the site. All fonts are self-hosted in `public
 All copy and project data live in:
 
 - `src/site.js`, profile, bio, numbers, strengths, toolkit, capabilities, experience, FAQ
-- `src/data/projects.js`, the five case studies, chapter copy, imagery, next-project chain,
-  plus the `upcoming` list behind the SecureComply card
+- `src/data/projects.js`, every case study (product and motion), chapter copy, imagery,
+  next-project chain, plus the `upcoming` list behind the coming-soon cards
 - `src/data/graphics.js`, the graphic design wall, the pieces in the run, the commissions list
   and the Behance links
-- `src/data/motion.js`, the motion reel and the motion services list
 
 Project thumbnails live in `public/assets/thumbs/` (3:2 WebP) and are the product shots from the
 previous portfolio. `chef-user.webp` keeps a transparent background so the phone sits on the card
@@ -140,21 +139,28 @@ Phones, and anyone whose system asks for less motion, get the vertical walk inst
 staggered `LEANS` offset does the same job. Adding a piece lengthens the run automatically, and a
 new `campaign` value shows up as a new filter chip with its own count.
 
-### Adding a motion piece
+### Adding a motion case study
 
-1. Export the video as MP4 (H.264; keep it under about 8 MB, and drop the audio track if it has
-   none worth keeping). A WebM next to it is optional but smaller.
-2. Export one still frame as a WebP poster. It shows before the video loads and for anyone who
-   has asked their system for less motion.
-3. Put the files in `public/assets/motion/` and add an entry to `motionWork` in
-   `src/data/motion.js` with the video's real pixel `width` and `height`. The file has a full
-   example in its header comment.
+Motion pieces are case studies on the same template as the product work: the brief, the process,
+the tools and the thinking, with the motion itself in the chapters.
 
-The first entry switches the Motion tab from the "in the edit" panel to the reel automatically,
-and the tab count updates on its own. Previews play muted only while they are on screen, and
-clicking one opens it full size with controls. Videos must be self-hosted: the site's
-Content-Security-Policy only allows media from its own domain, so YouTube or Vimeo embeds would
-be blocked unless that policy is widened in `vercel.json`.
+1. Export each clip as MP4 (H.264, ideally under 8 MB; a WebM next to it is optional but
+   smaller) and one still frame of it as a WebP poster, into `public/assets/<project>/`.
+2. Add a thumbnail (3:2 WebP, plus a `-900` version) to `public/assets/thumbs/`.
+3. Add an entry to `catalogue` in `src/data/projects.js` with `track: "motion"`. It takes every
+   field a product study does, plus `tools` (shown in the case-study header) and, on any chapter,
+   a `video` in place of `image`. The comment at the top of that file shows the shape.
+4. Remove the `motion-01` entry from `upcoming` once the first real study is in.
+
+The study then shows up under the Motion tab, counts and links back within the motion work, and
+gets its own prerendered page and sitemap entry. Chapter videos play muted and looped while on
+screen. Videos must be self-hosted: the site's Content-Security-Policy only allows media from its
+own domain, so YouTube or Vimeo embeds would be blocked unless that policy is widened in
+`vercel.json`.
+
+While the Motion tab has a single card, a short note fills the second column
+(`src/pages/work/MotionWork.jsx`). The coming-soon card's animation is `SignatureMark`
+(`src/components/SignatureMark.jsx`, styles under `.sig` in `main.css`).
 
 ### The SecureComply card
 
