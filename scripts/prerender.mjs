@@ -20,6 +20,7 @@ import {
   contactSchema,
   graphicsSchema,
   homeSchema,
+  motionSchema,
   ogImageFor,
   projectSchema,
   workSchema,
@@ -43,7 +44,8 @@ const routes = [
   },
   ...[
     ["/work", pageMeta.work, "0.9", workSchema],
-    ["/graphics", pageMeta.graphics, "0.8", graphicsSchema],
+    ["/work/graphics", pageMeta.graphics, "0.8", graphicsSchema],
+    ["/work/motion", pageMeta.motion, "0.7", motionSchema],
     ["/about", pageMeta.about, "0.8", aboutSchema],
     ["/contact", pageMeta.contact, "0.7", contactSchema],
   ].map(([routePath, meta, priority, build]) => ({
@@ -150,7 +152,7 @@ const rootPlaceholder = '<div id="root"></div>';
 // run's markup is stripped out of the template first.
 const template = (
   await readFile(path.join(dist, "index.html"), "utf8")
-).replace(/<div id="root">[\s\S]*<\/div>\s*(?=<\/body>)/, rootPlaceholder + "\n    ");
+).replace(/<div id="root"[^>]*>[\s\S]*<\/div>\s*(?=<\/body>)/, rootPlaceholder + "\n    ");
 
 if (!template.includes(rootPlaceholder)) {
   throw new Error("dist/index.html no longer has an empty #root to fill.");
@@ -171,9 +173,13 @@ for (const route of routes) {
     throw new Error(`Server render for ${route.path} produced no page body.`);
   }
 
+  // The path is stamped on the container so the client only hydrates markup
+  // that was rendered for the URL it is on. Vercel serves 404.html for any
+  // unknown path, including a mistyped /work/<slug>, and hydrating the 404
+  // markup as a case-study page threw a hydration error.
   const html = withMeta(template, route).replace(
     rootPlaceholder,
-    `<div id="root">${appHtml}</div>`
+    `<div id="root" data-prerendered="${route.path}">${appHtml}</div>`
   );
 
   await mkdir(path.dirname(file), { recursive: true });

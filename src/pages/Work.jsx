@@ -1,22 +1,80 @@
-import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Reveal from "../components/Reveal";
-import ProjectThumb from "../components/ProjectThumb";
-import SlideText from "../components/SlideText";
-import SecureComplyMark from "../components/SecureComplyMark";
 import CTA from "../components/CTA";
+import SlideText from "../components/SlideText";
+import ProductDesign from "./work/ProductDesign";
+import GraphicsWall from "./work/GraphicsWall";
+import MotionWork from "./work/MotionWork";
 import { projects, upcoming } from "../data/projects";
+import { graphics } from "../data/graphics";
+import { motionWork } from "../data/motion";
+import { WORK_TABS, workTabFor } from "../data/work";
 import { pageMeta } from "../data/meta";
-import { workSchema } from "../data/schema";
+import { graphicsSchema, motionSchema, workSchema } from "../data/schema";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { scrollToY } from "../hooks/useLenis";
+
+const pad = (value) => String(value).padStart(2, "0");
+
+const tabs = {
+  product: {
+    meta: pageMeta.work,
+    schema: () => workSchema(pageMeta.work),
+    count: pad(projects.length + upcoming.length),
+    heading: "product design",
+    lede:
+      "Five case studies, five different problems. Each one designed from the inside out: the research, the flows, the interface and the small details that make it feel finished. The sixth is still in preparation.",
+    Content: ProductDesign,
+  },
+  graphics: {
+    meta: pageMeta.graphics,
+    schema: () => graphicsSchema(pageMeta.graphics),
+    count: pad(graphics.length),
+    heading: "graphic design",
+    lede:
+      "Campaign art, identity, packaging and print: the pieces that give a product a voice before it says a word.",
+    Content: GraphicsWall,
+  },
+  motion: {
+    meta: pageMeta.motion,
+    schema: () => motionSchema(pageMeta.motion),
+    count: motionWork.length ? pad(motionWork.length) : "New",
+    heading: "motion design",
+    lede:
+      "Movement with a job to do: interfaces that explain themselves, and brand moments that land in a few seconds.",
+    Content: MotionWork,
+  },
+};
 
 export default function Work() {
-  usePageMeta(pageMeta.work.title, pageMeta.work.description, {
-    schema: workSchema(pageMeta.work),
-  });
+  const { pathname } = useLocation();
+  const active = (workTabFor(pathname) || WORK_TABS[0]).id;
+  const tab = tabs[active];
+
+  usePageMeta(tab.meta.title, tab.meta.description, { schema: tab.schema() });
+
+  // A tab switch keeps the visitor's place. If they have scrolled past the
+  // tabs, bring the bar back to the top of the screen so the new tab starts
+  // where they are looking, instead of halfway down its own content.
+  const tabsRef = useRef(null);
+  const first = useRef(true);
+  useEffect(() => {
+    if (first.current) {
+      first.current = false;
+      return;
+    }
+    const bar = tabsRef.current;
+    if (!bar) return;
+    const top = bar.getBoundingClientRect().top;
+    if (top < 0) scrollToY(top + window.scrollY - 96, { immediate: true });
+  }, [active]);
+
+  const { Content } = tab;
 
   return (
     <>
-      <header className="page-head">
+      <header className="page-head page-head--work">
         <div className="shell">
           <div className="page-head__top">
             <p className="eyebrow">(Projects)</p>
@@ -24,105 +82,35 @@ export default function Work() {
           </div>
           <Reveal as="h1" className="page-head__title">
             Selected <span className="serif">projects</span>
+            <span className="sr-only">{`: ${tab.heading}`}</span>
           </Reveal>
-          <Reveal as="p" className="page-head__lede" delay={100}>
-            Five case studies, five different problems. Each one designed from the inside out: the
-            research, the flows, the interface and the small details that make it feel finished.
-            The sixth is still in preparation.
-          </Reveal>
+          <p className="page-head__lede work-lede" key={active}>
+            {tab.lede}
+          </p>
+
+          <nav className="work-tabs" aria-label="Project types" ref={tabsRef}>
+            {WORK_TABS.map((item) => {
+              const current = item.id === active;
+              return (
+                <Link
+                  key={item.id}
+                  to={item.path}
+                  className={`work-tabs__tab ${current ? "is-active" : ""}`}
+                  aria-current={current ? "page" : undefined}
+                  data-cursor={current ? undefined : "Open"}
+                >
+                  <span className="work-tabs__label">
+                    <SlideText mode="word">{item.label}</SlideText>
+                  </span>
+                  <span className="work-tabs__count">{tabs[item.id].count}</span>
+                </Link>
+              );
+            })}
+          </nav>
         </div>
       </header>
 
-      <section className="work-grid-section">
-        <div className="shell">
-          <div className="work-grid">
-            {projects.map((project, i) => (
-              <Reveal
-                key={project.slug}
-                className={`work-card ${i % 2 === 1 ? "work-card--offset" : ""}`}
-                delay={40}
-              >
-                <Link to={`/work/${project.slug}`} className="work-card__link" data-cursor="View">
-                  <div className="work-card__media">
-                    <ProjectThumb
-                      project={project}
-                      eager={i < 2}
-                      sizes="(max-width: 960px) 100vw, 46vw"
-                    />
-                    <span className="work-card__index">{`(${project.index})`}</span>
-                  </div>
-                  <div className="work-card__meta">
-                    <h2 className="work-card__title">
-                      {`${project.display} `}
-                      {project.displayAccent && (
-                        <span className="serif">{project.displayAccent}</span>
-                      )}
-                    </h2>
-                    <div className="work-card__details">
-                      <span>{project.kind}</span>
-                      <span>{project.year}</span>
-                    </div>
-                    <span className="work-card__arrow" aria-hidden="true">
-                      ↗
-                    </span>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
-
-            {upcoming.map((item) => (
-              <Reveal key={item.slug} className="work-card work-card--soon" delay={40}>
-                {/* Deliberately not a link: the study does not exist yet, so the
-                    card answers with its status instead of a dead route. */}
-                <article className="work-card__soon" aria-labelledby={`soon-${item.slug}`}>
-                  <div className="work-card__media work-card__media--soon" data-cursor="Soon">
-                    <span className="work-card__index">{`(${item.index})`}</span>
-                    <span className="soon__mark">
-                      <SecureComplyMark size={72} />
-                    </span>
-                    <span className="soon__word">SecureComply</span>
-                    <span className="soon__badge">Coming soon</span>
-                    <span className="soon__veil">
-                      <span className="soon__veil-title">{item.status}</span>
-                      <span className="soon__veil-note">
-                        The case study is being written. It lands here when it&apos;s ready.
-                      </span>
-                    </span>
-                  </div>
-
-                  <div className="work-card__meta">
-                    <h2 className="work-card__title" id={`soon-${item.slug}`}>
-                      {`${item.display} `}
-                      <span className="serif">{item.displayAccent}</span>
-                    </h2>
-                    <div className="work-card__details">
-                      <span>{item.kind}</span>
-                      <span>{item.year}</span>
-                    </div>
-                    <span className="work-card__arrow work-card__arrow--soon" aria-hidden="true">
-                      ✳
-                    </span>
-                  </div>
-
-                  <p className="soon__blurb">{item.blurb}</p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal className="work-tail" delay={80}>
-            <p className="eyebrow">(Currently)</p>
-            <p className="work-tail__text">
-              I&apos;m open to new product design work: a complex system, a marketplace, or a
-              product that needs someone to think across user types and flows.
-            </p>
-            <Link to="/contact" className="link-arrow" data-cursor="Talk">
-              <SlideText mode="word">Start a conversation</SlideText>
-              <span aria-hidden="true">↗</span>
-            </Link>
-          </Reveal>
-        </div>
-      </section>
+      <Content />
 
       <CTA />
     </>

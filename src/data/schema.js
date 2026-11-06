@@ -4,6 +4,7 @@
 
 import { projects } from "./projects.js";
 import { graphics } from "./graphics.js";
+import { motionWork } from "./motion.js";
 import { SITE_ORIGIN, defaultMeta } from "./meta.js";
 import { site, faqs } from "../site.js";
 
@@ -72,11 +73,15 @@ const personNode = () => ({
   },
   sameAs: site.socials.map((social) => social.href),
   knowsAbout: [
-    "Experience design",
-    "Interface design",
-    "Design systems",
     "Product design",
+    "UX design",
+    "UI design",
+    "Interaction design",
+    "Design systems",
+    "Web design",
+    "Brand identity",
     "Graphic design",
+    "Motion design",
   ],
 });
 
@@ -202,13 +207,13 @@ export function graphicsSchema(meta) {
     websiteNode(),
     page(
       "CollectionPage",
-      "/graphics",
+      "/work/graphics",
       `Graphic design, ${site.name}`,
       meta.description
     ),
     {
       "@type": "ImageGallery",
-      "@id": `${SITE_ORIGIN}/graphics#gallery`,
+      "@id": `${SITE_ORIGIN}/work/graphics#gallery`,
       name: `Graphic design, ${site.name}`,
       description: meta.description,
       about: { "@id": PERSON_ID },
@@ -216,7 +221,42 @@ export function graphicsSchema(meta) {
     },
     breadcrumbs([
       ["Home", "/"],
-      ["Graphics", "/graphics"],
+      ["Projects", "/work"],
+      ["Graphics", "/work/graphics"],
+    ]),
+  ]);
+}
+
+export function motionSchema(meta) {
+  return graph([
+    personNode(),
+    websiteNode(),
+    page("CollectionPage", "/work/motion", `Motion design, ${site.name}`, meta.description),
+    ...(motionWork.length
+      ? [
+          {
+            "@type": "ItemList",
+            name: `Motion design, ${site.name}`,
+            numberOfItems: motionWork.length,
+            itemListElement: motionWork.map((piece, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": "VideoObject",
+                name: piece.title,
+                description: piece.description || piece.note || piece.title,
+                thumbnailUrl: `${SITE_ORIGIN}${piece.poster}`,
+                contentUrl: `${SITE_ORIGIN}${piece.src}`,
+                creator: { "@id": PERSON_ID },
+              },
+            })),
+          },
+        ]
+      : []),
+    breadcrumbs([
+      ["Home", "/"],
+      ["Projects", "/work"],
+      ["Motion", "/work/motion"],
     ]),
   ]);
 }

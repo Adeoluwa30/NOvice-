@@ -1,20 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useMotionValue, useReducedMotion, useScroll, useTransform } from "motion/react";
-import Reveal from "../components/Reveal";
-import SlideText from "../components/SlideText";
-import Magnetic from "../components/Magnetic";
-import CTA from "../components/CTA";
+import Reveal from "../../components/Reveal";
+import SlideText from "../../components/SlideText";
+import Magnetic from "../../components/Magnetic";
+import Lightbox from "../../components/Lightbox";
 import {
   behanceGallery,
   behanceProfile,
   graphicPractice,
   graphics,
-} from "../data/graphics";
-import { pageMeta } from "../data/meta";
-import { graphicsSchema } from "../data/schema";
-import { usePageMeta } from "../hooks/usePageMeta";
-import { setScrollLocked } from "../hooks/useLenis";
+} from "../../data/graphics";
+import { scrollToY } from "../../hooks/useLenis";
 
 const pad = (value) => String(value).padStart(2, "0");
 const clamp01 = (value) => Math.min(1, Math.max(0, value));
@@ -186,11 +183,9 @@ function BandFlyer({ piece, index, onOpen, x, originX, centre, span }) {
   );
 }
 
-export default function Graphics() {
-  usePageMeta(pageMeta.graphics.title, pageMeta.graphics.description, {
-    schema: graphicsSchema(pageMeta.graphics),
-  });
-
+// The Graphics tab of the Projects page. The page head, tabs and closing CTA
+// belong to src/pages/Work.jsx.
+export default function GraphicsWall() {
   const [campaign, setCampaign] = useState("All");
   const [open, setOpen] = useState(null);
   const [active, setActive] = useState(0);
@@ -206,7 +201,6 @@ export default function Graphics() {
   const stageRef = useRef(null);
   const rowRef = useRef(null);
   const fillRef = useRef(null);
-  const closeRef = useRef(null);
   // The pan. Written once a frame while the run is pinned.
   const pan = useMotionValue(0);
 
@@ -233,9 +227,7 @@ export default function Graphics() {
     // leaving them somewhere in the middle of a different set.
     const stack = stackRef.current;
     if (!stack || stack.getBoundingClientRect().top >= 0) return;
-    const top = stack.offsetTop;
-    if (window.__lenis) window.__lenis.scrollTo(top);
-    else window.scrollTo({ top, behavior: reduced ? "auto" : "smooth" });
+    scrollToY(stack.getBoundingClientRect().top + window.scrollY);
   };
 
   // The progress cue and the wall itself are read from one place: whichever
@@ -404,54 +396,23 @@ export default function Graphics() {
     };
   }, [horizontal, shown, pan]);
 
-  // A lightbox that leaves the page scrolling underneath is disorienting, so
-  // smooth scroll pauses while it is open and the close button takes focus.
-  useEffect(() => {
-    if (!open) return undefined;
-    setScrollLocked(true);
-    closeRef.current?.focus();
-
-    const onKey = (event) => {
-      if (event.key === "Escape") setOpen(null);
-    };
-    window.addEventListener("keydown", onKey);
-
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      setScrollLocked(false);
-    };
-  }, [open]);
-
   return (
     <>
-      <header className="page-head page-head--graphics">
-        <div className="shell">
-          <div className="page-head__top">
-            <p className="eyebrow">(Graphics)</p>
-            <p className="eyebrow">{`${shown.length} pieces`}</p>
-          </div>
-          <Reveal as="h1" className="page-head__title">
-            Graphic <span className="serif">design</span>
-          </Reveal>
-          <Reveal as="p" className="page-head__lede" delay={100}>
-            The other half of the practice: campaign art, identity, packaging and print. These are the
-            pieces that give a product a voice before it says a word.
-          </Reveal>
-          <Reveal className="graphics-head__row" delay={140}>
-            <span className="eyebrow">(Scroll: the piece in the middle is the one in colour)</span>
-            <a
-              className="link-arrow"
-              href={behanceGallery}
-              target="_blank"
-              rel="noreferrer"
-              data-cursor="Behance"
-            >
-              <SlideText mode="word">Full archive on Behance</SlideText>
-              <span aria-hidden="true">↗</span>
-            </a>
-          </Reveal>
-        </div>
-      </header>
+      <div className="shell">
+        <Reveal className="graphics-head__row">
+          <span className="eyebrow">(Scroll: the piece in the middle is the one in colour)</span>
+          <a
+            className="link-arrow"
+            href={behanceGallery}
+            target="_blank"
+            rel="noreferrer"
+            data-cursor="Behance"
+          >
+            <SlideText mode="word">Full archive on Behance</SlideText>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </Reveal>
+      </div>
 
       <section className="gstack" aria-label="Graphic design wall" ref={stackRef}>
         <div className="gwfilter">
@@ -556,7 +517,7 @@ export default function Graphics() {
               </p>
               <div className="gbrief__actions">
                 <Magnetic>
-                  <Link to="/contact" className="btn btn--solid" data-cursor="Brief me">
+                  <Link to="/contact?topic=graphics" className="btn btn--solid" data-cursor="Brief me">
                     <SlideText mode="word">Start a brief</SlideText>
                     <span className="btn__arrow" aria-hidden="true">
                       ↗
@@ -579,39 +540,15 @@ export default function Graphics() {
         </div>
       </section>
 
-      <CTA />
-
       {open && (
-        <div className="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
-          <button
-            type="button"
-            className="lightbox__backdrop"
-            onClick={() => setOpen(null)}
-            aria-label="Close"
-          />
-          <div className="lightbox__panel">
-            <button
-              type="button"
-              className="lightbox__close"
-              onClick={() => setOpen(null)}
-              ref={closeRef}
-            >
-              Close <span aria-hidden="true">✕</span>
-            </button>
-
-            <figure className="lightbox__figure">
-              <img src={open.src} alt={open.alt} width={open.width} height={open.height} />
-            </figure>
-
-            <div className="lightbox__meta">
-              <h2 className="lightbox__title" id="lightbox-title">
-                {open.title}
-              </h2>
-              <p className="lightbox__kind">{`${open.category} · ${open.client}`}</p>
-              <p className="lightbox__note">{open.note}</p>
-            </div>
-          </div>
-        </div>
+        <Lightbox
+          title={open.title}
+          kind={`${open.category} · ${open.client}`}
+          note={open.note}
+          onClose={() => setOpen(null)}
+        >
+          <img src={open.src} alt={open.alt} width={open.width} height={open.height} />
+        </Lightbox>
       )}
     </>
   );

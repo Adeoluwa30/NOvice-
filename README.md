@@ -1,8 +1,9 @@
 # Adeoluwa Adeoye, Portfolio
 
-A custom, multi-page portfolio for **Adeoluwa Adeoye**, interface & experience designer.
+A custom, multi-page portfolio for **Adeoluwa Adeoye**, product designer across UI/UX, brand and motion.
 Editorial layout, oversized condensed typography, scroll-driven motion, and three themes.
-Product case studies sit alongside a scroll-driven wall of graphic design work.
+The Projects page holds three tabs: product design case studies, a scroll-driven wall of graphic
+design work, and a motion reel.
 
 Live design references: [Russell Numo](https://www.russellnumo.nl/) (layout language) and the
 previous [Figma site](https://adeoluwaadeoye.figma.site/) (content + brand).
@@ -29,16 +30,22 @@ npm run preview  # preview the production build
 | Route | Page |
 | --- | --- |
 | `/` | Home, marquee hero, selected work, manifesto, capabilities, experience |
-| `/work` | Full project index, plus the SecureComply card that is not a link yet |
+| `/work` | Projects, Product design tab: the case studies plus the SecureComply card that is not a link yet |
+| `/work/graphics` | Projects, Graphics tab: 22 pieces in a diagonal stack with a campaign filter, plus the commissions brief |
+| `/work/motion` | Projects, Motion tab: the motion reel, or an "in the edit" panel until the first piece is added |
 | `/work/chef4me-user` | Chef4me User, mobile app, 2025 |
 | `/work/chef4me-chef` | Chef4me Chef, chef web app, 2025 |
 | `/work/brandit` | Brandit, e-commerce, 2024 |
 | `/work/chef4me-web` | Chef4me Web, user marketplace, 2024 |
 | `/work/bubble` | Bubble, legal case management, 2023 |
-| `/graphics` | Graphic design wall: 22 pieces in a diagonal stack with a campaign filter, plus the commissions brief |
 | `/about` | Bio, numbers, toolkit, journey, principles |
 | `/contact` | Email, WhatsApp-style message composer, FAQ |
 | `*` | 404 with a way back |
+
+The three Projects tabs are one page (`src/pages/Work.jsx`, tab content in `src/pages/work/`), each on
+its own URL so it can be shared, prerendered and indexed. Switching tabs keeps your scroll position and
+skips the route wipe. The tabs are listed in `src/data/work.js`. The old `/graphics` URL is a permanent
+redirect to `/work/graphics` in `vercel.json`, so existing links keep working.
 
 ## Theming
 
@@ -63,7 +70,7 @@ also shift to `--accent` (red on Night and Day, near-black on the red AdE theme)
 drawn with `content: attr(data-char)` pseudo-elements, so the DOM still carries the label exactly
 once and copy-paste stays clean. The graphics wall is a vertical stack where the piece at the centre
 of the screen is in colour and full size while everything around it falls back to black and white at
-two thirds scale (`Flyer` in `src/pages/Graphics.jsx`). Each piece also drifts sideways as it passes,
+two thirds scale (`Flyer` in `src/pages/work/GraphicsWall.jsx`). Each piece also drifts sideways as it passes,
 so the column reads as a diagonal, and clicking one opens it full size in a lightbox. Reduced motion
 gets the same stack without the colour or scale change.
 
@@ -88,6 +95,7 @@ All copy and project data live in:
   plus the `upcoming` list behind the SecureComply card
 - `src/data/graphics.js`, the graphic design wall, the pieces in the run, the commissions list
   and the Behance links
+- `src/data/motion.js`, the motion reel and the motion services list
 
 Project thumbnails live in `public/assets/thumbs/` (3:2 WebP) and are the product shots from the
 previous portfolio. `chef-user.webp` keeps a transparent background so the phone sits on the card
@@ -124,13 +132,29 @@ Any converter will do (Squoosh, ImageMagick, `Pillow`); this repo has no image p
 Order in that array is the order of the wall, so sorting it is how the wall is composed. Nothing is
 cropped: each frame takes the artwork's own proportions.
 
-The wall has two readings, both in `src/pages/Graphics.jsx`. On a desktop it is a pinned horizontal
+The wall has two readings, both in `src/pages/work/GraphicsWall.jsx`. On a desktop it is a pinned horizontal
 run: the section holds still for the length of the row and scrolling down pans the flyers sideways
 past a fixed stage. The vertical offsets step down the screen in runs of five (`BAND`) with a tilt
 on every piece (`TILTS`), which is what makes the row read as a diagonal rather than a shelf.
 Phones, and anyone whose system asks for less motion, get the vertical walk instead, where the
 staggered `LEANS` offset does the same job. Adding a piece lengthens the run automatically, and a
 new `campaign` value shows up as a new filter chip with its own count.
+
+### Adding a motion piece
+
+1. Export the video as MP4 (H.264; keep it under about 8 MB, and drop the audio track if it has
+   none worth keeping). A WebM next to it is optional but smaller.
+2. Export one still frame as a WebP poster. It shows before the video loads and for anyone who
+   has asked their system for less motion.
+3. Put the files in `public/assets/motion/` and add an entry to `motionWork` in
+   `src/data/motion.js` with the video's real pixel `width` and `height`. The file has a full
+   example in its header comment.
+
+The first entry switches the Motion tab from the "in the edit" panel to the reel automatically,
+and the tab count updates on its own. Previews play muted only while they are on screen, and
+clicking one opens it full size with controls. Videos must be self-hosted: the site's
+Content-Security-Policy only allows media from its own domain, so YouTube or Vimeo embeds would
+be blocked unless that policy is widened in `vercel.json`.
 
 ### The SecureComply card
 

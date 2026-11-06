@@ -7,7 +7,7 @@ import ProjectIndex from "../components/ProjectIndex";
 import SlideText from "../components/SlideText";
 import CTA from "../components/CTA";
 import { projects } from "../data/projects";
-import { capabilities, credentia, experience } from "../site";
+import { capabilities, credentia, experience, roles, site } from "../site";
 import { homeSchema } from "../data/schema";
 import { usePageMeta } from "../hooks/usePageMeta";
 
@@ -51,34 +51,23 @@ export default function Home() {
   return (
     <>
       <section className="hero">
-        <h1 className="sr-only">Adeoluwa Adeoye, Product Designer &amp; Interface Designer</h1>
+        <h1 className="sr-only">{`${site.name}, ${site.headline}`}</h1>
 
         <div className="hero__stage">
           <div className="hero__type">
-            <div className="hero__line">
-              <Marquee speed={46}>
-                <span>Interface Designer</span>
-                <span className="asterisk">✳</span>
-                <span>Interface Designer</span>
-                <span className="asterisk">✳</span>
-              </Marquee>
-            </div>
-            <div className="hero__line hero__line--outline">
-              <Marquee speed={54} reverse>
-                <span>Experience Designer</span>
-                <span className="asterisk">✳</span>
-                <span>Experience Designer</span>
-                <span className="asterisk">✳</span>
-              </Marquee>
-            </div>
-            <div className="hero__line">
-              <Marquee speed={40}>
-                <span>Product Designer</span>
-                <span className="asterisk">✳</span>
-                <span>Product Designer</span>
-                <span className="asterisk">✳</span>
-              </Marquee>
-            </div>
+            {roles.map((role, i) => (
+              <div
+                key={role}
+                className={`hero__line ${i === 1 ? "hero__line--outline" : ""}`}
+              >
+                <Marquee speed={[46, 54, 40][i]} reverse={i === 1}>
+                  <span>{role}</span>
+                  <span className="asterisk">✳</span>
+                  <span>{role}</span>
+                  <span className="asterisk">✳</span>
+                </Marquee>
+              </div>
+            ))}
           </div>
 
           <figure className="hero__portrait">
@@ -142,7 +131,7 @@ export default function Home() {
             <p>
               Five case studies across food, fashion and law, each designed end to end, from the
               first question to the shipped interface. A sixth, a compliance platform, is on the
-              way.
+              way. The <Link to="/work/graphics">graphic design</Link> and <Link to="/work/motion">motion</Link>{" work sits beside them in Projects."}
             </p>
           </Reveal>
         </div>
@@ -163,7 +152,7 @@ export default function Home() {
         <div className="shell">
           <div className="section-head">
             <p className="eyebrow">(04) What I do</p>
-            <p className="section-head__note">Capabilities</p>
+            <p className="section-head__note">Services</p>
           </div>
 
           <div className="capabilities__list">

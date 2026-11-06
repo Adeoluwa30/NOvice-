@@ -24,15 +24,15 @@ export default function About() {
             <p className="eyebrow">Lagos, Nigeria</p>
           </div>
           <Reveal as="h1" className="page-head__title">
-            <span className="serif">avid</span>
-            {" interface "}
+            {"Product designer, "}
             <br />
-            &amp; experience designer.
+            first <span className="serif">flow</span> to final <span className="serif">frame.</span>
           </Reveal>
           <Reveal as="p" className="page-head__lede" delay={100}>
             I design the whole product: the research and the flows, the interface, the system
-            underneath it, and the brand that sits on top. Four years and more than ten products,
-            from a legal case-management platform to an 800-screen compliance dashboard.
+            underneath it, the brand that sits on top and the motion that brings it to life. Four
+            years and more than ten products, from a legal case-management platform to an
+            800-screen compliance dashboard, for teams wherever they are.
           </Reveal>
         </div>
       </header>
@@ -99,11 +99,15 @@ export default function About() {
                 </div>
                 <div>
                   <dt>Focus</dt>
-                  <dd>Experience, interface and systems</dd>
+                  <dd>Product, UI/UX, brand and motion</dd>
                 </div>
                 <div>
                   <dt>Industries</dt>
                   <dd>Food, fashion, law, cybersecurity, services</dd>
+                </div>
+                <div>
+                  <dt>Works</dt>
+                  <dd>Remote or on-site, worldwide (WAT, UTC+1)</dd>
                 </div>
                 <div>
                   <dt>Toolkit</dt>
@@ -219,13 +223,19 @@ export default function About() {
                 The other half of the <span className="serif">practice.</span>
               </h2>
               <p className="graphics-teaser__note">
-                Posters, campaign art, identity and the social work that runs beside the products.
-                It has its own room on this site now.
+                Posters, campaign art, identity, motion and the social work that runs beside the
+                products. It sits in Projects, right next to the case studies.
               </p>
-              <Link to="/graphics" className="link-arrow" data-cursor="The wall">
-                <SlideText mode="word">See the graphics</SlideText>
-                <span aria-hidden="true">↗</span>
-              </Link>
+              <div className="graphics-teaser__links">
+                <Link to="/work/graphics" className="link-arrow" data-cursor="The wall">
+                  <SlideText mode="word">See the graphics</SlideText>
+                  <span aria-hidden="true">↗</span>
+                </Link>
+                <Link to="/work/motion" className="link-arrow" data-cursor="Motion">
+                  <SlideText mode="word">See the motion</SlideText>
+                  <span aria-hidden="true">↗</span>
+                </Link>
+              </div>
             </Reveal>
           </div>
         </section>
