@@ -93,12 +93,17 @@ export default function Nav() {
         </div>
       </header>
 
+      {/* Clicking anywhere in the open menu that is not a link or a button
+          closes it, so the empty space works as a way out. */}
       <div
         className={`menu ${open ? "is-open" : ""}`}
         id="site-menu"
         aria-hidden={!open}
         role="dialog"
         aria-label="Menu"
+        onClick={(event) => {
+          if (!event.target.closest("a, button")) setOpen(false);
+        }}
       >
         <div className="menu__inner">
           <nav className="menu__links" aria-label="Menu">

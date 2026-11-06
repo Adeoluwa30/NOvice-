@@ -895,14 +895,14 @@ button:hover .stext__ch::after {
   inset: -5px;
 }
 
-/* The click target is a 56px circle, well past the 44px minimum, while the
+/* The click target is a 64px circle, well past the 44px minimum, while the
    two lines stay the same size. The negative margin keeps the lines on the
    page gutter, where the smaller button used to put them. */
 .burger {
   display: block;
-  width: 56px;
-  height: 56px;
-  margin-right: -10px;
+  width: 64px;
+  height: 64px;
+  margin-right: -14px;
   border: 0;
   border-radius: 50%;
   position: relative;
@@ -923,8 +923,8 @@ button:hover .stext__ch::after {
 
 .burger span {
   position: absolute;
-  left: 19px;
-  right: 19px;
+  left: 23px;
+  right: 23px;
   height: 1px;
   background: var(--fg);
   transition: transform 0.35s var(--ease), top 0.35s var(--ease);
@@ -973,9 +973,14 @@ button:hover .stext__ch::after {
   justify-content: space-between;
   height: 100%;
   min-height: 0;
-  /* Four large rows plus the footer can outgrow a short laptop screen; let the
-     panel scroll rather than clip the last tab. */
+  /* The rows plus the footer can outgrow a short laptop screen; the panel
+     still scrolls then, but without a visible scrollbar. */
   overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.menu__inner::-webkit-scrollbar {
+  display: none;
 }
 
 .menu__links {
@@ -985,8 +990,8 @@ button:hover .stext__ch::after {
 
 .menu__links a {
   font-family: var(--font-display);
-  /* Height-aware so four rows plus the footer still fit a short laptop. */
-  font-size: clamp(40px, min(9vw, 10.6vh), 128px);
+  /* Height-aware so the rows plus the footer still fit a short laptop. */
+  font-size: clamp(48px, calc(min(9vw, 10.6vh) + 8px), 136px);
   font-weight: 700;
   line-height: 0.92;
   text-transform: uppercase;
@@ -4172,7 +4177,7 @@ html.theme-anim *::after {
   }
 
   .menu__links a {
-    font-size: clamp(40px, 14vw, 62px);
+    font-size: clamp(48px, calc(14vw + 8px), 70px);
     padding: 14px 0;
   }
 
@@ -5556,7 +5561,7 @@ html.theme-anim *::after {
   }
 
   .menu__links a {
-    font-size: clamp(30px, 5.2vw, 46px);
+    font-size: clamp(38px, calc(5.2vw + 8px), 54px);
     padding: 6px 0;
   }
 
@@ -6775,10 +6780,220 @@ body:has(.nav.is-hidden) .gwfilter {
 /* Case-study video chapters (motion studies). The figure keeps the chapter
    frame's proportions; the clip fills it like the screenshots do. */
 .chapter__figure--video .auto-video {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  max-height: 86vh;
   background: #000;
+}
+
+/* ------------------------------------------------------------------
+   Credentia, at feature size: the card holds most of a screen, the name is
+   set huge, and the three numbers carry the proof.
+------------------------------------------------------------------ */
+.credentia__card {
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(560px, 82svh, 860px);
+  padding: clamp(24px, 4vw, 64px);
+}
+
+.credentia__lead {
+  padding-block: clamp(36px, 7vh, 96px) clamp(28px, 5vh, 64px);
+}
+
+.credentia__card .credentia__title {
+  font-size: clamp(64px, 13.5vw, 232px);
+  line-height: 0.8;
+}
+
+.credentia__card .credentia__role {
+  margin-top: clamp(14px, 1.6vw, 24px);
+  font-size: clamp(11px, 0.9vw, 14px);
+}
+
+.credentia__card .credentia__body {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(24px, 5vw, 96px);
+  align-items: end;
+  margin-top: auto;
+  padding-top: clamp(24px, 3vw, 40px);
+  border-top: 1px solid rgba(245, 239, 255, 0.2);
+}
+
+.credentia__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(18px, 2vw, 28px);
+}
+
+.credentia__card .credentia__blurb {
+  max-width: 46ch;
+  font-size: clamp(15px, 1.15vw, 18px);
+}
+
+.credentia__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 32px);
+}
+
+.credentia__facts > div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(245, 239, 255, 0.2);
+}
+
+.credentia__facts dd {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5.6vw, 96px);
+  font-weight: 700;
+  line-height: 0.85;
+  color: #ccbaf8;
+}
+
+.credentia__facts dt {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245, 239, 255, 0.7);
+}
+
+@media (max-width: 960px) {
+  .credentia__card {
+    min-height: 0;
+  }
+
+  .credentia__card .credentia__body {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .credentia__card {
+    padding: 22px;
+  }
+
+  .credentia__lead {
+    padding-block: 28px 24px;
+  }
+
+  .credentia__card .credentia__title {
+    font-size: clamp(54px, 17vw, 84px);
+  }
+
+  .credentia__facts dd {
+    font-size: clamp(38px, 11vw, 54px);
+  }
+
+  .credentia__facts dt {
+    font-size: 9px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Scrollbar: the browser's own bar is hidden everywhere and replaced on
+   mouse-driven screens by src/components/ScrollBar.jsx, a slim track that
+   appears while the page moves or the pointer nears the right edge.
+------------------------------------------------------------------ */
+html {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.scrollbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 95;
+  width: 14px;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+.scrollbar.is-active,
+.scrollbar:hover,
+.scrollbar.is-dragging {
+  opacity: 1;
+}
+
+.scrollbar.is-hidden {
+  display: none;
+}
+
+.scrollbar__thumb {
+  position: absolute;
+  top: 0;
+  right: 3px;
+  width: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--fg) 42%, transparent);
+  cursor: grab;
+  transition: width 0.25s var(--ease), background-color 0.25s var(--ease);
+  will-change: transform;
+}
+
+/* Wider and in the accent colour while it is being reached for or held. */
+.scrollbar:hover .scrollbar__thumb,
+.scrollbar.is-dragging .scrollbar__thumb {
+  width: 7px;
+  background: var(--accent);
+}
+
+.scrollbar.is-dragging .scrollbar__thumb {
+  cursor: grabbing;
+}
+
+/* The open menu covers the page, so the page's bar steps aside. */
+body.menu-open .scrollbar {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------
+   Case-study images at their own proportions. They used to be forced into
+   a 16:9 frame, cropped to fill it and zoomed by a parallax, which on a
+   desktop blew a 1400px screenshot up past its real size and cut off its
+   top and bottom. Now nothing is cropped, nothing is scaled past the
+   file's own width, and a very tall image is fitted to the screen.
+------------------------------------------------------------------ */
+.chapter__figure,
+.chapter__figure--tall {
+  aspect-ratio: auto;
+  background: none;
+}
+
+.chapter__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 86vh;
+  object-fit: contain;
+}
+
+@media (min-width: 961px) {
+  .chapter__figure,
+  .chapter__figure--tall {
+    aspect-ratio: auto;
+  }
+
+  .chapter__media > .chapter__figure {
+    max-width: 1400px;
+  }
+}
+
+.case-cover {
+  max-width: 1400px;
 }

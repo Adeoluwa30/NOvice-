@@ -2,7 +2,7 @@
 
 A custom, multi-page portfolio for **Adeoluwa Adeoye**, product & motion designer.
 Editorial layout, oversized condensed typography, scroll-driven motion, and three themes.
-The Projects page holds three tabs: product design case studies, a scroll-driven wall of graphic
+The Projects page holds three tabs: UI/UX case studies, a scroll-driven wall of graphic
 design work, and motion case studies.
 
 Live design references: [Russell Numo](https://www.russellnumo.nl/) (layout language) and the
@@ -30,7 +30,7 @@ npm run preview  # preview the production build
 | Route | Page |
 | --- | --- |
 | `/` | Home, marquee hero, selected work, manifesto, capabilities, experience |
-| `/work` | Projects, Product design tab: the case studies plus the SecureComply card that is not a link yet |
+| `/work` | Projects, UI/UX tab: the case studies plus the SecureComply card that is not a link yet |
 | `/work/graphics` | Projects, Graphics tab: 22 pieces in a diagonal stack with a campaign filter, plus the commissions brief |
 | `/work/motion` | Projects, Motion tab: motion case studies, plus an animated coming-soon card |
 | `/work/chef4me-user` | Chef4me User, mobile app, 2025 |
@@ -97,8 +97,8 @@ All copy and project data live in:
   and the Behance links
 
 Project thumbnails live in `public/assets/thumbs/` (3:2 WebP) and are the product shots from the
-previous portfolio. `chef-user.webp` keeps a transparent background so the phone sits on the card
-surface in every theme.
+previous portfolio. `chef-user.webp` is a 3:2 crop of the red Chef4me User hero
+(`public/assets/chef-user/hero.webp`), the image the card originally used.
 
 Case-study imagery was cropped from the original case-study PDFs at 2× and exported as WebP in
 `public/assets/<project>/`. Tavens and PAD are intentionally excluded.

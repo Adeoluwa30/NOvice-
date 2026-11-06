@@ -26,6 +26,12 @@ export const credentia = {
   href: "https://www.credentia.site/",
   blurb:
     "A free public document directory that helps Lagos residents navigate the paperwork behind major life events: 15 life categories, 79 checklists, and a correction flow that keeps every answer current.",
+  // The numbers shown large on the home page card.
+  facts: [
+    { value: "15", label: "Life categories" },
+    { value: "79", label: "Checklists" },
+    { value: "Free", label: "For every Lagos resident" },
+  ],
 };
 
 // The three hero marquee lines, top to bottom. The middle one is outlined.
@@ -46,6 +52,7 @@ export const biography =
 // What he is actually good at, in his own words rather than a tool list: the
 // About page had been underselling the range of work.
 export const strengths = [
+  "User research & usability testing",
   "Product & UX strategy",
   "UI and interaction design",
   "Design systems & tokens",
@@ -73,9 +80,9 @@ export const tools = [
     note: "Fast social, launch and template work that a team can keep running after handoff.",
   },
   {
-    name: "Paper",
-    kind: "Thinking",
-    note: "Where every flow starts: thumbnails, wireframes and the first pass before a screen exists.",
+    name: "Cavalry",
+    kind: "Motion",
+    note: "Motion design and motion graphics: UI walkthroughs, brand animation and the pieces in the Motion work.",
   },
   {
     name: "Claude",

@@ -4,6 +4,7 @@ import Loader from "./components/Loader";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Cursor from "./components/Cursor";
+import ScrollBar from "./components/ScrollBar";
 import RouteWipe from "./components/RouteWipe";
 import { useLenis } from "./hooks/useLenis";
 import { workTabFor } from "./data/work";
@@ -74,6 +75,7 @@ export default function App() {
       </a>
 
       <Cursor />
+      {mounted && <ScrollBar />}
       <Nav />
       {wipeKey !== introKey.current && (
         <RouteWipe key={`wipe-${wipeKey}`} label={labelFor(location.pathname)} />
