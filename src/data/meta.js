@@ -5,9 +5,9 @@
 export const SITE_ORIGIN = "https://adeoluwa.site";
 
 export const defaultMeta = {
-  title: "Adeoluwa Adeoye, Interface, Experience & Motion Designer",
+  title: "Adeoluwa Adeoye, Product & Motion Designer",
   description:
-    "Adeoluwa Adeoye is an interface, experience and motion designer in Lagos, Nigeria, designing digital products where clarity, motion and craft meet, for teams worldwide.",
+    "Adeoluwa Adeoye is a product and motion designer in Lagos, Nigeria, designing digital products where clarity, motion and craft meet, for teams worldwide.",
 };
 
 // `work`, `graphics` and `motion` are the three tabs of the Projects page.
@@ -30,12 +30,12 @@ export const pageMeta = {
   about: {
     title: "About",
     description:
-      "Adeoluwa Adeoye is an interface, experience and motion designer in Lagos, Nigeria, working across product design, design systems, graphic design and motion.",
+      "Adeoluwa Adeoye is a product and motion designer in Lagos, Nigeria, working across UX, interface design, design systems, graphic design and motion.",
   },
   contact: {
     title: "Contact",
     description:
-      "Start a project, ask a question or just say hello. Contact Adeoluwa Adeoye, interface, experience and motion designer.",
+      "Start a project, ask a question or just say hello. Contact Adeoluwa Adeoye, product and motion designer.",
   },
 };
 

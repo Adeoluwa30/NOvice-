@@ -895,40 +895,56 @@ button:hover .stext__ch::after {
   inset: -5px;
 }
 
+/* The click target is a 56px circle, well past the 44px minimum, while the
+   two lines stay the same size. The negative margin keeps the lines on the
+   page gutter, where the smaller button used to put them. */
 .burger {
   display: block;
-  width: 36px;
-  height: 36px;
+  width: 56px;
+  height: 56px;
+  margin-right: -10px;
   border: 0;
   border-radius: 50%;
   position: relative;
   color: var(--fg);
+  transition: background-color 0.3s var(--ease);
+}
+
+.burger:focus-visible {
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+}
+
+/* Touch screens keep :hover after a tap, so the circle would stick there. */
+@media (hover: hover) {
+  .burger:hover {
+    background: color-mix(in srgb, var(--fg) 8%, transparent);
+  }
 }
 
 .burger span {
   position: absolute;
-  left: 9px;
-  right: 9px;
+  left: 19px;
+  right: 19px;
   height: 1px;
   background: var(--fg);
   transition: transform 0.35s var(--ease), top 0.35s var(--ease);
 }
 
 .burger span:first-child {
-  top: 15px;
+  top: calc(50% - 3px);
 }
 
 .burger span:last-child {
-  top: 20px;
+  top: calc(50% + 2px);
 }
 
 .burger.is-open span:first-child {
-  top: 17.5px;
+  top: calc(50% - 0.5px);
   transform: rotate(45deg);
 }
 
 .burger.is-open span:last-child {
-  top: 17.5px;
+  top: calc(50% - 0.5px);
   transform: rotate(-45deg);
 }
 
@@ -1128,7 +1144,7 @@ button:hover .stext__ch::after {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
-  width: clamp(190px, 22vw, 340px);
+  width: clamp(209px, 24.2vw, 374px);
   margin: 0;
 }
 
@@ -3439,7 +3455,7 @@ body.is-locked .marquee__track {
   }
 
   .hero__portrait {
-    width: 128px;
+    width: 141px;
   }
 
   .hero__foot {
@@ -3668,7 +3684,7 @@ body.is-locked .marquee__track {
   }
 
   .hero__portrait {
-    width: 98px;
+    width: 108px;
   }
 
   .hero__type {
@@ -4019,7 +4035,7 @@ html.theme-anim *::after {
   }
 
   .hero__portrait {
-    width: clamp(174px, 25vw, 250px);
+    width: clamp(191px, 27.5vw, 275px);
   }
 
   .hero__foot {
@@ -4155,24 +4171,6 @@ html.theme-anim *::after {
     inset: -3px;
   }
 
-  .burger {
-    width: 40px;
-    height: 40px;
-  }
-
-  .burger span:first-child {
-    top: 17px;
-  }
-
-  .burger span:last-child {
-    top: 22px;
-  }
-
-  .burger.is-open span:first-child,
-  .burger.is-open span:last-child {
-    top: 19.5px;
-  }
-
   .menu__links a {
     font-size: clamp(40px, 14vw, 62px);
     padding: 14px 0;
@@ -4234,7 +4232,7 @@ html.theme-anim *::after {
     left: auto;
     top: auto;
     transform: none;
-    width: min(58vw, 238px);
+    width: min(64vw, 262px);
     margin: 0 auto 14px;
   }
 
@@ -5035,7 +5033,7 @@ html.theme-anim *::after {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: clamp(150px, min(60vw, 38vh), 300px);
+    width: clamp(165px, min(66vw, 41.8vh), 330px);
     margin: 0;
     z-index: 3;
   }
@@ -5456,7 +5454,7 @@ html.theme-anim *::after {
   }
 
   .hero__portrait {
-    width: clamp(180px, 24vw, 268px);
+    width: clamp(198px, 26.4vw, 295px);
   }
 
   /* 961-1024px portrait is wider than the phone breakpoint, so the About
@@ -5540,7 +5538,7 @@ html.theme-anim *::after {
   }
 
   .hero__portrait {
-    width: clamp(104px, min(24vw, 32vh), 168px);
+    width: clamp(114px, min(26.4vw, 35.2vh), 185px);
   }
 
   .section {

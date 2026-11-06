@@ -75,7 +75,7 @@ export default function Home() {
               <img
                 src="/assets/portrait-1100.webp"
                 srcSet="/assets/portrait-700.webp 700w, /assets/portrait-1100.webp 1100w, /assets/portrait-1400.webp 1400w"
-                sizes="(max-width: 960px) 60vw, 340px"
+                sizes="(max-width: 960px) 66vw, 374px"
                 width="1400"
                 height="1874"
                 alt="Portrait of Adeoluwa Adeoye, product designer in Lagos"

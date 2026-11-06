@@ -1,6 +1,6 @@
 # Adeoluwa Adeoye, Portfolio
 
-A custom, multi-page portfolio for **Adeoluwa Adeoye**, interface, experience & motion designer.
+A custom, multi-page portfolio for **Adeoluwa Adeoye**, product & motion designer.
 Editorial layout, oversized condensed typography, scroll-driven motion, and three themes.
 The Projects page holds three tabs: product design case studies, a scroll-driven wall of graphic
 design work, and motion case studies.

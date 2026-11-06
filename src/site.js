@@ -1,9 +1,9 @@
 export const site = {
   name: "Adeoluwa Adeoye",
   shortName: "AdE",
-  role: "Interface, Experience & Motion Designer",
+  role: "Product & Motion Designer",
   // The positioning line used in the page title, the hero heading and the footer.
-  headline: "Interface, Experience & Motion Designer",
+  headline: "Product & Motion Designer",
   location: "Lagos, Nigeria",
   timezone: "Africa/Lagos",
   email: "deoluwadeoye1@gmail.com",
@@ -12,7 +12,7 @@ export const site = {
   whatsapp: "",
   availability: "Open for work",
   availabilityNote:
-    "Available for interface, experience and motion projects, collaborations and full-time roles, remote or on-site, worldwide.",
+    "Available for product and motion projects, collaborations and full-time roles, remote or on-site, worldwide.",
   socials: [
     { label: "LinkedIn", href: "https://linkedin.com/in/deoluwadeoye" },
     { label: "Twitter", href: "https://x.com/deoluwa30" },
@@ -29,19 +29,19 @@ export const credentia = {
 };
 
 // The three hero marquee lines, top to bottom. The middle one is outlined.
-export const roles = ["Interface Designer", "Experience Designer", "Motion Designer"];
+export const roles = ["Product Designer", "Motion Designer", "Product & Motion Designer"];
 
-// Four years by 2026: he started designing in 2022. Update both copy and the
+// Shown as 3+ years. He started designing in 2022; update the copy and the
 // notes here when the count changes.
 export const stats = [
-  { value: "4+", label: "Years designing", note: "Since 2022" },
+  { value: "3+", label: "Years designing", note: "Since 2022" },
   { value: "10+", label: "Products & platforms", note: "Apps, sites, dashboards" },
   { value: "5", label: "Industries", note: "Food, fashion, law, cyber, services" },
   { value: "800+", label: "Screens in one product", note: "SecureComply, under a month" },
 ];
 
 export const biography =
-  "I'm an interface, experience and motion designer, and a graphic designer too. I work across mobile apps, web platforms and the design systems that keep them coherent, then give them the movement that makes them memorable. I'm usually the person who turns an ambiguous brief into a set of screens people can use.";
+  "I'm a product and motion designer, and a graphic designer too. I work across mobile apps, web platforms and the design systems that keep them coherent, then give them the movement that makes them memorable. I'm usually the person who turns an ambiguous brief into a set of screens people can use.";
 
 // What he is actually good at, in his own words rather than a tool list: the
 // About page had been underselling the range of work.
@@ -53,7 +53,7 @@ export const strengths = [
   "Mobile apps, web apps & websites",
   "Brand & graphic design",
   "Motion & micro-interactions",
-  "AI-augmented delivery: months of work in weeks",
+  "AI-accelerated design: months of work in weeks",
 ];
 
 export const tools = [
@@ -79,7 +79,7 @@ export const tools = [
   },
   {
     name: "Claude",
-    kind: "AI-augmented production",
+    kind: "AI-accelerated design",
     note: "Research, copy, production support and coded prototypes. It is how an 800-screen dashboard shipped inside a month.",
   },
 ];

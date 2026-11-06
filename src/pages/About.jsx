@@ -25,13 +25,13 @@ export default function About() {
           </div>
           <Reveal as="h1" className="page-head__title">
             <span className="serif">avid</span>
-            {" interface, "}
+            {" product "}
             <br />
-            experience &amp; motion designer.
+            &amp; motion designer.
           </Reveal>
           <Reveal as="p" className="page-head__lede" delay={100}>
             I design the whole product: the research and the flows, the interface, the system
-            underneath it, the brand that sits on top and the motion that brings it to life. Four
+            underneath it, the brand that sits on top and the motion that brings it to life. Three-plus
             years and more than ten products, from a legal case-management platform to an
             800-screen compliance dashboard.
           </Reveal>
@@ -96,11 +96,11 @@ export default function About() {
                 </div>
                 <div>
                   <dt>Designing since</dt>
-                  <dd>2022, so four years and counting</dd>
+                  <dd>2022, 3+ years and counting</dd>
                 </div>
                 <div>
                   <dt>Focus</dt>
-                  <dd>Interface, experience and motion</dd>
+                  <dd>Product, interface and motion</dd>
                 </div>
                 <div>
                   <dt>Industries</dt>
@@ -119,7 +119,7 @@ export default function About() {
 
             <div className="about-story__body">
               <Reveal as="p" className="about-story__lead">
-                Design, for me, has always been about curiosity. Four years in, it still starts
+                Design, for me, has always been about curiosity. A few years in, it still starts
                 with a question about how something works and who it is really for.
               </Reveal>
 
@@ -165,7 +165,7 @@ export default function About() {
         <div className="shell">
           <div className="section-head">
             <p className="eyebrow">(Journey so far)</p>
-            <p className="section-head__note">Five roles, four years</p>
+            <p className="section-head__note">Five roles, 3+ years</p>
           </div>
 
           <div className="journey__list">
